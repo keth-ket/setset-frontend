@@ -14,6 +14,22 @@ pnpm dev
 bun dev
 ```
 
+### Add packages with yarn
+
+```bash
+yarn add -dev package-name
+
+```
+
+### Linting with yarn
+
+```bash
+yarn lint
+
+# to fix linting errors
+yarn lint --fix
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
