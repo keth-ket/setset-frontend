@@ -1,11 +1,11 @@
 import {
   Accordion,
+  AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  AccordionContent,
 } from "@radix-ui/react-accordion";
 import React from "react";
-import { FaC, FaChevronDown } from "react-icons/fa6";
+import { FaChevronDown } from "react-icons/fa6";
 
 export default function Faqs() {
   //Sample data
