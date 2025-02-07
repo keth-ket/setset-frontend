@@ -1,0 +1,42 @@
+const callRecordingsData: CallRecording[] = [
+  {
+    id: "1",
+    date: "2023-10-01",
+    invoice: "INV001",
+    status: "Booked",
+    duration: "5:32",
+    recordingUrl: "https://example.com/recording1.mp3",
+  },
+  {
+    id: "2",
+    date: "2023-10-02",
+    invoice: "INV002",
+    status: "Cancelled",
+    duration: "2:15",
+    recordingUrl: "https://example.com/recording2.mp3",
+  },
+  {
+    id: "3",
+    date: "2023-10-03",
+    invoice: "INV003",
+    status: "Question",
+    duration: "7:48",
+    recordingUrl: "https://example.com/recording3.mp3",
+  },
+  {
+    id: "4",
+    date: "2023-10-04",
+    invoice: "INV004",
+    status: "Transferred",
+    duration: "4:56",
+    recordingUrl: "https://example.com/recording4.mp3",
+  },
+  {
+    id: "5",
+    date: "2023-10-05",
+    invoice: "INV005",
+    status: "Rescheduled",
+    duration: "6:12",
+    recordingUrl: "https://example.com/recording5.mp3",
+  },
+]

@@ -1,3 +1,4 @@
+import DataTable from "@/components/widgets/callSection";
 import Faqs from "@/components/widgets/faqs";
 import Metrics from "@/components/widgets/metrics";
 
@@ -9,6 +10,10 @@ export default function Home() {
     >
       <Metrics />
       <Faqs />
+      <DataTable />
+
     </div>
+
+    
   );
 }
