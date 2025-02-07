@@ -1,5 +1,3 @@
-/* eslint-disable import/named */
-
 "use client"
 
 import {
@@ -15,7 +13,7 @@ import {
   VisibilityState,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
-import * as React from "react"
+import  {useEffect,useRef,useState} from "react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -24,7 +22,6 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -62,7 +59,7 @@ const callRecordingsData: CallRecording[] = [
     id: "3",
     date: "2023-10-03",
     invoice: "INV003",
-    status: "Question",
+    status: "Cancelled",
     duration: "7:48",
     recordingUrl: "https://example.com/recording3.mp3",
   },
@@ -89,17 +86,17 @@ export type CallRecording = {
   id: string
   date: string
   invoice: string
-  status: "Booked" | "Cancelled" | "Question" | "Transferred" | "Rescheduled" | "Other"
+  status: "Booked" | "Cancelled" | "Transferred" | "Rescheduled"
   duration: string
   recordingUrl: string
 }
 
 const RecordingCell: React.FC<{ url: string }> = ({ url }) => {
-  const [isPlaying, setIsPlaying] = React.useState(false)
-  const [progress, setProgress] = React.useState(0)
-  const audioRef = React.useRef<HTMLAudioElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
 
@@ -144,21 +141,25 @@ export const columns: ColumnDef<CallRecording>[] = [
   {
     id: "select",
     header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
+      <div className = "py-5 pl-4 ">
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      </div>
     ),
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
+      <div className = "pl-4">
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      </div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -172,7 +173,7 @@ export const columns: ColumnDef<CallRecording>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
-          <ArrowUpDown className="ml-2 size-4" />
+          <ArrowUpDown className="ml-2 size-4 " />
         </Button>
       )
     },
@@ -215,7 +216,6 @@ export const columns: ColumnDef<CallRecording>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(recording.id)}
             >
@@ -223,6 +223,8 @@ export const columns: ColumnDef<CallRecording>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View details</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Report problems</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -231,10 +233,10 @@ export const columns: ColumnDef<CallRecording>[] = [
 ]
 
 export default function DataTable() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = useState({})
 
   const table = useReactTable({
     data: callRecordingsData,
@@ -263,7 +265,10 @@ export default function DataTable() {
   }
 
   return (
-    <div className="w-full px-5">
+    <div className="w-full">
+      <p className="text-xl font-semibold md:text-2xl lg:text-3xl">
+        Call history
+      </p>
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter invoices..."
@@ -281,7 +286,7 @@ export default function DataTable() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {["Booked", "Cancelled", "Question", "Transferred", "Rescheduled", "Other"].map(
+            {["Booked", "Cancelled", "Transferred", "Rescheduled"].map(
               (status) => (
                 <DropdownMenuCheckboxItem
                   key={status}
@@ -294,33 +299,6 @@ export default function DataTable() {
                 </DropdownMenuCheckboxItem>
               )
             )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
           </DropdownMenuContent>
         </DropdownMenu>
 
