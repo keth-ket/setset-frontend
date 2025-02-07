@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 
 "use client"
 
@@ -93,6 +94,52 @@ export type CallRecording = {
   recordingUrl: string
 }
 
+const RecordingCell: React.FC<{ url: string }> = ({ url }) => {
+  const [isPlaying, setIsPlaying] = React.useState(false)
+  const [progress, setProgress] = React.useState(0)
+  const audioRef = React.useRef<HTMLAudioElement>(null)
+
+  React.useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    const updateProgress = () => {
+      setProgress((audio.currentTime / audio.duration) * 100)
+    }
+
+    audio.addEventListener("timeupdate", updateProgress)
+    return () => {
+      audio.removeEventListener("timeupdate", updateProgress)
+    }
+  }, [])
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+      } else {
+        audioRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
+
+  return (
+    <div className="flex flex-col space-y-2">
+      <div className="flex space-x-2">
+        <Button variant="outline" size="sm" onClick={togglePlay}>
+          {isPlaying ? "Pause" : "Play"}
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => console.log("Download recording:", url)}>
+          Download
+        </Button>
+      </div>
+      <Progress value={progress} className="w-full" />
+      <audio ref={audioRef} src={url} onEnded={() => { setIsPlaying(false); setProgress(0); }} />
+    </div>
+  )
+}
+
 export const columns: ColumnDef<CallRecording>[] = [
   {
     id: "select",
@@ -151,66 +198,7 @@ export const columns: ColumnDef<CallRecording>[] = [
   {
     accessorKey: "recording",
     header: "Recording",
-    cell: ({ row }) => {
-      const recordingUrl = row.original.recordingUrl
-      const [isPlaying, setIsPlaying] = React.useState(false)
-      const [progress, setProgress] = React.useState(0)
-      const audioRef = React.useRef<HTMLAudioElement>(null)
-
-      const handlePlay = () => {
-        if (audioRef.current) {
-          if (isPlaying) {
-            audioRef.current.pause()
-          } else {
-            audioRef.current.play()
-          }
-          setIsPlaying(!isPlaying)
-        }
-      }
-
-      const handleTimeUpdate = () => {
-        if (audioRef.current) {
-          const currentTime = audioRef.current.currentTime
-          const duration = audioRef.current.duration
-          const progressValue = (currentTime / duration) * 100
-          setProgress(progressValue)
-        }
-      }
-
-      return (
-        <div className="flex flex-col space-y-2">
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handlePlay}
-            >
-              {isPlaying ? "Pause" : "Play"}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                // Placeholder for download functionality
-                console.log("Download recording:", recordingUrl)
-              }}
-            >
-              Download
-            </Button>
-          </div>
-          <Progress value={progress} className="w-full" />
-          <audio
-            ref={audioRef}
-            src={recordingUrl}
-            onTimeUpdate={handleTimeUpdate}
-            onEnded={() => {
-              setIsPlaying(false)
-              setProgress(0)
-            }}
-          />
-        </div>
-      )
-    },
+    cell: ({ row }) => <RecordingCell url={row.original.recordingUrl} />,
   },
   {
     id: "actions",
