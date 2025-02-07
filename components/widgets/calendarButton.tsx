@@ -12,7 +12,7 @@ export function CalendarButton() {
   const [isCalendarOpen, setIsCalendarOpen] = React.useState(false)
 
   return (
-    <div className="relative px-3">
+    <div className="relative ml-auto">
       
       <Button
         variant="outline"
