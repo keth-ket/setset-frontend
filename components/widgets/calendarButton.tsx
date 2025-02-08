@@ -2,14 +2,14 @@
 
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
-import * as React from "react"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 
 export function CalendarButton() {
-  const [date, setDate] = React.useState<Date | undefined>(undefined)
-  const [isCalendarOpen, setIsCalendarOpen] = React.useState(false)
+  const [date, setDate] = useState<Date | undefined>(undefined)
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
   return (
     <div className="relative ml-auto">
