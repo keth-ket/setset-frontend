@@ -12,7 +12,15 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { 
+  FaPlay, 
+  FaDownload, 
+  FaEllipsis,
+  FaPause, 
+  FaFileArrowDown, 
+  FaChevronDown, 
+  FaArrowsUpDown } 
+from "react-icons/fa6";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -35,6 +43,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
 import { CallRecording } from "@/lib/types";
 
 import { DatePickerWithRange } from "../ui/date-picker";
@@ -49,6 +63,7 @@ const callRecordingsData: CallRecording[] = [
     duration: "0:18",
     recordingUrl:
       "https://actions.google.com/sounds/v1/cartoon/rainstick_slow.ogg",
+    transcriptUrl: "https://example.com/recording2.pdf",
   },
   {
     id: "2",
@@ -58,6 +73,7 @@ const callRecordingsData: CallRecording[] = [
     duration: "0:50",
     recordingUrl:
       "https://actions.google.com/sounds/v1/ambiences/barnyard_with_animals.ogg",
+    transcriptUrl: "https://example.com/recording2.pdf",
   },
   {
     id: "3",
@@ -66,6 +82,7 @@ const callRecordingsData: CallRecording[] = [
     status: "Cancelled",
     duration: "7:48",
     recordingUrl: "https://example.com/recording3.mp3",
+    transcriptUrl: "https://example.com/recording3.pdf",
   },
   {
     id: "4",
@@ -74,6 +91,7 @@ const callRecordingsData: CallRecording[] = [
     status: "Transferred",
     duration: "4:56",
     recordingUrl: "https://example.com/recording4.mp3",
+    transcriptUrl: "https://example.com/recording4.pdf",
   },
   {
     id: "5",
@@ -82,9 +100,10 @@ const callRecordingsData: CallRecording[] = [
     status: "Rescheduled",
     duration: "6:12",
     recordingUrl: "https://example.com/recording5.mp3",
+    transcriptUrl: "https://example.com/recording5.pdf",
   },
 ];
-const RecordingCell = ({ url }: { url: string }) => {
+const RecordingCell = ({ recordingUrl, transcriptUrl, invoice }: { recordingUrl: string, transcriptUrl: string, invoice: string }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -115,28 +134,39 @@ const RecordingCell = ({ url }: { url: string }) => {
   };
 
   return (
-    <div className="flex flex-col space-y-2">
-      <div className="flex space-x-2">
-        <Button variant="outline" size="sm" onClick={togglePlay}>
-          {isPlaying ? "Pause" : "Play"}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => console.log("Download recording:", url)}
-        >
-          Download
-        </Button>
-      </div>
-      <Progress value={progress} className="w-full" />
-      <audio
-        ref={audioRef}
-        src={url}
-        onEnded={() => {
-          setIsPlaying(false);
-          setProgress(0);
-        }}
-      />
+    <div className="flex w-full flex-col items-center space-x-4">
+      <Tabs defaultValue="recording" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="recording">Recording</TabsTrigger>
+          <TabsTrigger value="transcript">Transcript</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="recording" className="w-full">
+          <div className="flex w-full items-center space-x-2">
+            <Button variant="outline" size="sm" onClick={togglePlay}>
+              {isPlaying ? <FaPause /> : <FaPlay />}
+            </Button>
+            <Progress value={progress} className="w-full" />
+            <audio ref={audioRef} src={recordingUrl} onEnded={() => { setIsPlaying(false); setProgress(0); }} />
+            <Button variant="outline" size="sm" onClick={() => console.log("Download recording:", recordingUrl)}>
+              <FaDownload />
+            </Button>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="transcript" className="size-full overflow-auto">
+          <div className="flex size-full items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <FaFileArrowDown />
+              <span>{invoice}</span>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => console.log("Download transcript:", transcriptUrl)}>
+              Download transcript     
+              <FaDownload />
+            </Button>
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
@@ -177,7 +207,7 @@ export const columns: ColumnDef<CallRecording>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
-          <ArrowUpDown className="ml-2 size-4" />
+          <FaArrowsUpDown className="ml-2 size-4" />
         </Button>
       );
     },
@@ -203,7 +233,9 @@ export const columns: ColumnDef<CallRecording>[] = [
   {
     accessorKey: "recording",
     header: "Recording",
-    cell: ({ row }) => <RecordingCell url={row.original.recordingUrl} />,
+    cell: ({ row }) => <div className="py-5"><RecordingCell recordingUrl={row.original.recordingUrl} 
+                                                            transcriptUrl={row.original.transcriptUrl}
+                                                            invoice = {row.original.invoice}/></div>,
   },
   {
     id: "actions",
@@ -212,25 +244,25 @@ export const columns: ColumnDef<CallRecording>[] = [
       const recording = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="size-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(recording.id)}
-            >
-              Copy recording ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View details</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Report problems</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex size-full flex-col items-center mt-auto pb-10"> 
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="size-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <FaEllipsis />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(recording.id)}
+              >
+                Copy recording ID
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Report</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       );
     },
   },
@@ -277,15 +309,15 @@ export default function DataTable() {
           }
           className="max-w-sm"
         />
+        {/* Dropdown to filter by status */}
         <div className="mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4">
-          {/* Dropdown to filter by status */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 className="w-fit justify-between bg-inherit"
               >
-                Filter by Status <ChevronDown className="size-4" />
+                Filter by Status <FaChevronDown className="size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

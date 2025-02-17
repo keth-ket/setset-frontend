@@ -28,4 +28,5 @@ export type CallRecording = {
   status: "Booked" | "Cancelled" | "Transferred" | "Rescheduled";
   duration: string;
   recordingUrl: string;
+  transcriptUrl: string;
 };
