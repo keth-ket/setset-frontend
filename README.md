@@ -2,7 +2,14 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+After cloning the repo to your laptop, first install all dependencies with:
+
+```bash
+yarn
+
+```
+
+Then, run the development server:
 
 ```bash
 yarn dev
@@ -24,6 +31,13 @@ yarn lint
 # to fix linting errors
 yarn lint --fix
 ```
+
+Add the following extensions to your VSCODE:
+
+- ESLint
+- Prettier ESLint
+- Prettier - Code Formatter
+- Prettier ESLint TypeScript
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
