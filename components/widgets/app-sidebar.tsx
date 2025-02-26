@@ -73,7 +73,7 @@ export function AppSidebar({}: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton className="text-base hover:bg-gray-800 md:text-lg">
+                <SidebarMenuButton className="text-base md:text-lg">
                   <Settings />
                   <span>Settings</span>
                 </SidebarMenuButton>
