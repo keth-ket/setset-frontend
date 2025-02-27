@@ -97,8 +97,8 @@ export function AppSidebar() {
                     <a href={item.url} className="p-[40px] hover:text-sidebar-foreground">
                     <span className={`flex size-10 shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-secondary-foreground" : "bg-transparent"}`}>
 
-                        <item.icon_white className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}`}  />
-                        <item.icon_black className={`size-[18px] hidden dark:block ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}`}  />
+                        <item.icon_white className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}   ${item.title === "FAQs" ? "fill-primary stroke-primary-foreground " : ""}`}  />
+                        <item.icon_black className={`size-[18px] hidden dark:block ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}  ${item.title === "Errors" ? "fill-white" : ""}  ${item.title === "FAQs" ? "fill-secondary " : ""}`}  />
 
 
                       </span>
