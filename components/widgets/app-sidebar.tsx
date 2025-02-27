@@ -1,25 +1,19 @@
 "use client";
 
 import {
-  Voicemail,
-  Home,
   ChartLine,
   CircleHelp,
-  Shield,
+  Home,
+  // Shield,
   ShieldAlert ,
+  Voicemail,
 } from "lucide-react";
+import { useState} from "react";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
+  // SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -27,7 +21,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useState} from "react";
+
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
+// import { Separator } from "@/components/ui/separator";
+
 // Menu items.
 const items = [
   {
@@ -59,7 +61,7 @@ const items = [
 
 
 export function AppSidebar() {
-  const [currSelectd, setCurrSelected] = useState('Dashboard');
+  const [currSelectd, setCurrSelected] = useState("Dashboard");
   // const [eShield, setEShield] = useState(useEffect(()=>{
   //   if (document.getElementsByName(html).classList.contains('dark'))
   //   {
@@ -86,10 +88,11 @@ export function AppSidebar() {
             <SidebarMenu >
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} className="mb-2 " onClick={() => handleSelected(item.title)}>
-                  <SidebarMenuButton asChild className="text-base md:text-sm">
-                    <a href={item.url} className="p-[40px]">
-                      <span className={` h-10 !w-10 flex shrink-0 justify-center items-center ${currSelectd == item.title ? 'rounded-lg bg-secondary-foreground  ' : 'bg-transparent'}`}>
-                        <item.icon className={`h-[18px] w-[18px] ${currSelectd == item.title ? 'stroke-primary-foreground' : 'text-muted-foreground'}`}  />
+                  <SidebarMenuButton asChild className="text-base md:text-sm ">
+                    <a href={item.url} className="p-[40px] hover:text-sidebar-foreground">
+                    <span className={`flex size-10 shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-secondary-foreground" : "bg-transparent"}`}>
+
+                        <item.icon className={`size-[18px] ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}`}  />
                       </span>
                       <span className="h-max !text-wrap text-left ">
                         {item.title}

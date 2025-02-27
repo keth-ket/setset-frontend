@@ -1,12 +1,12 @@
-import React from "react";
 import {
-  WalletMinimal,
-  Voicemail,
-  TimerReset,
-  Users,
   MonitorCheck,
   ThumbsUp,
+  TimerReset,
+  Users,
+  Voicemail,
+  WalletMinimal,
 } from "lucide-react";
+import React from "react";
 
 import { MetricsData } from "@/lib/types";
 
