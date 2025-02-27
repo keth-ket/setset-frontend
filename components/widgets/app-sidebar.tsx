@@ -1,6 +1,13 @@
 "use client";
 
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import {
+  Voicemail,
+  Home,
+  ChartLine,
+  Settings,
+  CircleHelp,
+  Shield,
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -20,45 +27,62 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useState } from "react";
 
 // Menu items.
 const items = [
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Home",
+    title: "Dashboard",
     url: "#",
     icon: Home,
   },
   {
-    title: "Inbox",
+    title: "Analytics",
     url: "#",
-    icon: Inbox,
+    icon: ChartLine,
   },
   {
-    title: "Calendar",
+    title: "Recordings & Transcripts",
     url: "#",
-    icon: Calendar,
+    icon: Voicemail,
+  },
+  {
+    title: "FAQs",
+    url: "#",
+    icon: CircleHelp,
+  },
+  {
+    title: "Error",
+    url: "#",
+    icon: Shield,
   },
 ];
 
 export function AppSidebar() {
+  const [currSelectd, setCurrSelected] = useState('Dashboard');
+  const handleSelected = (item:string) =>
+  {
+    setCurrSelected(item);
+  }
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-2">Setset</SidebarGroupLabel>
+          <SidebarGroupLabel className="mb-2 mt-8 p-8 font-semibold">
+            Setset
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="mb-2">
-                  <SidebarMenuButton asChild className="text-base md:text-lg">
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                <SidebarMenuItem key={item.title} className="mb-2" onClick={() => handleSelected(item.title)}>
+                  <SidebarMenuButton asChild className="text-base md:text-sm">
+                    <a href={item.url} className="p-8">
+                      <span className={`${currSelectd == item.title ? 'rounded-lg bg-secondary  h-8 w-8 flex justify-center items-center' : 'bg-transparent'}`}>
+                        <item.icon className={`h-4 w-4 ${currSelectd == item.title ? 'stroke-primary' : 'text-muted-foreground'}`}  />
+                      </span>
+                      <span className="h-max !text-wrap text-left ">
+                        {item.title}
+                      </span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -67,7 +91,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      {/* <SidebarFooter>
         <Separator className="bg-muted-foreground/20" />
         <SidebarMenu>
           <SidebarMenuItem>
@@ -87,7 +111,7 @@ export function AppSidebar() {
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
-      </SidebarFooter>
+      </SidebarFooter> */}
     </Sidebar>
   );
 }
