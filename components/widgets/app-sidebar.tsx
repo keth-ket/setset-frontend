@@ -4,7 +4,7 @@ import {
   ChartLine,
   CircleHelp,
   Home,
-  // Shield,
+  Shield,
   ShieldAlert ,
   Voicemail,
 } from "lucide-react";
@@ -35,27 +35,32 @@ const items = [
   {
     title: "Dashboard",
     url: "#",
-    icon: Home,
+    icon_white: Home,
+    icon_black: Home,
   },
   {
     title: "Analytics",
     url: "#",
-    icon: ChartLine,
+    icon_white: ChartLine,
+    icon_black: ChartLine,
   },
   {
     title: "Recordings & Transcripts",
     url: "#",
-    icon: Voicemail,
+    icon_white: Voicemail,
+    icon_black:Voicemail,
   },
   {
     title: "FAQs",
     url: "#",
-    icon: CircleHelp,
+    icon_white: CircleHelp,
+    icon_black: CircleHelp,
   },
   {
     title: "Errors",
     url: "#",
-    icon: ShieldAlert,
+    icon_white: ShieldAlert,
+    icon_black: Shield,
   },
 ];
 
@@ -92,7 +97,10 @@ export function AppSidebar() {
                     <a href={item.url} className="p-[40px] hover:text-sidebar-foreground">
                     <span className={`flex size-10 shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-secondary-foreground" : "bg-transparent"}`}>
 
-                        <item.icon className={`size-[18px] ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}`}  />
+                        <item.icon_white className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}`}  />
+                        <item.icon_black className={`size-[18px] hidden dark:block ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}`}  />
+
+
                       </span>
                       <span className="h-max !text-wrap text-left ">
                         {item.title}
