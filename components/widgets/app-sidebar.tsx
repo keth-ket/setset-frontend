@@ -65,20 +65,20 @@ export function AppSidebar() {
     setCurrSelected(item);
   }
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="rounded-2xl">
+      <SidebarContent  >
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-2 mt-8 p-8 font-semibold">
+          <SidebarGroupLabel className="mb-2 mt-8 p-[40px] font-semibold">
             Setset
           </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
+          <SidebarGroupContent >
+            <SidebarMenu >
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="mb-2" onClick={() => handleSelected(item.title)}>
+                <SidebarMenuItem key={item.title} className="mb-2 " onClick={() => handleSelected(item.title)}>
                   <SidebarMenuButton asChild className="text-base md:text-sm">
-                    <a href={item.url} className="p-8">
-                      <span className={`${currSelectd == item.title ? 'rounded-lg bg-secondary  h-8 w-8 flex justify-center items-center' : 'bg-transparent'}`}>
-                        <item.icon className={`h-4 w-4 ${currSelectd == item.title ? 'stroke-primary' : 'text-muted-foreground'}`}  />
+                    <a href={item.url} className="p-[40px]">
+                      <span className={` h-10 !w-10 flex shrink-0 justify-center items-center ${currSelectd == item.title ? 'rounded-lg bg-secondary  ' : 'bg-transparent'}`}>
+                        <item.icon className={`h-[18px] w-[18px] ${currSelectd == item.title ? 'stroke-primary' : 'text-muted-foreground'}`}  />
                       </span>
                       <span className="h-max !text-wrap text-left ">
                         {item.title}
