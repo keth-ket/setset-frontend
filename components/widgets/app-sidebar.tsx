@@ -4,8 +4,8 @@ import {
   Voicemail,
   Home,
   ChartLine,
-  Settings,
   CircleHelp,
+  Shield,
   ShieldAlert ,
 } from "lucide-react";
 
@@ -27,8 +27,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useState } from "react";
-
+import { useState} from "react";
 // Menu items.
 const items = [
   {
@@ -58,12 +57,24 @@ const items = [
   },
 ];
 
+
 export function AppSidebar() {
   const [currSelectd, setCurrSelected] = useState('Dashboard');
+  // const [eShield, setEShield] = useState(useEffect(()=>{
+  //   if (document.getElementsByName(html).classList.contains('dark'))
+  //   {
+  //     setEShield(Shield);
+  //   }else 
+  //   {
+  //     setEShield(ShieldAlert);
+  //   }
+  // }));
   const handleSelected = (item:string) =>
   {
     setCurrSelected(item);
   }
+
+
   return (
     <Sidebar className="rounded-2xl">
       <SidebarContent  >
