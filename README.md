@@ -45,6 +45,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Design
+
+Figma design file: https://www.figma.com/design/E49sbmjKeaSlCIJz4j4V1i/Set-set?node-id=68-219&p=f&t=j6l0WDmOxvy485o3-0
+
 ## Icons
 
 Using react-icons package. Primarily use **Font Awesome 6** icons.

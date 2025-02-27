@@ -45,7 +45,7 @@ const items = [
   },
 ];
 
-export function AppSidebar({}: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
