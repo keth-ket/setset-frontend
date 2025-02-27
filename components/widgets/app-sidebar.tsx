@@ -6,7 +6,7 @@ import {
   ChartLine,
   Settings,
   CircleHelp,
-  Shield,
+  ShieldAlert ,
 } from "lucide-react";
 
 import {
@@ -52,9 +52,9 @@ const items = [
     icon: CircleHelp,
   },
   {
-    title: "Error",
+    title: "Errors",
     url: "#",
-    icon: Shield,
+    icon: ShieldAlert,
   },
 ];
 
@@ -77,8 +77,8 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title} className="mb-2 " onClick={() => handleSelected(item.title)}>
                   <SidebarMenuButton asChild className="text-base md:text-sm">
                     <a href={item.url} className="p-[40px]">
-                      <span className={` h-10 !w-10 flex shrink-0 justify-center items-center ${currSelectd == item.title ? 'rounded-lg bg-secondary  ' : 'bg-transparent'}`}>
-                        <item.icon className={`h-[18px] w-[18px] ${currSelectd == item.title ? 'stroke-primary' : 'text-muted-foreground'}`}  />
+                      <span className={` h-10 !w-10 flex shrink-0 justify-center items-center ${currSelectd == item.title ? 'rounded-lg bg-secondary-foreground  ' : 'bg-transparent'}`}>
+                        <item.icon className={`h-[18px] w-[18px] ${currSelectd == item.title ? 'stroke-primary-foreground' : 'text-muted-foreground'}`}  />
                       </span>
                       <span className="h-max !text-wrap text-left ">
                         {item.title}
