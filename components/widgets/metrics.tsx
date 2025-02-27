@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  FaFaceSmile,
-  FaPhone,
-  FaRegClock,
-  FaRegClone,
-  FaSackDollar,
-  FaUser,
-} from "react-icons/fa6";
+  WalletMinimal,
+  Voicemail,
+  TimerReset,
+  Users,
+  MonitorCheck,
+  ThumbsUp,
+} from "lucide-react";
 
 import { MetricsData } from "@/lib/types";
 
@@ -33,38 +33,38 @@ export default function Metrics() {
   //TODO: Replace with actual values from backend in future
   const cards = [
     {
-      id: "call-minutes",
-      icon: <FaPhone className={iconStyles} />,
-      title: "CALL MINUTES",
-      value: data.callMinutes,
-    },
-    {
       id: "money-saved",
-      icon: <FaSackDollar className={iconStyles} />,
+      icon: <WalletMinimal className={iconStyles} />,
       title: "MONEY SAVED",
       value: data.moneySaved,
     },
     {
-      id: "time-saved",
-      icon: <FaRegClock className={iconStyles} />,
-      title: "MINUTES TIME SAVED",
+      id: "call-minutes",
+      icon: <Voicemail className={iconStyles} />,
+      title: "CALL MINUTES",
+      value: data.callMinutes,
+    },
+    {
+      id: "minutes-saved",
+      icon: <TimerReset className={iconStyles} />,
+      title: "MINUTES SAVED",
       value: data.timeSaved,
     },
     {
       id: "new-callers",
-      icon: <FaUser className={iconStyles} />,
+      icon: <Users className={iconStyles} />,
       title: "NEW CALLERS",
       value: data.newCallers,
     },
     {
       id: "appointments-booked",
-      icon: <FaRegClone className={iconStyles} />,
+      icon: <MonitorCheck className={iconStyles} />,
       title: "APPOINTMENTS BOOKED",
       value: 57267,
     },
     {
       id: "satisfaction",
-      icon: <FaFaceSmile className={iconStyles} />,
+      icon: <ThumbsUp className={iconStyles} />,
       title: "SATISFACTION",
       value: data.satisfaction,
     },

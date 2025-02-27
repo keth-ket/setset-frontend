@@ -5,7 +5,6 @@ import {
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
 import React from "react";
-import { FaChevronDown } from "react-icons/fa6";
 
 import { FaqData } from "@/lib/types";
 
@@ -43,7 +42,6 @@ export default function Faqs() {
             <AccordionTrigger className="flex w-full flex-row border-b p-2 hover:rounded-lg hover:bg-primary-gray active:bg-primary-gray lg:p-4">
               <div className="flex w-full flex-row items-center justify-between">
                 <p className="text-left text-base md:text-lg">{question}</p>
-                <FaChevronDown />
               </div>
             </AccordionTrigger>
             <AccordionContent className="w-full p-4 lg:p-6">

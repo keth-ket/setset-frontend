@@ -23,11 +23,11 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="flex flex-1 flex-col  gap-10 p-10 pt-0">
+        <div className="flex flex-1 flex-col gap-10 p-10 pt-0">
           <Metrics />
-          <Appointments />
+          {/* <Appointments />
           <Faqs />
-          <DataTable />
+          <DataTable /> */}
           <Footer />
         </div>
       </SidebarInset>
