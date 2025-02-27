@@ -28,8 +28,8 @@ export default function Home() {
           <DatePickerWithRange />
           <div className="flex flex-1 flex-col gap-10">
             <Metrics />
-            {/* <Appointments />
-          <Faqs />
+            <Appointments />
+            {/*<Faqs />
           <DataTable /> */}
             <Footer />
           </div>

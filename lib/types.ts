@@ -33,9 +33,8 @@ export type FaqData = {
 };
 
 export type AppointmentsData = {
+  date: string;
   booked: number;
-  cancelled: number;
-  rescheduled: number;
   transferred: number;
 };
 

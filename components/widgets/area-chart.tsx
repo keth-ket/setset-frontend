@@ -11,6 +11,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { AppointmentsData } from "@/lib/types";
 
 const chartConfig = {
   booked: {
@@ -24,7 +25,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 //sample data
-const chartData = [
+const chartData: AppointmentsData[] = [
   { date: "2024-04-01", booked: 222, transferred: 150 },
   { date: "2024-04-02", booked: 97, transferred: 180 },
   { date: "2024-04-03", booked: 167, transferred: 120 },
