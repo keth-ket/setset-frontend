@@ -13,14 +13,15 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 import { useEffect, useRef, useState } from "react";
-import { 
-  FaArrowsUpDown,  FaChevronDown, 
-  FaDownload, 
+import {
+  FaArrowsUpDown,
+  FaChevronDown,
+  FaDownload,
   FaEllipsis,
-  FaFileArrowDown, 
-  FaPause, 
-  FaPlay } 
-from "react-icons/fa6";
+  FaFileArrowDown,
+  FaPause,
+  FaPlay,
+} from "react-icons/fa6";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -42,68 +43,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { CallRecording } from "@/lib/types";
 
 import { DatePickerWithRange } from "../ui/date-picker";
+import { callRecordingsData } from "@/lib/sampleData";
 
-// Sample data for Call Recordings
-const callRecordingsData: CallRecording[] = [
-  {
-    id: "1",
-    date: "2023-10-01",
-    invoice: "INV001",
-    status: "Booked",
-    duration: "0:18",
-    recordingUrl:
-      "https://actions.google.com/sounds/v1/cartoon/rainstick_slow.ogg",
-    transcriptUrl: "https://example.com/recording2.pdf",
-  },
-  {
-    id: "2",
-    date: "2023-10-02",
-    invoice: "INV002",
-    status: "Cancelled",
-    duration: "0:50",
-    recordingUrl:
-      "https://actions.google.com/sounds/v1/ambiences/barnyard_with_animals.ogg",
-    transcriptUrl: "https://example.com/recording2.pdf",
-  },
-  {
-    id: "3",
-    date: "2023-10-03",
-    invoice: "INV003",
-    status: "Cancelled",
-    duration: "7:48",
-    recordingUrl: "https://example.com/recording3.mp3",
-    transcriptUrl: "https://example.com/recording3.pdf",
-  },
-  {
-    id: "4",
-    date: "2023-10-04",
-    invoice: "INV004",
-    status: "Transferred",
-    duration: "4:56",
-    recordingUrl: "https://example.com/recording4.mp3",
-    transcriptUrl: "https://example.com/recording4.pdf",
-  },
-  {
-    id: "5",
-    date: "2023-10-05",
-    invoice: "INV005",
-    status: "Rescheduled",
-    duration: "6:12",
-    recordingUrl: "https://example.com/recording5.mp3",
-    transcriptUrl: "https://example.com/recording5.pdf",
-  },
-];
-const RecordingCell = ({ recordingUrl, transcriptUrl, invoice }: { recordingUrl: string, transcriptUrl: string, invoice: string }) => {
+const RecordingCell = ({
+  recordingUrl,
+  transcriptUrl,
+  invoice,
+}: {
+  recordingUrl: string;
+  transcriptUrl: string;
+  invoice: string;
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -136,7 +91,10 @@ const RecordingCell = ({ recordingUrl, transcriptUrl, invoice }: { recordingUrl:
 
   return (
     <div className="flex w-full flex-col items-center space-x-4">
-      <Tabs defaultValue="recording" className={isMobile ? "w-[400px]" : "w-full"}>
+      <Tabs
+        defaultValue="recording"
+        className={isMobile ? "w-[400px]" : "w-full"}
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="recording">Recording</TabsTrigger>
           <TabsTrigger value="transcript">Transcript</TabsTrigger>
@@ -148,8 +106,19 @@ const RecordingCell = ({ recordingUrl, transcriptUrl, invoice }: { recordingUrl:
               {isPlaying ? <FaPause /> : <FaPlay />}
             </Button>
             <Progress value={progress} className="w-full" />
-            <audio ref={audioRef} src={recordingUrl} onEnded={() => { setIsPlaying(false); setProgress(0); }} />
-            <Button variant="outline" size="sm" onClick={() => console.log("Download recording:", recordingUrl)}>
+            <audio
+              ref={audioRef}
+              src={recordingUrl}
+              onEnded={() => {
+                setIsPlaying(false);
+                setProgress(0);
+              }}
+            />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => console.log("Download recording:", recordingUrl)}
+            >
               <FaDownload />
             </Button>
           </div>
@@ -161,7 +130,11 @@ const RecordingCell = ({ recordingUrl, transcriptUrl, invoice }: { recordingUrl:
               <FaFileArrowDown />
               <span>{invoice}</span>
             </div>
-            <Button variant="outline" size="sm" onClick={() => console.log("Download transcript:", transcriptUrl)}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => console.log("Download transcript:", transcriptUrl)}
+            >
               <FaDownload />
             </Button>
           </div>
@@ -233,9 +206,15 @@ export const columns: ColumnDef<CallRecording>[] = [
   {
     accessorKey: "recording",
     header: "Recording",
-    cell: ({ row }) => <div className="py-5"><RecordingCell recordingUrl={row.original.recordingUrl} 
-                                                            transcriptUrl={row.original.transcriptUrl}
-                                                            invoice = {row.original.invoice}/></div>,
+    cell: ({ row }) => (
+      <div className="py-5">
+        <RecordingCell
+          recordingUrl={row.original.recordingUrl}
+          transcriptUrl={row.original.transcriptUrl}
+          invoice={row.original.invoice}
+        />
+      </div>
+    ),
   },
   {
     id: "actions",
@@ -244,7 +223,7 @@ export const columns: ColumnDef<CallRecording>[] = [
       const recording = row.original;
 
       return (
-        <div className="mt-auto flex size-full flex-col items-center pb-10"> 
+        <div className="mt-auto flex size-full flex-col items-center pb-10">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="size-8 p-0">
