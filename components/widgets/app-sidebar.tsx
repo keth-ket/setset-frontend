@@ -7,6 +7,7 @@ import {
   Shield,
   ShieldAlert,
   Voicemail,
+  Settings 
 } from "lucide-react";
 import { useState } from "react";
 
@@ -55,6 +56,12 @@ const items = [
     url: "#",
     icon_white: ShieldAlert,
     icon_black: Shield,
+  },
+  {
+    title: "Settings",
+    url: "#",
+    icon_white: Settings ,
+    icon_black: Settings ,
   },
 ];
 interface PageProp {

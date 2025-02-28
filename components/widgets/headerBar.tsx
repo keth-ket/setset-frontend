@@ -17,7 +17,7 @@ export function HeaderBar() {
       <span className="flex items-center justify-evenly gap-8">
         <a href={"#"} className="flex items-center gap-2 hover:bg-primary-foreground p-1 rounded-md">
           <UserRound className="fill-ring"/>
-          <span>Sign in</span>
+          <span className="hidden md:block">Sign in</span>
         </a>
         <a href={"#"} className=" hidden md:flex items-center gap-2">
           <Settings />
