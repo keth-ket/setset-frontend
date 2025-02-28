@@ -9,7 +9,7 @@ import {
   Voicemail,
   Settings 
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Sidebar,
@@ -64,17 +64,26 @@ const items = [
     icon_black: Settings ,
   },
 ];
-interface PageProp {
-  page: string;
-  url: string;
-  dark_icon: string;
-  white_icon: string;
-}
-export function AppSidebar(changePage:PageProp) {
+
+export function AppSidebar({updateCurrPage}:any) {
+  // console.log(updateCurrPage);
+  
   const [currSelectd, setCurrSelected] = useState("Dashboard");
+  // useEffect to send data to parent on page load
+  useEffect(() =>
+  {
+    updateCurrPage(getPageInfo("Dashboard"));
+  }, []);
+
 
   const handleSelected = (item: string) => {
     setCurrSelected(item);
+    console.log(getPageInfo(item));
+    
+    updateCurrPage(getPageInfo(item));
+  };
+  const getPageInfo = (page: string) => {
+    return items.find((item) => item.title === page);
   };
 
   return (

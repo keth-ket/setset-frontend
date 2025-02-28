@@ -4,7 +4,8 @@ import {
 
     SidebarTrigger,
   } from "@/components/ui/sidebar";
-export function HeaderBar() {
+export function HeaderBar({currPage}:any) {
+    console.log('here is the currPage from header',currPage);
   return (
     <section className="flex w-[80vw] items-center justify-between pl-10 pr-10">
         <SidebarTrigger className="lg:hidden" />

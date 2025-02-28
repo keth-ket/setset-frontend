@@ -19,24 +19,22 @@ interface PageProp {
   white_icon: string;
 }
 export default function Home() {
-  const [currPage, setCurrPage] = useState({
-    page: "Dashboard",
-    url: "/",
-    dark_icon: "",
-    white_icon: "",});
+  const [currPage, setCurrPage] = useState();
   
-  const updateCurrPage = (page:PageProp) => {
+  const updateCurrPage = (page:any) => {
+    // setting the page
     setCurrPage(page);
-  }
+    
+  };
   return (
     <SidebarProvider>
-      <AppSidebar changePage={updateCurrPage} />
+      <AppSidebar updateCurrPage={updateCurrPage} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
             
   
-            <HeaderBar />
+            <HeaderBar currPage={currPage}/>
           </div>
         </header>
 
