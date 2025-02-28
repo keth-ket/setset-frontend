@@ -1,19 +1,27 @@
 import { House, UserRound, Settings, Bell } from "lucide-react";
+import {
+    ChartLine,
+    CircleHelp,
+    Home,
+    Shield,
+    ShieldAlert,
+    Voicemail,
+  } from "lucide-react";
 import { ChangeTheme } from "./theme_Toggle";
 import {
 
     SidebarTrigger,
   } from "@/components/ui/sidebar";
 export function HeaderBar({currPage}:any) {
-    console.log('here is the currPage from header',currPage);
+    console.log('display name here',currPage.icon_black?.displayName);
   return (
     <section className="flex w-[80vw] items-center justify-between pl-10 pr-10">
         <SidebarTrigger className="lg:hidden" />
       <span className="flex items-center gap-5">
         <span className="flex items-center justify-center rounded-lg bg-primary-foreground p-2">
-          <House />
+        <currPage.icon_white.displayName className="size-6 " />
         </span>
-        <span className="text-2xl font-bold text-primary">Dashboard</span>
+        <span className="text-2xl font-bold text-primary">{currPage.title}</span>
       </span>
       <span className="flex items-center justify-evenly gap-8">
         <a href={"#"} className="flex items-center gap-2 hover:bg-primary-foreground p-1 rounded-md">

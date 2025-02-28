@@ -34,7 +34,7 @@ export default function Home() {
           <div className="flex items-center gap-2 px-4">
             
   
-            <HeaderBar currPage={currPage}/>
+            {currPage && (<HeaderBar currPage={currPage}/>)} {/* rendering the header only after the page is set*/}
           </div>
         </header>
 

@@ -78,7 +78,7 @@ export function AppSidebar({updateCurrPage}:any) {
 
   const handleSelected = (item: string) => {
     setCurrSelected(item);
-    console.log(getPageInfo(item));
+    console.log('in app-siderbar',getPageInfo(item));
     
     updateCurrPage(getPageInfo(item));
   };
