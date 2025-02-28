@@ -21,14 +21,17 @@ export function HeaderBar({currPage}:any) {
         setPage(currPage.icon_white);
       }, [currPage.icon_white]);
   return (
-    <section className="flex w-[80vw] items-center justify-between pl-10 pr-10">
+    <section className="flex w-screen flex-1 gap-10 items-center justify-between pl-10 pr-10">
         <SidebarTrigger className="lg:hidden" />
+
       <span className="flex items-center gap-5">
         <span className="flex items-center justify-center rounded-lg bg-primary-foreground p-2">
-        {page && React.createElement(page)}
+        {page && React.createElement(page, { className: "" })}
+
         </span>
         <span className="text-2xl font-bold text-foreground">{currPage.title}</span>
       </span>
+      
       <span className="flex items-center justify-evenly gap-8">
         <a href={"#"} className="flex items-center gap-2 hover:bg-primary-foreground p-3 rounded-md">
           <UserRound className="fill-ring"/>
