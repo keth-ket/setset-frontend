@@ -57,8 +57,13 @@ const items = [
     icon_black: Shield,
   },
 ];
-
-export function AppSidebar() {
+interface PageProp {
+  page: string;
+  url: string;
+  dark_icon: string;
+  white_icon: string;
+}
+export function AppSidebar(changePage:PageProp) {
   const [currSelectd, setCurrSelected] = useState("Dashboard");
 
   const handleSelected = (item: string) => {
@@ -69,7 +74,7 @@ export function AppSidebar() {
     <Sidebar className="rounded-2xl">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-2 mt-8 p-[40px] font-semibold">
+          <SidebarGroupLabel className=" mt-[10px] mb-0 p-[30px] font-semibold">
             Setset
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -83,16 +88,16 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild className="text-base md:text-sm">
                     <a
                       href={item.url}
-                      className="p-[40px] hover:text-sidebar-foreground"
+                      className="p-[30px] hover:text-sidebar-foreground"
                     >
                       <span
-                        className={`flex size-10 shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-secondary-foreground" : "bg-transparent"}`}
+                        className={`flex !size-[38px] shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-secondary-foreground font-semibold" : "bg-transparent"}`}
                       >
                         <item.icon_white
                           className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"} ${item.title === "FAQs" ? "fill-primary stroke-primary-foreground" : ""}`}
                         />
                         <item.icon_black
-                          className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"} ${item.title === "Errors" ? "fill-white" : ""} ${item.title === "FAQs" ? "fill-secondary" : ""}`}
+                          className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}  ${item.title === "FAQs" ? "fill-secondary" : ""} ${item.title === "Errors" ? "fill-white" : ""}`}
                         />
                       </span>
                       <span className="h-max !text-wrap text-left">
