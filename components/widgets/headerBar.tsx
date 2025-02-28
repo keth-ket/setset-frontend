@@ -1,9 +1,13 @@
 import { House, UserRound, Settings, Bell } from "lucide-react";
 import { ChangeTheme } from "./theme_Toggle";
+import {
 
+    SidebarTrigger,
+  } from "@/components/ui/sidebar";
 export function HeaderBar() {
   return (
     <section className="flex w-[80vw] items-center justify-between pl-10 pr-10">
+        <SidebarTrigger className="lg:hidden" />
       <span className="flex items-center gap-5">
         <span className="flex items-center justify-center rounded-lg bg-primary-foreground p-2">
           <House />

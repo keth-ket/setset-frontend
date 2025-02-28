@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PanelLeft } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -290,6 +291,7 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
+       <PanelLeft className="!size-6"/>
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );
