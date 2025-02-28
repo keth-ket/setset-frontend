@@ -12,14 +12,20 @@ import {
 
     SidebarTrigger,
   } from "@/components/ui/sidebar";
+  import {useState, useEffect} from "react";
+  import React from 'react';
 export function HeaderBar({currPage}:any) {
-    console.log('display name here',currPage.icon_black?.displayName);
+    
+    const[page, setPage] = useState(currPage.icon_white);
+    useEffect(() => {
+        setPage(currPage.icon_white);
+      }, [currPage.icon_white]);
   return (
     <section className="flex w-[80vw] items-center justify-between pl-10 pr-10">
         <SidebarTrigger className="lg:hidden" />
       <span className="flex items-center gap-5">
         <span className="flex items-center justify-center rounded-lg bg-primary-foreground p-2">
-        <currPage.icon_white.displayName className="size-6 " />
+        {page && React.createElement(page)}
         </span>
         <span className="text-2xl font-bold text-primary">{currPage.title}</span>
       </span>
