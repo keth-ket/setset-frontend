@@ -104,7 +104,7 @@ export function AppSidebar({updateCurrPage}:any) {
                   <SidebarMenuButton asChild className="text-base md:text-sm">
                     <a
                       href={item.url}
-                      className="p-[30px] hover:text-sidebar-foreground"
+                      className={`p-[30px] hover:text-sidebar-foreground ${item.title === 'Settings'?'md:hidden':''}`}
                     >
                       <span
                         className={`flex !size-[38px] shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-secondary-foreground font-semibold" : "bg-transparent"}`}

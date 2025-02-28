@@ -27,10 +27,10 @@ export function HeaderBar({currPage}:any) {
         <span className="flex items-center justify-center rounded-lg bg-primary-foreground p-2">
         {page && React.createElement(page)}
         </span>
-        <span className="text-2xl font-bold text-primary">{currPage.title}</span>
+        <span className="text-2xl font-bold text-foreground">{currPage.title}</span>
       </span>
       <span className="flex items-center justify-evenly gap-8">
-        <a href={"#"} className="flex items-center gap-2 hover:bg-primary-foreground p-1 rounded-md">
+        <a href={"#"} className="flex items-center gap-2 hover:bg-primary-foreground p-3 rounded-md">
           <UserRound className="fill-ring"/>
           <span className="hidden md:block">Sign in</span>
         </a>
