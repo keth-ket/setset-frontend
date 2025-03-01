@@ -21,8 +21,8 @@ export function HeaderBar({currPage}:any) {
         setPage(currPage.icon_white);
       }, [currPage.icon_white]);
   return (
-    <section className="flex w-screen flex-1 gap-10 items-center justify-between pl-10 pr-10">
-        <SidebarTrigger className="lg:hidden" />
+    <section className="flex w-[calc(100vw)] md:w-[calc(100vw-255.333px)] items-center justify-between  md:px-10 px-2">
+        <SidebarTrigger className="md:hidden" />
 
       <span className="flex items-center gap-5">
         <span className="flex items-center justify-center rounded-lg bg-primary-foreground p-2">
@@ -32,8 +32,8 @@ export function HeaderBar({currPage}:any) {
         <span className="text-2xl font-bold text-foreground">{currPage.title}</span>
       </span>
       
-      <span className="flex items-center justify-evenly gap-8">
-        <a href={"#"} className="flex items-center gap-2 hover:bg-primary-foreground p-3 rounded-md">
+      <span className="flex items-center justify-evenly md:gap-8 gap-4">
+        <a href={"#"} className="flex items-center gap-2 hover:bg-primary-foreground md:p-3 rounded-md">
           <UserRound className="fill-ring"/>
           <span className="hidden md:block">Sign in</span>
         </a>
@@ -43,7 +43,7 @@ export function HeaderBar({currPage}:any) {
         <a href={"#"} className="flex items-center gap-2">
           <Bell />
         </a>
-        <ChangeTheme />
+        {/* <ChangeTheme /> */}
       </span>
     </section>
   );
