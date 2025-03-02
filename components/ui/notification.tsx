@@ -62,7 +62,17 @@ import {
     },
   ];
   
-  export function NotificationList({ notifications, removeNotification }) {
+  interface notificationObject
+  {
+    id: number;
+    type: string;
+    title: string;
+    content: string;
+    time: string;
+    img: string;
+    read: boolean;
+  }
+  export function NotificationList({ notifications, removeNotification }:{notifications: notificationObject[], removeNotification: (id: number) => void}) {
     return notifications.length > 0 ? (
       notifications.map((notification) => (
         <div
@@ -96,7 +106,7 @@ import {
     );
   }
   
-  export function MobileNotification({ notifications, removeNotification }) {
+  export function MobileNotification({ notifications, removeNotification }:{notifications: notificationObject[], removeNotification: (id: number) => void}) {
     return (
       <Sheet>
         <SheetTrigger>
@@ -115,7 +125,7 @@ import {
     );
   }
   
-  export function DesktopNotification({ notifications, removeNotification }) {
+  export function DesktopNotification({ notifications, removeNotification }: {notifications: notificationObject[], removeNotification: (id: number) => void}) {
     return (
       <HoverCard>
         <HoverCardTrigger asChild>
