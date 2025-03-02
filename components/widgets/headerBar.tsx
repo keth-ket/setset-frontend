@@ -9,7 +9,9 @@ import {
   } from "lucide-react";
 import { ChangeTheme } from "./theme_Toggle";
 
-import {Notification} from "../ui/notification";
+// import {Notification} from "../ui/desktopNotification";
+// import { MobileNotification } from "../ui/mobileNotification";
+import { MobileNotification, DesktopNotification } from "../ui/notification";
 
 import {
 
@@ -43,7 +45,9 @@ export function HeaderBar({currPage}:any) {
         <a href={"#"} className=" hidden md:flex items-center gap-2">
           <Settings />
         </a>
-        <Notification />
+        {/* <Notification /> */}
+        {/* <MobileNotification /> */}
+        <DesktopNotification/>
         {/* <ChangeTheme /> */}
       </span>
     </section>
