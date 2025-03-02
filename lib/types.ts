@@ -1,10 +1,28 @@
 export type MetricsData = {
-  callMinutes: number;
-  moneySaved: number;
-  timeSaved: number;
-  newCallers: number;
-  appointmentsBooked: number;
-  satisfaction: number;
+  callMinutes: {
+    minutes: number;
+    difference: number;
+  };
+  moneySaved: {
+    money: number;
+    difference: number;
+  };
+  timeSaved: {
+    time: number;
+    difference: number;
+  };
+  newCallers: {
+    callers: number;
+    difference: number;
+  };
+  appointmentsBooked: {
+    appointments: number;
+    difference: number;
+  };
+  satisfactionScore: {
+    score: number;
+    difference: number;
+  };
 };
 
 export type FaqData = {
@@ -15,9 +33,8 @@ export type FaqData = {
 };
 
 export type AppointmentsData = {
+  date: string;
   booked: number;
-  cancelled: number;
-  rescheduled: number;
   transferred: number;
 };
 

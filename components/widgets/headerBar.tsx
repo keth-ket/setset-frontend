@@ -33,7 +33,7 @@ export function HeaderBar({currPage}:any) {
         <SidebarTrigger className="md:hidden" />
 
       <span className="flex items-center gap-5">
-        <span className="flex items-center justify-center rounded-lg bg-primary-foreground p-2">
+        <span className="flex items-center justify-center rounded-lg bg-primary p-2">
         {page && React.createElement(page, { className: "" })}
 
         </span>

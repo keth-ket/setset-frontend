@@ -55,7 +55,7 @@ const items = [
     title: "Errors",
     url: "#",
     icon_white: ShieldAlert,
-    icon_black: Shield,
+    icon_black: ShieldAlert,
   },
   {
     title: "Settings",
@@ -107,13 +107,13 @@ export function AppSidebar({updateCurrPage}:any) {
                       className={`p-[30px] hover:text-sidebar-foreground ${item.title === 'Settings'?'md:hidden':''}`}
                     >
                       <span
-                        className={`flex !size-[38px] shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-secondary-foreground font-semibold" : "bg-transparent"}`}
+                        className={`flex !size-[38px] shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-primary-foreground font-semibold" : "bg-transparent"}`}
                       >
                         <item.icon_white
-                          className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"} ${item.title === "FAQs" ? "fill-primary stroke-primary-foreground" : ""}`}
+                          className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} ${item.title === "FAQs" ? " stroke-primary-foreground" : ""}`}
                         />
                         <item.icon_black
-                          className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary-foreground" : "text-muted-foreground"}  ${item.title === "FAQs" ? "fill-secondary" : ""} ${item.title === "Errors" ? "fill-white" : ""}`}
+                          className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"}  ${item.title === "FAQs" ? "fill-ring" : ""} ${item.title === "Errors" ? "fill-white" : ""}`}
                         />
                       </span>
                       <span className="h-max !text-wrap text-left">

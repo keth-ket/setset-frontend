@@ -1,11 +1,12 @@
 'use client';
+import { DatePickerWithRange } from "@/components/ui/date-picker";
 
 import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/widgets/app-sidebar";
-
+import Appointments from "@/components/widgets/appointments";
 import { Footer } from "@/components/widgets/footer";
 import Metrics from "@/components/widgets/metrics";
 import { ModeToggle } from "@/components/widgets/theme-toggle";
@@ -39,14 +40,21 @@ export default function Home() {
           </div>
         </header>
 
+        <div className="flex flex-1 flex-col gap-4 p-10 pt-0">
+            <ModeToggle />
+          <DatePickerWithRange />
+          <div className="flex flex-1 flex-col gap-10">
+            <Metrics />
+            <Appointments />
+            {/*<Faqs />
         <div className="flex flex-1 flex-col gap-10 p-10 pt-0">
-        <ModeToggle />
 
           <Metrics />
           {/* <Appointments />
           <Faqs />
           <DataTable /> */}
-          <Footer />
+            <Footer />
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
