@@ -8,6 +8,9 @@ import {
     Voicemail,
   } from "lucide-react";
 import { ChangeTheme } from "./theme_Toggle";
+
+import {Notification} from "../ui/notification";
+
 import {
 
     SidebarTrigger,
@@ -40,9 +43,7 @@ export function HeaderBar({currPage}:any) {
         <a href={"#"} className=" hidden md:flex items-center gap-2">
           <Settings />
         </a>
-        <a href={"#"} className="flex items-center gap-2">
-          <Bell />
-        </a>
+        <Notification />
         {/* <ChangeTheme /> */}
       </span>
     </section>
