@@ -14,6 +14,9 @@ import {
     HoverCardContent,
     HoverCardTrigger,
   } from "@/components/ui/hover-card"
+
+
+  import {useState, useEffect} from "react";
   
   const notifications = [
     {
@@ -64,10 +67,10 @@ import {
   ];
   
   const notification = notifications.map((notification) => (
-    <div key={notification.id} className="mb-4 flex items-center space-x-4">
+    <div key={notification.id} className="mb-4 flex items-center space-x-4 pt-3">
       <Avatar>
         <AvatarImage src={notification.img} />
-        <AvatarFallback>JD</AvatarFallback>
+        <AvatarFallback>Setset</AvatarFallback>
       </Avatar>
       <div className="space-y-1">
         <p className="text-sm font-medium leading-none">{notification.title}</p>
@@ -111,4 +114,25 @@ export function DesktopNotification()
           </HoverCardContent>
         </HoverCard>
       )
+}
+
+export default function Notification() {
+
+    const[isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () =>
+        {
+            if (typeof window !== "undefined") {
+                setIsMobile(window.innerWidth <600 );
+            }
+        };
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    return (
+        isMobile ? <MobileNotification/> : <DesktopNotification/>
+    )
 }

@@ -7,11 +7,12 @@ import {
     ShieldAlert,
     Voicemail,
   } from "lucide-react";
+
 import { ChangeTheme } from "./theme_Toggle";
 
 // import {Notification} from "../ui/desktopNotification";
 // import { MobileNotification } from "../ui/mobileNotification";
-import { MobileNotification, DesktopNotification } from "../ui/notification";
+import  Notification from "../ui/notification";
 
 import {
 
@@ -19,6 +20,8 @@ import {
   } from "@/components/ui/sidebar";
   import {useState, useEffect} from "react";
   import React from 'react';
+
+
 export function HeaderBar({currPage}:any) {
     
     const[page, setPage] = useState(currPage.icon_white);
@@ -26,7 +29,7 @@ export function HeaderBar({currPage}:any) {
         setPage(currPage.icon_white);
       }, [currPage.icon_white]);
   return (
-    <section className="flex w-[calc(100vw)] md:w-[calc(100vw-255.333px)] items-center justify-between  md:px-10 px-2">
+    <section className="flex w-[calc(100vw)] md:w-[calc(100vw-255.333px)] items-center justify-between  md:px-10 px-6">
         <SidebarTrigger className="md:hidden" />
 
       <span className="flex items-center gap-5">
@@ -45,10 +48,7 @@ export function HeaderBar({currPage}:any) {
         <a href={"#"} className=" hidden md:flex items-center gap-2">
           <Settings />
         </a>
-        {/* <Notification /> */}
-        {/* <MobileNotification /> */}
-        <DesktopNotification/>
-        {/* <ChangeTheme /> */}
+        {<Notification />}
       </span>
     </section>
   );

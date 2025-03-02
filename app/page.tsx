@@ -8,7 +8,7 @@ import { AppSidebar } from "@/components/widgets/app-sidebar";
 
 import { Footer } from "@/components/widgets/footer";
 import Metrics from "@/components/widgets/metrics";
-// import { ModeToggle } from "@/components/widgets/theme-toggle";
+import { ModeToggle } from "@/components/widgets/theme-toggle";
 import {HeaderBar} from "@/components/widgets/headerBar";
 import {useState} from "react";
 
@@ -35,10 +35,13 @@ export default function Home() {
             
   
             {currPage && (<HeaderBar currPage={currPage}/>)} {/* rendering the header only after the page is set*/}
+
           </div>
         </header>
 
         <div className="flex flex-1 flex-col gap-10 p-10 pt-0">
+        <ModeToggle />
+
           <Metrics />
           {/* <Appointments />
           <Faqs />
