@@ -28,8 +28,11 @@ export type MetricsData = {
 export type FaqData = {
   id: string;
   question: string;
+  answer: string;
   frequency: number;
-  dates: string[];
+  icon: React.ReactNode;
+  timeRangeStart: string;
+  timeRangeEnd: string;
 };
 
 export type AppointmentsData = {
