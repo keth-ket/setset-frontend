@@ -1,6 +1,7 @@
-'use client';
-import { DatePickerWithRange } from "@/components/ui/date-picker";
+"use client";
+import {useState} from "react";
 
+import { DatePickerWithRange } from "@/components/ui/date-picker";
 import {
   SidebarInset,
   SidebarProvider,
@@ -8,10 +9,9 @@ import {
 import { AppSidebar } from "@/components/widgets/app-sidebar";
 import Appointments from "@/components/widgets/appointments";
 import { Footer } from "@/components/widgets/footer";
+import {HeaderBar} from "@/components/widgets/headerBar";
 import Metrics from "@/components/widgets/metrics";
 import { ModeToggle } from "@/components/widgets/theme-toggle";
-import {HeaderBar} from "@/components/widgets/headerBar";
-import {useState} from "react";
 
 interface PageProp {
   page: string;

@@ -1,8 +1,9 @@
 import React from "react";
 
+import { chartData } from "@/lib/sampleData";
+
 import { Card, CardContent } from "../ui/card";
 import { AppointmentsAreaChart } from "./area-chart";
-import { chartData } from "@/lib/sampleData";
 
 export default function Appointments() {
   return (

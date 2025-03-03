@@ -4,12 +4,11 @@ import {
   ChartLine,
   CircleHelp,
   Home,
+  Settings, 
   Shield,
   ShieldAlert,
-  Voicemail,
-  Settings 
-} from "lucide-react";
-import { useState, useEffect } from "react";
+  Voicemail} from "lucide-react";
+import { useEffect,useState } from "react";
 
 import {
   Sidebar,
@@ -78,7 +77,7 @@ export function AppSidebar({updateCurrPage}:any) {
 
   const handleSelected = (item: string) => {
     setCurrSelected(item);
-    console.log('in app-siderbar',getPageInfo(item));
+    console.log("in app-siderbar",getPageInfo(item));
     
     updateCurrPage(getPageInfo(item));
   };
@@ -90,7 +89,7 @@ export function AppSidebar({updateCurrPage}:any) {
     <Sidebar className="rounded-2xl">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className=" mt-[10px] mb-0 p-[30px] font-semibold">
+          <SidebarGroupLabel className=" mb-0 mt-[10px] p-[30px] font-semibold">
             Setset
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -104,13 +103,13 @@ export function AppSidebar({updateCurrPage}:any) {
                   <SidebarMenuButton asChild className="text-base md:text-sm">
                     <a
                       href={item.url}
-                      className={`p-[30px] hover:text-sidebar-foreground ${item.title === 'Settings'?'md:hidden':''}`}
+                      className={`p-[30px] hover:text-sidebar-foreground ${item.title === "Settings"?"md:hidden":""}`}
                     >
                       <span
                         className={`flex !size-[38px] shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-primary-foreground font-semibold" : "bg-transparent"}`}
                       >
                         <item.icon_white
-                          className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} ${item.title === "FAQs" ? " stroke-primary-foreground" : ""}`}
+                          className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} `}
                         />
                         <item.icon_black
                           className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"}  ${item.title === "FAQs" ? "fill-ring" : ""} ${item.title === "Errors" ? "fill-white" : ""}`}

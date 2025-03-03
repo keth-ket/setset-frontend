@@ -1,4 +1,4 @@
-import { AppointmentsData, MetricsData, CallRecording } from "./types";
+import { AppointmentsData, CallRecording,MetricsData } from "./types";
 
 export const metricsData: MetricsData = {
   callMinutes: { minutes: 100227, difference: -1.4 },
@@ -150,5 +150,54 @@ export const callRecordingsData: CallRecording[] = [
     duration: "6:12",
     recordingUrl: "https://example.com/recording5.mp3",
     transcriptUrl: "https://example.com/recording5.pdf",
+  },
+];
+
+
+export const initialNotifications = [
+  {
+    id: 1,
+    type: "message",
+    title: "New Message from achu",
+    content: "Hey! Are we still on for the meeting?",
+    time: "2 mins ago",
+    img: "https://th.bing.com/th/id/OIP.47NEVXcBGruaDflMzJAsDwAAAA?rs=1&pid=ImgDetMain",
+    read: false,
+  },
+  {
+    id: 2,
+    type: "alert",
+    title: "System Update",
+    content: "We've detected unsuall activities on your account.",
+    time: "10 mins ago",
+    img: "https://th.bing.com/th/id/R.a54aae27898553c7865346e0ca2a9ceb?rik=G%2bPKqgYavMXWAQ&pid=ImgRaw&r=0",
+    read: false,
+  },
+  {
+    id: 3,
+    type: "friend_request",
+    title: "New Friend Request",
+    content: "Jordan sent you a friend request.",
+    time: "30 mins ago",
+    img: "https://randomuser.me/api/portraits/women/2.jpg",
+    read: true,
+  },
+  {
+    id: 4,
+    type: "mention",
+    title: "You were mentioned!",
+    content: "Sophia mentioned you in a comment.",
+    time: "1 hour ago",
+    img: "https://cdn-icons-png.flaticon.com/512/2958/2958783.png",
+    read: false,
+  },
+  {
+    id: 5,
+    type: "reminder",
+    title: "Event Reminder",
+    content: "Don't forget about the project deadline tomorrow!",
+    time: "3 hours ago",
+    img: "https://cdn-icons-png.flaticon.com/512/716/716225.png",
+    read: true,
   },
 ];
