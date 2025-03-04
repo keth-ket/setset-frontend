@@ -12,7 +12,11 @@ import { Footer } from "@/components/widgets/footer";
 import {HeaderBar} from "@/components/widgets/headerBar";
 import Metrics from "@/components/widgets/metrics";
 import { ModeToggle } from "@/components/widgets/theme-toggle";
+import {
+ 
+  Home as HomeIcon,
 
+} from "lucide-react";
 interface PageProp {
   page: string;
   url: string;
@@ -20,7 +24,15 @@ interface PageProp {
   white_icon: string;
 }
 export default function Home() {
-  const [currPage, setCurrPage] = useState();
+  // alway first loading into the dashboard
+  const [currPage, setCurrPage] = useState({
+    title: "Dashboard",
+    url: "#",
+    icon_white: HomeIcon,
+    icon_black: HomeIcon,
+  });
+  
+ 
   
   const updateCurrPage = (page:any) => {
     // setting the page

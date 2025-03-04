@@ -1,3 +1,4 @@
+
 import { Bell, CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -111,7 +112,7 @@ export function DesktopNotification({
   removeNotification: (id: number) => void;
 }) {
   return (
-    <HoverCard>
+    <HoverCard >
       <HoverCardTrigger asChild  className= "rounded-lg">
       <span className="relative" >
           {notifications.length > 0 && <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
@@ -120,7 +121,7 @@ export function DesktopNotification({
           <Bell />
         </span>
       </HoverCardTrigger>
-      <HoverCardContent className="w-80">
+      <HoverCardContent className="w-80 rounded-xl">
         <NotificationList
           notifications={notifications}
           removeNotification={removeNotification}

@@ -1,3 +1,4 @@
+
 import {
   Bell,
   ChartLine,
@@ -16,17 +17,21 @@ import Notification from "@/components/ui/notification";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export function HeaderBar({ currPage }: any) {
-  const [page, setPage] = useState(currPage.icon_white);
   useEffect(() => {
     setPage(currPage.icon_white);
   }, [currPage.icon_white]);
+  const [page, setPage] = useState(currPage.icon_white);
   return (
     <section className="flex w-[calc(100vw)] items-center justify-between px-6 md:w-[calc(100vw-255.333px)] md:px-10">
-      <SidebarTrigger className="md:hidden" />
+      
 
-      <span className="flex items-center gap-5">
-        <span className="flex items-center justify-center rounded-lg bg-primary p-2">
+      <span className="flex items-center gap-2">
+        
+        <span className="flex items-center justify-center rounded-lg bg-primary p-2 cursor-pointer">
+          <SidebarTrigger asChild className="size-5" >
+
           {page && React.createElement(page, { className: "" })}
+          </SidebarTrigger>
         </span>
         <span className="text-2xl font-bold text-foreground">
           {currPage.title}
