@@ -10,7 +10,7 @@ import {
 import { metricsData } from "@/lib/sampleData";
 import { cn } from "@/lib/utils";
 
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "../../ui/card";
 
 export default function Metrics() {
   const iconStyles =
