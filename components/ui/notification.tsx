@@ -13,6 +13,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetDescription
 } from "@/components/ui/sheet";
 import { initialNotifications } from "@/lib/sampleData";
 
@@ -89,6 +90,9 @@ export function MobileNotification({
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Notifications</SheetTitle>
+          <SheetDescription>
+           
+          </SheetDescription>
         </SheetHeader>
         <NotificationList
           notifications={notifications}
@@ -108,7 +112,7 @@ export function DesktopNotification({
 }) {
   return (
     <HoverCard>
-      <HoverCardTrigger asChild>
+      <HoverCardTrigger asChild  className= "rounded-lg">
       <span className="relative" >
           {notifications.length > 0 && <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
             {notifications.length}

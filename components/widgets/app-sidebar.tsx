@@ -13,7 +13,7 @@ import { useEffect,useState } from "react";
 import {
   Sidebar,
   SidebarContent,
-  // SidebarFooter,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -124,6 +124,7 @@ export function AppSidebar({updateCurrPage}:any) {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+          <SidebarFooter />
         </SidebarGroup>
       </SidebarContent>
       

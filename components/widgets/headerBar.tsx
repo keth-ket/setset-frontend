@@ -36,7 +36,7 @@ export function HeaderBar({ currPage }: any) {
       <span className="flex items-center justify-evenly gap-4 md:gap-8">
         <a
           href={"#"}
-          className="flex items-center gap-2 rounded-md hover:bg-primary-foreground md:p-3"
+          className="flex items-center gap-2 rounded-md hover:bg-destructive-foreground dark:hover:bg-sidebar-accent md:p-3"
         >
           <UserRound className="fill-ring" />
           <span className="hidden md:block">Sign in</span>
