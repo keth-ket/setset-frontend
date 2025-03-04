@@ -9,8 +9,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import { AppSidebar } from "@/components/widgets/sidebar/app-sidebar";
+
 import { ModeToggle } from "@/components/widgets/sidebar/theme-toggle";
+
+import { NewParent } from "@/components/widgets/sidebar/newParent";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
