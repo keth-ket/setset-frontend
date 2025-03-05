@@ -81,14 +81,14 @@ export function MobileNotification({
   return (
     <Sheet>
       <SheetTrigger>
-        <span className="relative bg-red-600" >
-          <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+      <span className="relative" >
+          {notifications.length > 0 && <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
             {notifications.length}
-          </span>
+          </span>}
           <Bell />
         </span>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="rounded-xl">
         <SheetHeader>
           <SheetTitle>Notifications</SheetTitle>
           <SheetDescription>

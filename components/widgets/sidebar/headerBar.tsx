@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Bell,
   ChartLine,
@@ -9,7 +9,7 @@ import {
   UserRound,
   Voicemail,
 } from "lucide-react";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 
 // import { ChangeTheme } from "./theme_Toggle";
@@ -20,17 +20,13 @@ export function HeaderBar({ currPage }: any) {
   useEffect(() => {
     setPage(currPage.icon_white);
   }, [currPage.icon_white]);
-  const [page, setPage] = useState(currPage.icon_white);
+  const [Page, setPage] = useState(currPage.icon_white);
   return (
-    <section className="flex flex-1  justify-between px-6  md:px-10 ">
-      
-
+    <section className="flex flex-1 justify-between px-6 md:px-10">
       <span className="flex items-center gap-2">
-        
-        <span className="flex items-center justify-center rounded-lg bg-primary p-2 cursor-pointer">
-          <SidebarTrigger asChild className="size-5" >
-
-          {page && React.createElement(page, { className: "" })}
+        <span className="flex cursor-pointer items-center justify-center rounded-lg bg-primary p-2">
+          <SidebarTrigger asChild className="size-5 focus-visible:outline-none">
+           <Page  className="hover:bg-transparent"/>
           </SidebarTrigger>
         </span>
         <span className="text-2xl font-bold text-foreground">

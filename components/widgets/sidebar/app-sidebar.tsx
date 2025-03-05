@@ -20,6 +20,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarHeader,
 } from "@/components/ui/sidebar";
 
 
@@ -65,7 +66,7 @@ const items = [
 ];
 
 export function AppSidebar({updateCurrPage}:any) {
-  // console.log(updateCurrPage);
+
   
   const [currSelectd, setCurrSelected] = useState("Dashboard");
   // useEffect to send data to parent on page load
@@ -77,7 +78,7 @@ export function AppSidebar({updateCurrPage}:any) {
 
   const handleSelected = (item: string) => {
     setCurrSelected(item);
-    console.log("in app-siderbar",getPageInfo(item));
+    
     
     updateCurrPage(getPageInfo(item));
   };
@@ -86,7 +87,8 @@ export function AppSidebar({updateCurrPage}:any) {
   };
 
   return (
-    <Sidebar className="rounded-2xl">
+    <Sidebar className="rounded-2xl focus-visible:outline-none">
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className=" mb-0 mt-[10px] p-[30px] font-semibold">
@@ -112,7 +114,7 @@ export function AppSidebar({updateCurrPage}:any) {
                           className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} `}
                         />
                         <item.icon_black
-                          className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"}  ${item.title === "FAQs" ? "fill-ring" : ""} ${item.title === "Errors" ? "fill-white" : ""}`}
+                          className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"}  `}
                         />
                       </span>
                       <span className="h-max !text-wrap text-left">
