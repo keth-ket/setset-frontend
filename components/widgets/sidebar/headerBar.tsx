@@ -13,7 +13,7 @@ import { useEffect,useState } from "react";
 import React from "react";
 
 // import { ChangeTheme } from "./theme_Toggle";
-import Notification from "@/components/ui/notification";
+import Notification from "@/components/widgets/sidebar/notification";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export function HeaderBar({ currPage }: any) {
@@ -22,7 +22,7 @@ export function HeaderBar({ currPage }: any) {
   }, [currPage.icon_white]);
   const [page, setPage] = useState(currPage.icon_white);
   return (
-    <section className="flex w-[calc(100vw)] items-center justify-between px-6 md:w-[calc(100vw-255.333px)] md:px-10">
+    <section className="flex flex-1  justify-between px-6  md:px-10 ">
       
 
       <span className="flex items-center gap-2">
