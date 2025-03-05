@@ -20,9 +20,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarHeader,
-} from "@/components/ui/sidebar";
 
+} from "@/components/ui/sidebar";
 
 
 // Menu items.
@@ -66,7 +65,7 @@ const items = [
 ];
 
 export function AppSidebar({updateCurrPage}:any) {
-
+  // console.log(updateCurrPage);
   
   const [currSelectd, setCurrSelected] = useState("Dashboard");
   // useEffect to send data to parent on page load
@@ -78,7 +77,7 @@ export function AppSidebar({updateCurrPage}:any) {
 
   const handleSelected = (item: string) => {
     setCurrSelected(item);
-    
+    console.log("in app-siderbar",getPageInfo(item));
     
     updateCurrPage(getPageInfo(item));
   };
@@ -87,9 +86,9 @@ export function AppSidebar({updateCurrPage}:any) {
   };
 
   return (
-    <Sidebar className="rounded-2xl focus-visible:outline-none">
-
+    <Sidebar variant="floating"className="rounded-2xl">
       <SidebarContent>
+       
         <SidebarGroup>
           <SidebarGroupLabel className=" mb-0 mt-[10px] p-[30px] font-semibold">
             Setset

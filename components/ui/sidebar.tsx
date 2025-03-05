@@ -10,7 +10,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent,SheetDescription,SheetHeader } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
@@ -216,6 +216,11 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
+            <SheetHeader>
+              <SheetDescription>
+              
+              </SheetDescription>
+            </SheetHeader>
             <VisuallyHidden asChild>
               <DialogTitle>Sidebar Menu</DialogTitle>
             </VisuallyHidden>
@@ -291,7 +296,7 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
-       {/* <PanelLeft className="!size-6"/> */}
+      {/* <PanelLeft className="!size-6"/> */}
       {/* <span className="sr-only">Toggle Sidebar</span> */}
     </Button>
   );

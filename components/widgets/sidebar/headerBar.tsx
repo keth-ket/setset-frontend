@@ -23,14 +23,13 @@ export function HeaderBar({ currPage }: any) {
   const [Page, setPage] = useState(currPage.icon_white);
   return (
     <section className="flex flex-1 justify-between px-6 md:px-10">
-
+      {/* <SidebarTrigger className="bg-red-500"/> */}
       <span className="flex items-center gap-2">
         <span className="flex cursor-pointer items-center justify-center rounded-lg bg-primary p-2">
           <SidebarTrigger
-            asChild
-            className="size-5 !outline-none focus-visible:!outline-none"
+            
           >
-            <Page className="hover:bg-transparent" />
+            <Page className="hover:bg-transparent !size-6 focus:outline-none focus:ring-0" />
           </SidebarTrigger>
         </span>
         <span className="text-2xl font-bold text-foreground">
@@ -43,7 +42,7 @@ export function HeaderBar({ currPage }: any) {
           href={"#"}
           className="flex items-center gap-2 rounded-md hover:bg-destructive-foreground dark:hover:bg-sidebar-accent md:p-3"
         >
-          <UserRound className="fill-ring" />
+          <UserRound className="fill-ring m-2 md:m-0" />
           <span className="hidden md:block">Sign in</span>
         </a>
         <a href={"#"} className="hidden items-center gap-2 md:flex">
