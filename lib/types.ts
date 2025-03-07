@@ -1,3 +1,10 @@
+import { DateRange } from "react-day-picker";
+
+export type DateContextType = {
+  dateRange?: DateRange;
+  setDateRange: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+};
+
 export type MetricsData = {
   callMinutes: {
     minutes: number;
