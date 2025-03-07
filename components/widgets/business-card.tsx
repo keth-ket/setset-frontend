@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { BusinessStat } from "@/lib/types";
 import { Button } from "../ui/button";
 import { useEffect } from 'react';
+import { Input } from "../ui/input";
 import {
   Pagination,
   PaginationContent,
@@ -18,10 +19,9 @@ import {
   WalletMinimal,
   TimerReset,
   ThumbsUp,
-  Send,
   UsersRound,
   MessageSquareText,
-  Activity,
+  Search
 } from "lucide-react";
 
 //shadcn card ui
@@ -213,12 +213,12 @@ const Business = () => {
 
   return (
     <div> 
-      <div className="flex flex-col justify-between pt-5 pb-0 md:flex-row">
-        <input type="text" placeholder="Search Business" className="max-w-sm rounded-lg
-        border-2 border-foreground text-accent p-2" 
+      <div className="flex flex-row pb-0 w-[20%] items-center bg-card text-card-foreground rounded-lg border-2 gap-0">
+        <Search className="ml-2"/>
+        <Input type="text" placeholder="Search Business" className="focus-visible:ring-0" 
         onChange={(e) => setSearch(e.target.value)}/>
       </div>
-      <div className="flex flex-col p"> 
+      <div className="flex flex-col"> 
       {filteredBusiness.slice(startIndex, endIndex).map((business) => (
         <div className={layoutFormat} key={business.id}>
           <Card className="flex flex-row items-center justify-between p-0 w-full">
