@@ -18,7 +18,6 @@ import {
 import { initialNotifications } from "@/lib/sampleData";
 import { notificationObject } from "@/lib/types";
 
-
 export function NotificationList({
   notifications,
   removeNotification,
@@ -109,7 +108,7 @@ export function DesktopNotification({
         <span className="relative">
           {notifications.length > 0 && (
             <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
-              <p className="cursor-context-menu">{notifications.length}</p> 
+              <p className="cursor-context-menu">{notifications.length}</p>
             </span>
           )}
           <Bell />
