@@ -1,4 +1,3 @@
-
 import { Bell, CalendarIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -11,22 +10,15 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetDescription
 } from "@/components/ui/sheet";
 import { initialNotifications } from "@/lib/sampleData";
+import { notificationObject } from "@/lib/types";
 
-interface notificationObject {
-  id: number;
-  type: string;
-  title: string;
-  content: string;
-  time: string;
-  img: string;
-  read: boolean;
-}
+
 export function NotificationList({
   notifications,
   removeNotification,
@@ -42,7 +34,7 @@ export function NotificationList({
       >
         <Avatar>
           <AvatarImage src={notification.img} />
-          <AvatarFallback>Set</AvatarFallback>
+          <AvatarFallback>Setset</AvatarFallback>
         </Avatar>
         <div className="flex-1 space-y-1">
           <p className="text-sm font-medium leading-none">
@@ -81,19 +73,19 @@ export function MobileNotification({
   return (
     <Sheet>
       <SheetTrigger>
-      <span className="relative" >
-          {notifications.length > 0 && <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
-            {notifications.length}
-          </span>}
+        <span className="relative">
+          {notifications.length > 0 && (
+            <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+              {notifications.length}
+            </span>
+          )}
           <Bell />
         </span>
       </SheetTrigger>
-      <SheetContent className="rounded-xl">
+      <SheetContent className="rounded-l-xl">
         <SheetHeader>
           <SheetTitle>Notifications</SheetTitle>
-          <SheetDescription>
-           
-          </SheetDescription>
+          <SheetDescription></SheetDescription>
         </SheetHeader>
         <NotificationList
           notifications={notifications}
@@ -112,12 +104,14 @@ export function DesktopNotification({
   removeNotification: (id: number) => void;
 }) {
   return (
-    <HoverCard >
-      <HoverCardTrigger asChild  className= "rounded-lg">
-      <span className="relative" >
-          {notifications.length > 0 && <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
-            {notifications.length}
-          </span>}
+    <HoverCard>
+      <HoverCardTrigger asChild className="rounded-lg">
+        <span className="relative">
+          {notifications.length > 0 && (
+            <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+              <p className="cursor-context-menu">{notifications.length}</p> 
+            </span>
+          )}
           <Bell />
         </span>
       </HoverCardTrigger>

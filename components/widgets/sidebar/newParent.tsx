@@ -1,17 +1,13 @@
 "use client";
-import { useState, ReactNode, ElementType } from "react";
+import { ReactNode, useCallback,useState } from "react";
+
 import { SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/widgets/sidebar/app-sidebar";
 import { HeaderBar } from "@/components/widgets/sidebar/headerBar";
+import { items } from "@/lib/sampleData";
+import { sideBarPageProp } from "@/lib/types";
 
-import { Home as HomeIcon } from "lucide-react";
 
-interface PageProp {
-  title: string;
-  url: string;
-  icon_white: ElementType;
-  icon_black: ElementType;
-}
 
 interface NewParentProps {
   children: ReactNode; 
@@ -19,23 +15,18 @@ interface NewParentProps {
 
 export function NewParent({ children }: NewParentProps) {
   
-  const [currPage, setCurrPage] = useState<PageProp>({
-    title: "Dashboard",
-    url: "#",
-    icon_white: HomeIcon,
-    icon_black: HomeIcon,
-  });
+  const [currPage, setCurrPage] = useState<sideBarPageProp>(items[0]);
 
-  const updateCurrPage = (page: PageProp) => {
+  const updateCurrPage = useCallback( (page: sideBarPageProp) => {
     setCurrPage(page);
-  };
+  }, []);
 
   return (
     < >
-      <AppSidebar updateCurrPage={updateCurrPage} /> 
+      <AppSidebar updateCurrPage={updateCurrPage} items={items}/> 
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center w-full">
+        <div className="flex w-full items-center">
             <HeaderBar currPage={currPage} />
           </div>
         </header>

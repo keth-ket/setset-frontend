@@ -55,3 +55,20 @@ export type AppointmentsRadar = {
   type: "Booked" | "Cancelled" | "Transferred" | "Rescheduled";
   customers: number;
 };
+
+export type notificationObject = {
+  id: number;
+  type: string;
+  title: string;
+  content: string;
+  time: string;
+  img: string;
+  read: boolean;
+}
+
+export type  sideBarPageProp = {
+  title: string;
+  url: string;
+  icon_white: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon_black: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}

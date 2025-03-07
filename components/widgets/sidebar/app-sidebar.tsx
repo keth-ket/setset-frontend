@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  ChartLine,
-  CircleHelp,
-  Home,
-  Settings, 
-  Shield,
-  ShieldAlert,
-  Voicemail} from "lucide-react";
+
 import { useEffect,useState } from "react";
 
 import {
@@ -20,68 +13,32 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-
 } from "@/components/ui/sidebar";
+import { sideBarPageProp } from "@/lib/types";
 
 
-// Menu items.
-const items = [
-  {
-    title: "Dashboard",
-    url: "#",
-    icon_white: Home,
-    icon_black: Home,
-  },
-  {
-    title: "Analytics",
-    url: "#",
-    icon_white: ChartLine,
-    icon_black: ChartLine,
-  },
-  {
-    title: "Recordings & Transcripts",
-    url: "#",
-    icon_white: Voicemail,
-    icon_black: Voicemail,
-  },
-  {
-    title: "FAQs",
-    url: "#",
-    icon_white: CircleHelp,
-    icon_black: CircleHelp,
-  },
-  {
-    title: "Errors",
-    url: "#",
-    icon_white: ShieldAlert,
-    icon_black: ShieldAlert,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon_white: Settings ,
-    icon_black: Settings ,
-  },
-];
-
-export function AppSidebar({updateCurrPage}:any) {
-  // console.log(updateCurrPage);
+export function AppSidebar({updateCurrPage, items}:{updateCurrPage: (page: sideBarPageProp) => void; items: sideBarPageProp[]}) {
+  
   
   const [currSelectd, setCurrSelected] = useState("Dashboard");
   // useEffect to send data to parent on page load
-  useEffect(() =>
-  {
-    updateCurrPage(getPageInfo("Dashboard"));
-  }, []);
+  useEffect(() => {
+    const pageInfo = getPageInfo("Dashboard");
+    if (pageInfo) {
+      updateCurrPage(pageInfo);
+    }
+  }, [updateCurrPage]);
 
 
   const handleSelected = (item: string) => {
     setCurrSelected(item);
-    console.log("in app-siderbar",getPageInfo(item));
+    const pageInfo = getPageInfo(item);
+    if (pageInfo) {
     
-    updateCurrPage(getPageInfo(item));
+      updateCurrPage(pageInfo);
+    }
   };
-  const getPageInfo = (page: string) => {
+  const getPageInfo = (page: string): sideBarPageProp | undefined => {
     return items.find((item) => item.title === page);
   };
 

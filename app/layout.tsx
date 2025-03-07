@@ -7,9 +7,6 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-
-import { ModeToggle } from "@/components/widgets/theme-toggle";
-
 import { NewParent } from "@/components/widgets/sidebar/newParent";
 
 

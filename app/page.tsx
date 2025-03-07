@@ -1,10 +1,10 @@
 
 
 import { DatePickerWithRange } from "@/components/ui/date-picker";
-import {ModeToggle} from "@/components/widgets/theme-toggle";
 import Appointments from "@/components/widgets/dashboard/appointments";
 import Metrics from "@/components/widgets/dashboard/metrics";
 import Footer from "@/components/widgets/footer";
+import {ModeToggle} from "@/components/widgets/theme-toggle";
 export default function Home() {
  
   return (
