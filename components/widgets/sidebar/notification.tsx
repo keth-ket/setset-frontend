@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
+
+
 import {
   Sheet,
   SheetContent,
@@ -17,6 +20,7 @@ import {
 } from "@/components/ui/sheet";
 import { initialNotifications } from "@/lib/sampleData";
 import { notificationObject } from "@/lib/types";
+
 
 export function NotificationList({
   notifications,
@@ -74,11 +78,11 @@ export function MobileNotification({
       <SheetTrigger>
         <span className="relative">
           {notifications.length > 0 && (
-            <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+            <span className="absolute left-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
               {notifications.length}
             </span>
           )}
-          <Bell />
+           <Bell fill="white" size={16} />
         </span>
       </SheetTrigger>
       <SheetContent className="rounded-l-xl">
@@ -103,24 +107,26 @@ export function DesktopNotification({
   removeNotification: (id: number) => void;
 }) {
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild className="rounded-lg">
+    <Popover>
+      <PopoverTrigger asChild>
         <span className="relative">
-          {notifications.length > 0 && (
-            <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
-              <p className="cursor-context-menu">{notifications.length}</p>
-            </span>
-          )}
-          <Bell />
+           {notifications.length > 0 && (
+             <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+               <p className="cursor-context-menu">{notifications.length}</p>
+             </span>
+           )}
+        <Bell fill="white" size={16} />
         </span>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-80 rounded-xl">
+      </PopoverTrigger>
+      <PopoverContent className="w-80 rounded-xl">
         <NotificationList
           notifications={notifications}
           removeNotification={removeNotification}
         />
-      </HoverCardContent>
-    </HoverCard>
+      </PopoverContent>
+    </Popover>
+
+
   );
 }
 

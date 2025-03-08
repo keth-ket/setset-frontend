@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/sidebar";
 import { sideBarPageProp } from "@/lib/types";
 
+const getPageInfo = (page: string, items: sideBarPageProp[]): sideBarPageProp | undefined => {
+  return items.find((item) => item.title === page);
+};
 export function AppSidebar({
   updateCurrPage,
   items,
@@ -25,22 +28,20 @@ export function AppSidebar({
   const [currSelectd, setCurrSelected] = useState("Dashboard");
   // useEffect to send data to parent on page load
   useEffect(() => {
-    const pageInfo = getPageInfo("Dashboard");
+    const pageInfo = getPageInfo("Dashboard",items);
     if (pageInfo) {
       updateCurrPage(pageInfo);
     }
-  }, [updateCurrPage]);
+  }, [updateCurrPage, items]);
 
   const handleSelected = (item: string) => {
     setCurrSelected(item);
-    const pageInfo = getPageInfo(item);
+    const pageInfo = getPageInfo(item, items);
     if (pageInfo) {
       updateCurrPage(pageInfo);
     }
   };
-  const getPageInfo = (page: string): sideBarPageProp | undefined => {
-    return items.find((item) => item.title === page);
-  };
+
 
   return (
     <Sidebar variant="floating" className="rounded-2xl">

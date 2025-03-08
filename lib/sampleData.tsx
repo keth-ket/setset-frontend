@@ -3,13 +3,14 @@ import {
   CircleHelp,
   Home,
   MonitorCheck,
-  Settings, 
   ShieldAlert,
   TimerReset,
   Users,
   Voicemail,
   WalletMinimal,
 } from "lucide-react";
+
+import Settings  from "@/lib/settings";
 
 import { AppointmentsData, CallRecording, FaqData,MetricsData } from "./types";
 
