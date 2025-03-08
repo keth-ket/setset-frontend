@@ -1,7 +1,7 @@
 "use client";
 
+import { Settings } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Settings } from 'lucide-react';
 
 import {
   Sidebar,

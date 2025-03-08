@@ -7,9 +7,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
-
-
 import {
   Sheet,
   SheetContent,
@@ -78,7 +75,7 @@ export function MobileNotification({
       <SheetTrigger className="cursor-pointer">
         <span className="relative">
           {notifications.length > 0 && (
-            <span className="absolute left-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white cursor-pointer">
+            <span className="absolute left-0 top-0 -mr-2 -mt-2 cursor-pointer rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
               {notifications.length}
             </span>
           )}
@@ -111,8 +108,8 @@ export function DesktopNotification({
       <PopoverTrigger asChild className="cursor-pointer">
         <span className="relative ">
            {notifications.length > 0 && (
-             <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white cursor-pointer">
-               <p className="cursor-hover">{notifications.length}</p>
+             <span className="absolute right-0 top-0 -mr-2 -mt-2 cursor-pointer rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+               <p className="cursor-pointer">{notifications.length}</p>
              </span>
            )}
         <Bell  size={16} className="fill-foreground stroke-foreground"/>

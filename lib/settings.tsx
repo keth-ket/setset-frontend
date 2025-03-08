@@ -1,11 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 
-interface SettingsProps extends React.SVGProps<SVGSVGElement> {
-  fillProp: string;
-  circleProp: string;
-}
+import {settingSVGProp} from "@/lib/types";
 
-function Settings({ fillProp, circleProp, ...props }: SettingsProps) {
+function Settings({ fillProp, circleProp, ...props }: settingSVGProp) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +28,6 @@ const SettingIcon = () =>
 
 export const SettingsHeader = () =>
 {
-  return <Settings fillProp={"hsl(var(--primary))"} circleProp={"hsl(var(--foreground))"} className='!size-6'/>
+  return <Settings fillProp={"hsl(var(--primary))"} circleProp={"hsl(var(--foreground))"} className="!size-6"/>
 }
 export default SettingIcon;

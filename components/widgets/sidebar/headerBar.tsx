@@ -1,12 +1,12 @@
-import React from "react";
 import { UserRound } from "lucide-react";
+import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Notification from "@/components/widgets/sidebar/notification";
 import SettingIcon from "@/lib/settings";
-import { sideBarPageProp } from "@/lib/types";
 import { SettingsHeader } from "@/lib/settings";
+import { sideBarPageProp } from "@/lib/types";
 
 interface HeaderBarProps {
   currPage: sideBarPageProp;
@@ -24,9 +24,8 @@ const SidebarIcon = ({ currPage }: { currPage: sideBarPageProp }) => {
             <currPage.icon className="!size-6  stroke-primary" />
           )
         }
-        {/* <currPage.icon className="!size-6 stroke-primary" /> */}
       </span>
-      <p className="truncate whitespace-nowrap overflow-ellipsis ">{currPage.title}</p>
+      <p className="truncate whitespace-nowrap ">{currPage.title}</p>
     </SidebarTrigger>
   );
 };
@@ -49,7 +48,7 @@ export function HeaderBar({ currPage }: HeaderBarProps) {
 
       <div className="flex items-center gap-3 md:gap-7">
         <UserButton />
-        <Button variant="ghost" className="hover:bg-transparent hidden sm:block">
+        <Button variant="ghost" className="hidden hover:bg-transparent sm:block">
         <SettingIcon  />
         </Button>
         <Notification  />

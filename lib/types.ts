@@ -78,3 +78,7 @@ export type  sideBarPageProp = {
   url: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
+export type settingSVGProp = React.SVGProps<SVGSVGElement> & {
+  fillProp: string;
+  circleProp: string;
+}

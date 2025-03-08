@@ -6,9 +6,9 @@ import { DatePickerWithRange } from "@/components/ui/date-picker";
 import Appointments from "@/components/widgets/dashboard/appointments";
 import Metrics from "@/components/widgets/dashboard/metrics";
 import Footer from "@/components/widgets/footer";
+import {ModeToggle} from "@/components/widgets/theme-toggle";
 import { DateProvider } from "@/context/DateContext";
 import { useDateRange } from "@/hooks/use-date-range";
-import {ModeToggle} from "@/components/widgets/theme-toggle";
 
 function DashboardContent() {
   const { setDateRange } = useDateRange();
