@@ -76,6 +76,5 @@ export type notificationObject = {
 export type  sideBarPageProp = {
   title: string;
   url: string;
-  icon_white: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  icon_black: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }

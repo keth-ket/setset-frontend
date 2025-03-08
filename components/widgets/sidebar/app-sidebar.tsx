@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Settings } from 'lucide-react';
 
 import {
   Sidebar,
@@ -42,7 +43,6 @@ export function AppSidebar({
     }
   };
 
-
   return (
     <Sidebar variant="floating" className="rounded-2xl">
       <SidebarContent>
@@ -61,17 +61,20 @@ export function AppSidebar({
                   <SidebarMenuButton asChild className="text-base md:text-sm">
                     <a
                       href={item.url}
-                      className={`p-[30px] hover:text-sidebar-foreground ${item.title === "Settings" ? "md:hidden" : ""}`}
+                      className={`p-[30px] hover:text-sidebar-foreground ${item.title === "Settings" ? "sm:hidden " : ""}`}
                     >
                       <span
                         className={`flex !size-[38px] shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-primary-foreground font-semibold" : "bg-transparent"}`}
                       >
-                        <item.icon_white
-                          className={`size-[18px] dark:hidden ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} `}
+                        {item.title === "Settings" ? (
+                          <Settings className={`!size-[18px] ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"}`} />
+                        ) :
+                        (
+                        <item.icon
+                          className={`!size-[18px]  ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} `}
                         />
-                        <item.icon_black
-                          className={`hidden size-[18px] dark:block ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} `}
-                        />
+                        )}
+                        
                       </span>
                       <span className="h-max !text-wrap text-left">
                         {item.title}

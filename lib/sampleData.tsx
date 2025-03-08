@@ -12,7 +12,7 @@ import {
 
 import Settings  from "@/lib/settings";
 
-import { AppointmentsData, CallRecording, FaqData,MetricsData } from "./types";
+import { AppointmentsData, CallRecording, FaqData,MetricsData, sideBarPageProp } from "./types";
 
 export const metricsData: MetricsData = {
   callMinutes: { minutes: 100227, difference: -1.4 },
@@ -280,41 +280,35 @@ export const faqsData: FaqData[] = [
   },
 ];
 
-export const items = [
+export const items:sideBarPageProp[] = [
   {
     title: "Dashboard",
     url: "#",
-    icon_white: Home,
-    icon_black: Home,
+    icon: Home,
   },
   {
     title: "Analytics",
     url: "#",
-    icon_white: ChartLine,
-    icon_black: ChartLine,
+    icon: ChartLine,
   },
   {
     title: "Recordings & Transcripts",
     url: "#",
-    icon_white: Voicemail,
-    icon_black: Voicemail,
+    icon: Voicemail,
   },
   {
     title: "FAQs",
     url: "#",
-    icon_white: CircleHelp,
-    icon_black: CircleHelp,
+    icon: CircleHelp,
   },
   {
     title: "Errors",
     url: "#",
-    icon_white: ShieldAlert,
-    icon_black: ShieldAlert,
+    icon: ShieldAlert,
   },
   {
     title: "Settings",
     url: "#",
-    icon_white: Settings ,
-    icon_black: Settings ,
+    icon: Settings,
   },
 ];

@@ -33,7 +33,7 @@ export function NotificationList({
     notifications.map((notification) => (
       <div
         key={notification.id}
-        className="relative mb-4 flex items-center space-x-4 pt-3"
+        className="relative mb-4 flex items-center space-x-4 pt-3 "
       >
         <Avatar>
           <AvatarImage src={notification.img} />
@@ -55,7 +55,7 @@ export function NotificationList({
         </div>
         <button
           onClick={() => removeNotification(notification.id)}
-          className="absolute right-1 top-1 text-gray-500 hover:text-red-500"
+          className="absolute right-1 top-1 text-gray-500 hover:text-red-500 focus-visible:outline-none"
         >
           ✕
         </button>
@@ -74,18 +74,18 @@ export function MobileNotification({
   removeNotification: (id: number) => void;
 }) {
   return (
-    <Sheet>
-      <SheetTrigger>
+    <Sheet >
+      <SheetTrigger className="cursor-pointer">
         <span className="relative">
           {notifications.length > 0 && (
-            <span className="absolute left-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+            <span className="absolute left-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white cursor-pointer">
               {notifications.length}
             </span>
           )}
-           <Bell fill="white" size={16} />
+        <Bell  size={16} className="fill-foreground stroke-foreground"/>
         </span>
       </SheetTrigger>
-      <SheetContent className="rounded-l-xl">
+      <SheetContent className="rounded-l-xl"  autoFocus={false} >
         <SheetHeader>
           <SheetTitle>Notifications</SheetTitle>
           <SheetDescription></SheetDescription>
@@ -108,14 +108,14 @@ export function DesktopNotification({
 }) {
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <span className="relative">
+      <PopoverTrigger asChild className="cursor-pointer">
+        <span className="relative ">
            {notifications.length > 0 && (
-             <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
-               <p className="cursor-context-menu">{notifications.length}</p>
+             <span className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full bg-red-500 px-2 text-xs font-semibold text-white cursor-pointer">
+               <p className="cursor-hover">{notifications.length}</p>
              </span>
            )}
-        <Bell fill="white" size={16} />
+        <Bell  size={16} className="fill-foreground stroke-foreground"/>
         </span>
       </PopoverTrigger>
       <PopoverContent className="w-80 rounded-xl">

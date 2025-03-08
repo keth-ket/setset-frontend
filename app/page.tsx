@@ -8,6 +8,7 @@ import Metrics from "@/components/widgets/dashboard/metrics";
 import Footer from "@/components/widgets/footer";
 import { DateProvider } from "@/context/DateContext";
 import { useDateRange } from "@/hooks/use-date-range";
+import {ModeToggle} from "@/components/widgets/theme-toggle";
 
 function DashboardContent() {
   const { setDateRange } = useDateRange();
@@ -21,6 +22,7 @@ function DashboardContent() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-10 pt-0">
       <div className="flex flex-row gap-4">
+        <ModeToggle />
         <DatePickerWithRange />
         <Button className="flex flex-row gap-2" onClick={handleReset}>
           <RefreshCw />

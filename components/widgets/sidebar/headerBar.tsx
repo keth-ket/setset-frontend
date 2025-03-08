@@ -1,40 +1,59 @@
-import {  UserRound } from "lucide-react";
 import React from "react";
+import { UserRound } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Notification from "@/components/widgets/sidebar/notification";
-import Settings from "@/lib/settings";
+import SettingIcon from "@/lib/settings";
 import { sideBarPageProp } from "@/lib/types";
+import { SettingsHeader } from "@/lib/settings";
 
-export function HeaderBar({ currPage }: { currPage: sideBarPageProp }) {
+interface HeaderBarProps {
+  currPage: sideBarPageProp;
+}
+
+const SidebarIcon = ({ currPage }: { currPage: sideBarPageProp }) => {
   return (
-    <section className="flex flex-1 justify-between px-6 md:px-10">
-      <span className="flex items-start gap-2">
-        <span className="flex cursor-pointer justify-start items-start p-2">
-          <SidebarTrigger className="w-fit gap-5 text-lg font-semibold text-foreground hover:bg-transparent md:text-2xl">
-            <span className="rounded-xl bg-foreground p-2">
-              <currPage.icon_white className="!size-6 stroke-primary" />
-            </span>
-
-            <p className="w-full max-w-[25%] truncate text-left ">
-              {currPage.title}
-            </p>
-          </SidebarTrigger>
-        </span>
+    <SidebarTrigger className="flex w-full items-center gap-5 text-lg font-semibold text-foreground hover:bg-transparent md:text-2xl">
+      <span className="rounded-xl bg-primary-foreground p-2">
+      {
+          currPage.title === "Settings"? (
+            <SettingsHeader />
+          ):
+          (
+            <currPage.icon className="!size-6  stroke-primary" />
+          )
+        }
+        {/* <currPage.icon className="!size-6 stroke-primary" /> */}
       </span>
+      <p className="truncate whitespace-nowrap overflow-ellipsis ">{currPage.title}</p>
+    </SidebarTrigger>
+  );
+};
 
-      <span className="flex items-center justify-evenly gap-1  md:gap-7">
-        <Button variant="ghost">
-          <UserRound className="m-2 fill-foreground stroke-foreground md:m-0" />
-          <p className="hidden text-lg md:block">Sign in</p>
-        </Button>
 
-        <Button variant={"ghost"}>
-          <Settings />
+const UserButton = () => {
+  return (
+    <Button variant="ghost" className="flex items-center gap-2 hover:bg-transparent">
+      <UserRound className="fill-foreground stroke-foreground" />
+    </Button>
+  );
+};
+
+export function HeaderBar({ currPage }: HeaderBarProps) {
+  return (
+    <header className="flex w-full items-center justify-between px-6 md:px-10">
+      <div className="flex items-center">
+        <SidebarIcon currPage={currPage} />
+      </div>
+
+      <div className="flex items-center gap-3 md:gap-7">
+        <UserButton />
+        <Button variant="ghost" className="hover:bg-transparent hidden sm:block">
+        <SettingIcon  />
         </Button>
-        {<Notification />}
-      </span>
-    </section>
+        <Notification  />
+      </div>
+    </header>
   );
 }
