@@ -4,12 +4,13 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { Slot } from "@radix-ui/react-slot";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { cva, VariantProps } from "class-variance-authority";
+// import { PanelLeft } from "lucide-react"
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent,SheetDescription,SheetHeader } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
@@ -215,6 +216,11 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
+            <SheetHeader>
+              <SheetDescription>
+              
+              </SheetDescription>
+            </SheetHeader>
             <VisuallyHidden asChild>
               <DialogTitle>Sidebar Menu</DialogTitle>
             </VisuallyHidden>
@@ -260,7 +266,7 @@ const Sidebar = React.forwardRef<
         >
           <div
             data-sidebar="sidebar"
-            className="flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
+            className="flex size-full flex-col rounded-r-[15px] bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
           >
             {children}
           </div>
@@ -290,7 +296,8 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
-      <span className="sr-only">Toggle Sidebar</span>
+      {/* <PanelLeft className="!size-6"/> */}
+      {/* <span className="sr-only">Toggle Sidebar</span> */}
     </Button>
   );
 });
