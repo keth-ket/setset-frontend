@@ -1,4 +1,5 @@
 import { DateRange } from "react-day-picker";
+import { ReactElement } from "react";
 
 export type DateContextType = {
   dateRange?: DateRange;
@@ -61,4 +62,26 @@ export type CallRecording = {
 export type AppointmentsRadar = {
   type: "Booked" | "Cancelled" | "Transferred" | "Rescheduled";
   customers: number;
+};
+
+export type BusinessStat = {
+  //name: string;
+  callMinutes: number;
+  moneySaved: number;
+  satisfaction: number;
+  newCallers: number;
+};
+
+export type BusinessCard = {
+  id: string;
+  icon: ReactElement;
+  title: string;
+  value: number;
+};
+
+export type BusinessInfo = {
+  id: string;
+  title: string;
+  content: string;
+  cards: BusinessCard[];
 };
