@@ -85,3 +85,22 @@ export type BusinessInfo = {
   content: string;
   cards: BusinessCard[];
 };
+export type notificationObject = {
+  id: number;
+  type: string;
+  title: string;
+  content: string;
+  time: string;
+  img: string;
+  read: boolean;
+};
+
+export type sideBarPageProp = {
+  title: string;
+  url: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+};
+export type settingSVGProp = React.SVGProps<SVGSVGElement> & {
+  fillProp: string;
+  circleProp: string;
+};

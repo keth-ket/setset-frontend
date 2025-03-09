@@ -1,14 +1,8 @@
 "use client";
 
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
   SidebarContent,
@@ -20,74 +14,80 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { sideBarPageProp } from "@/lib/types";
 
-// Menu items.
-const items = [
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-];
+const getPageInfo = (page: string, items: sideBarPageProp[]): sideBarPageProp | undefined => {
+  return items.find((item) => item.title === page);
+};
+export function AppSidebar({
+  updateCurrPage,
+  items,
+}: {
+  updateCurrPage: (page: sideBarPageProp) => void;
+  items: sideBarPageProp[];
+}) {
+  const [currSelectd, setCurrSelected] = useState("Dashboard");
+  // useEffect to send data to parent on page load
+  useEffect(() => {
+    const pageInfo = getPageInfo("Dashboard",items);
+    if (pageInfo) {
+      updateCurrPage(pageInfo);
+    }
+  }, [updateCurrPage, items]);
 
-export function AppSidebar() {
+  const handleSelected = (item: string) => {
+    setCurrSelected(item);
+    const pageInfo = getPageInfo(item, items);
+    if (pageInfo) {
+      updateCurrPage(pageInfo);
+    }
+  };
+
   return (
-    <Sidebar>
+    <Sidebar variant="floating" className="rounded-2xl">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-2">Setset</SidebarGroupLabel>
+          <SidebarGroupLabel className="mb-0 mt-[10px] p-[30px] font-semibold">
+            Setset
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="mb-2">
-                  <SidebarMenuButton asChild className="text-base md:text-lg">
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                <SidebarMenuItem
+                  key={item.title}
+                  className="mb-2"
+                  onClick={() => handleSelected(item.title)}
+                >
+                  <SidebarMenuButton asChild className="text-base md:text-sm">
+                    <a
+                      href={item.url}
+                      className={`p-[30px] hover:text-sidebar-foreground ${item.title === "Settings" ? "sm:hidden " : ""}`}
+                    >
+                      <span
+                        className={`flex !size-[38px] shrink-0 items-center justify-center ${currSelectd === item.title ? "rounded-lg bg-primary-foreground font-semibold" : "bg-transparent"}`}
+                      >
+                        {item.title === "Settings" ? (
+                          <Settings className={`!size-[18px] ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"}`} />
+                        ) :
+                        (
+                        <item.icon
+                          className={`!size-[18px]  ${currSelectd === item.title ? "stroke-primary" : "text-muted-foreground"} `}
+                        />
+                        )}
+                        
+                      </span>
+                      <span className="h-max !text-wrap text-left">
+                        {item.title}
+                      </span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+          <SidebarFooter />
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <Separator className="bg-muted-foreground/20" />
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton className="text-base md:text-lg">
-                  <Settings />
-                  <span>Settings</span>
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -1,5 +1,9 @@
 import {
+  ChartLine,
+  CircleHelp,
+  Home,
   MonitorCheck,
+  ShieldAlert,
   ThumbsUp,
   TimerReset,
   Users,
@@ -8,7 +12,18 @@ import {
   WalletMinimal,
 } from "lucide-react";
 
-import { AppointmentsData, BusinessStat, BusinessInfo, CallRecording, FaqData, MetricsData, BusinessCard } from "./types";
+import Settings from "@/lib/settings";
+
+import {
+  AppointmentsData,
+  BusinessStat,
+  BusinessInfo,
+  CallRecording,
+  FaqData,
+  MetricsData,
+  BusinessCard,
+  sideBarPageProp,
+} from "./types";
 
 export const metricsData: MetricsData = {
   callMinutes: { minutes: 100227, difference: -1.4 },
@@ -120,7 +135,8 @@ export const callRecordingsData: CallRecording[] = [
     category: "Booking",
     confidenceScore: 9.8,
     duration: "0:18",
-    recordingUrl: "https://actions.google.com/sounds/v1/cartoon/rainstick_slow.ogg",
+    recordingUrl:
+      "https://actions.google.com/sounds/v1/cartoon/rainstick_slow.ogg",
     transcriptUrl: "https://example.com/recording1.pdf",
   },
   {
@@ -129,7 +145,8 @@ export const callRecordingsData: CallRecording[] = [
     category: "Cancellation",
     confidenceScore: 9.9,
     duration: "0:50",
-    recordingUrl: "https://actions.google.com/sounds/v1/ambiences/barnyard_with_animals.ogg",
+    recordingUrl:
+      "https://actions.google.com/sounds/v1/ambiences/barnyard_with_animals.ogg",
     transcriptUrl: "https://example.com/recording2.pdf",
   },
   {
@@ -159,17 +176,55 @@ export const callRecordingsData: CallRecording[] = [
     recordingUrl: "https://example.com/recording5.mp3",
     transcriptUrl: "https://example.com/recording5.pdf",
   },
-  {
-    id: "6",
-    date: "2025-01-25",
-    category: "Cancellation",
-    confidenceScore: 8.9,
-    duration: "16:12",
-    recordingUrl: "https://example.com/recording5.mp3",
-    transcriptUrl: "https://example.com/recording5.pdf",
-  },
 ];
 
+export const initialNotifications = [
+  {
+    id: 1,
+    type: "message",
+    title: "New Message from achu",
+    content: "Hey! Are we still on for the meeting?",
+    time: "2 mins ago",
+    img: "https://th.bing.com/th/id/OIP.47NEVXcBGruaDflMzJAsDwAAAA?rs=1&pid=ImgDetMain",
+    read: false,
+  },
+  {
+    id: 2,
+    type: "alert",
+    title: "System Update",
+    content: "We've detected unsuall activities on your account.",
+    time: "10 mins ago",
+    img: "https://th.bing.com/th/id/R.a54aae27898553c7865346e0ca2a9ceb?rik=G%2bPKqgYavMXWAQ&pid=ImgRaw&r=0",
+    read: false,
+  },
+  {
+    id: 3,
+    type: "friend_request",
+    title: "New Friend Request",
+    content: "Jordan sent you a friend request.",
+    time: "30 mins ago",
+    img: "https://randomuser.me/api/portraits/women/2.jpg",
+    read: true,
+  },
+  {
+    id: 4,
+    type: "mention",
+    title: "You were mentioned!",
+    content: "Sophia mentioned you in a comment.",
+    time: "1 hour ago",
+    img: "https://cdn-icons-png.flaticon.com/512/2958/2958783.png",
+    read: false,
+  },
+  {
+    id: 5,
+    type: "reminder",
+    title: "Event Reminder",
+    content: "Don't forget about the project deadline tomorrow!",
+    time: "3 hours ago",
+    img: "https://cdn-icons-png.flaticon.com/512/716/716225.png",
+    read: true,
+  },
+];
 const iconStyles =
   "lg:h-10 lg:w-10 text-white dark:text-black h-8 w-8 bg-black dark:bg-white rounded-lg p-2";
 export const faqsData: FaqData[] = [
@@ -197,7 +252,7 @@ export const faqsData: FaqData[] = [
     id: "3",
     question: "How accurate is the AI in understanding customer inquiries?",
     answer:
-      "If the AI detects low confidence in its response or the caller requests a human agent, it will: Transfer the call to an available representative, Send a detailed summary of the conversation to the agent, Log the request in the dashboard under \"Escalated Calls\" for review. Businesses can customize escalation thresholds and triggers in the settings.",
+      'If the AI detects low confidence in its response or the caller requests a human agent, it will: Transfer the call to an available representative, Send a detailed summary of the conversation to the agent, Log the request in the dashboard under "Escalated Calls" for review. Businesses can customize escalation thresholds and triggers in the settings.',
     frequency: 18,
     icon: <Users className={iconStyles} />,
     timeRangeStart: "4:00 PM",
@@ -243,7 +298,7 @@ const testData: BusinessStat = {
 };
 
 //Metric Card for this test business
-const cards:BusinessCard[] = [
+const cards: BusinessCard[] = [
   {
     id: "money-saved",
     icon: <WalletMinimal className={iconStyles} />,
@@ -270,7 +325,7 @@ const cards:BusinessCard[] = [
   },
 ];
 
-const cards2:BusinessCard[] = [
+const cards2: BusinessCard[] = [
   {
     id: "money-saved",
     icon: <WalletMinimal className={iconStyles} />,
@@ -365,5 +420,38 @@ export const business: BusinessInfo[] = [
     title: "Business Name 11",
     content: "Description 11",
     cards: cards,
+  },
+];
+
+export const items: sideBarPageProp[] = [
+  {
+    title: "Dashboard",
+    url: "#",
+    icon: Home,
+  },
+  {
+    title: "Analytics",
+    url: "#",
+    icon: ChartLine,
+  },
+  {
+    title: "Recordings & Transcripts",
+    url: "#",
+    icon: Voicemail,
+  },
+  {
+    title: "FAQs",
+    url: "#",
+    icon: CircleHelp,
+  },
+  {
+    title: "Errors",
+    url: "#",
+    icon: ShieldAlert,
+  },
+  {
+    title: "Settings",
+    url: "#",
+    icon: Settings,
   },
 ];
