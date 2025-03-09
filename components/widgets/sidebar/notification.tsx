@@ -63,6 +63,20 @@ export function NotificationList({
   );
 }
 
+const notificationAlert = (len: number) => {
+  return (
+    <div className="relative flex items-center justify-center">
+      <Bell size={16} className="fill-foreground stroke-foreground" />
+      {len > 0 && (
+        <span className="absolute -top-1 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
+          {len}
+        </span>
+      )}
+    </div>
+  );
+};
+
+
 export function MobileNotification({
   notifications,
   removeNotification,
@@ -73,14 +87,7 @@ export function MobileNotification({
   return (
     <Sheet >
       <SheetTrigger className="cursor-pointer">
-        <span className="relative">
-          {notifications.length > 0 && (
-            <span className="absolute left-0 top-0 -mr-2 -mt-2 cursor-pointer rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
-              {notifications.length}
-            </span>
-          )}
-        <Bell  size={16} className="fill-foreground stroke-foreground"/>
-        </span>
+      {notificationAlert(notifications.length)}
       </SheetTrigger>
       <SheetContent className="rounded-l-xl"  autoFocus={false} >
         <SheetHeader>
@@ -106,14 +113,7 @@ export function DesktopNotification({
   return (
     <Popover>
       <PopoverTrigger asChild className="cursor-pointer">
-        <span className="relative ">
-           {notifications.length > 0 && (
-             <span className="absolute right-0 top-0 -mr-2 -mt-2 cursor-pointer rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
-               <p className="cursor-pointer">{notifications.length}</p>
-             </span>
-           )}
-        <Bell  size={16} className="fill-foreground stroke-foreground"/>
-        </span>
+        {notificationAlert(notifications.length)}
       </PopoverTrigger>
       <PopoverContent className="w-80 rounded-xl">
         <NotificationList
