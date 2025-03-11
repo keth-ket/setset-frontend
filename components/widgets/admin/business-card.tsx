@@ -65,7 +65,7 @@ const Business = () => {
   const filteredBusiness = getFilteredBusiness(search, business);
 
   return (
-    <div className="flex h-full flex-col gap-y-8">
+    <div className="flex flex-grow flex-wrap h-full flex-col gap-y-8">
       <div className="flex w-[20%] flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
         <Search className="ml-2" />
         <Input
@@ -76,11 +76,11 @@ const Business = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-y-8">
+      <div className="flex flex-grow flex-col gap-y-8 mb-16">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
-            <Card className="flex w-full flex-1 flex-row items-center justify-between p-0">
-              <CardContent className="flex min-w-[20%] max-w-[20%] gap-[1vw] p-3">
+            <Card className="flex flex-row w-full justify-between mb-auto">
+              <CardContent className="ml-6 flex items-center gap-[1vw] p-0 w-[20%]">
                 <div className="flex items-center justify-center">
                   <img
                     src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
@@ -98,12 +98,12 @@ const Business = () => {
                 </div>
               </CardContent>
 
-              <CardContent className="flex min-w-[60%] flex-row justify-between p-3">
+              <CardContent className="flex flex-row justify-between p-3 gap-x-10 w-[70%]">
                 {business.cards.map((card) => (
-                  <div key={card.id} className="flex w-[15%] gap-[1vw]">
-                    <CardContent className="flex items-center justify-center rounded-xl p-3">
+                  <div key={card.id} className="flex gap-x-2 w-[15%]">
+                    <div className="flex items-center justify-center rounded-xl p-3">
                       {card.icon}
-                    </CardContent>
+                    </div>
                     <div className="flex flex-col justify-center lg:gap-1">
                       <p className="text-xs">{card.title}</p>
                       <p className="text-2xl font-bold">
@@ -114,8 +114,8 @@ const Business = () => {
                 ))}
               </CardContent>
 
-              <CardContent className="mr-8 flex w-[10%] flex-row flex-wrap items-end justify-end p-1">
-                <Button className="bg-green-400 text-accent hover:bg-green-400/50">
+              <CardContent className="flex w-[10%] flex-row justify-end items-center p-0 mr-6">
+                <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50">
                   <MessageSquareText />
                   <p>Chat</p>
                 </Button>
@@ -125,7 +125,7 @@ const Business = () => {
         ))}
       </div>
       
-      <div className="absolute inset-x-0 bottom-6 mt-auto flex w-full items-center">
+      <div className="absolute bottom-6 flex w-full items-center">
         <Pagination>
           <PaginationContent>
             <PaginationItem className={paginationItemformat}>
