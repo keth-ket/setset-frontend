@@ -4,6 +4,7 @@ import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { business } from "@/lib/sampleData";
 import { BusinessInfo } from "@/lib/types";
+import { BusinessPaginate} from "../business/business-pagination";
 import {
   Pagination,
   PaginationContent,
@@ -52,9 +53,107 @@ const getFilteredBusiness = (search: string, business: BusinessInfo[]) => {
   });
 };
 
-const Business = () => {
+const Paginate = ({ 
+  activePage, 
+  maxPages, 
+  itemsPerPage, 
+  onPageChange 
+}: { 
+  activePage: number, 
+  maxPages: number, 
+  itemsPerPage: number, 
+  onPageChange: (page: number) => void 
+}) => {
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem className={paginationItemformat}>
+          <PaginationPrevious
+            className={activePage === 1 ? "" : undefined}
+            onClick={() => {
+              if (activePage > 1) {
+                onPageChange(activePage - 1);
+              }
+            }}
+          />
+        </PaginationItem>
+
+        {/* Dynamic Pagination Links */}
+        {maxPages > 10 ? (
+          <>
+            {Array.from({ length: 3 }, (_, index) => {
+              let page = activePage <= maxPages - 5 
+                ? activePage + index 
+                : maxPages - 5 + index;
+
+              if (page >= 1 && page < maxPages - 2) {
+                return (
+                  <PaginationItem key={index} className={paginationItemformat}>
+                    <PaginationLink
+                      isActive={activePage === page}
+                      onClick={() => onPageChange(page)}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              }
+              return null;
+            })}
+
+            <PaginationEllipsis />
+
+            {/* Show last 3 pages */}
+            {Array.from({ length: 3 }, (_, index) => {
+              const page = maxPages - 2 + index;
+              if (page >= maxPages - 2 && page <= maxPages) {
+                return (
+                  <PaginationItem key={index} className={paginationItemformat}>
+                    <PaginationLink
+                      isActive={activePage === page}
+                      onClick={() => onPageChange(page)}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              }
+              return null;
+            })}
+          </>
+        ) : (
+          // If maxPages <= 5, show all pages
+          Array.from({ length: maxPages }, (_, index) => (
+            <PaginationItem key={index} className={paginationItemformat}>
+              <PaginationLink
+                isActive={activePage === index + 1}
+                onClick={() => onPageChange(index + 1)}
+              >
+                {index + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))
+        )}
+
+        <PaginationItem className={paginationItemformat}>
+          <PaginationNext
+            className={activePage === maxPages ? "" : undefined}
+            onClick={() => {
+              if (activePage < maxPages) {
+                onPageChange(activePage + 1);
+              }
+            }}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+};
+
+const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
   //calculation for pagination
-  const itemsPerPage = 5;
+  //if admin show 5 otherwise show 6
+  const itemsPerPage = isAdminPage ? 5 : 6;
   const maxPages = Math.ceil(business.length / itemsPerPage);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(itemsPerPage);
@@ -64,8 +163,14 @@ const Business = () => {
   const [search, setSearch] = useState("");
   const filteredBusiness = getFilteredBusiness(search, business);
 
+  const handlePageChange = (page: number) => {
+    setActivePage(page);
+    setStartIndex((page - 1) * itemsPerPage);
+    setEndIndex(page * itemsPerPage);
+  };
+  
   return (
-    <div className="flex flex-grow flex-wrap h-full flex-col gap-y-8">
+    <div className="flex h-full flex-grow flex-col flex-wrap gap-y-8">
       <div className="flex w-[20%] flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
         <Search className="ml-2" />
         <Input
@@ -76,11 +181,11 @@ const Business = () => {
         />
       </div>
 
-      <div className="flex flex-grow flex-col gap-y-8 mb-16">
+      <div className="mb-16 flex flex-grow flex-col gap-y-8">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
-            <Card className="flex flex-row w-full justify-between mb-auto">
-              <CardContent className="ml-6 flex items-center gap-[1vw] p-0 w-[20%]">
+            <Card className="mb-auto flex w-full flex-row justify-between">
+              <CardContent className="ml-6 flex w-[20%] items-center gap-[1vw] p-0">
                 <div className="flex items-center justify-center">
                   <img
                     src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
@@ -98,9 +203,9 @@ const Business = () => {
                 </div>
               </CardContent>
 
-              <CardContent className="flex flex-row justify-between p-3 gap-x-10 w-[70%]">
+              <CardContent className="flex w-[70%] flex-row justify-between gap-x-10 p-3">
                 {business.cards.map((card) => (
-                  <div key={card.id} className="flex gap-x-2 w-[15%]">
+                  <div key={card.id} className="flex w-[15%] gap-x-2">
                     <div className="flex items-center justify-center rounded-xl p-3">
                       {card.icon}
                     </div>
@@ -114,7 +219,7 @@ const Business = () => {
                 ))}
               </CardContent>
 
-              <CardContent className="flex w-[10%] flex-row justify-end items-center p-0 mr-6">
+              <CardContent className="mr-6 flex w-[10%] flex-row items-center justify-end p-0">
                 <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50">
                   <MessageSquareText />
                   <p>Chat</p>
@@ -124,115 +229,16 @@ const Business = () => {
           </div>
         ))}
       </div>
-      
-      <div className="absolute bottom-6 flex w-full items-center">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem className={paginationItemformat}>
-              <PaginationPrevious
-                className={activePage === 1 ? "" : undefined}
-                onClick={() => {
-                  if (startIndex > 0) {
-                    setStartIndex(startIndex - itemsPerPage);
-                    setEndIndex(endIndex - itemsPerPage);
-                    setActivePage(activePage - 1);
-                  }
-                }}
-              ></PaginationPrevious>
-            </PaginationItem>
 
-            {/* Dynamic Pagination Links */}
-            {maxPages > 10 ? (
-              <>
-                {Array.from({ length: 3 }, (_, index) => {
-                  let page;
-                  if (activePage <= maxPages - 5) {
-                    page = activePage + index;
-                  } else {
-                    page = maxPages - 5 + index;
-                  }
-
-                  if (page >= 1 && page < maxPages - 2) {
-                    return (
-                      <PaginationItem
-                        key={index}
-                        className={paginationItemformat}
-                      >
-                        <PaginationLink
-                          isActive={activePage === page}
-                          onClick={() => {
-                            setStartIndex((page - 1) * itemsPerPage);
-                            setEndIndex(page * itemsPerPage);
-                            setActivePage(page);
-                          }}
-                        >
-                          {page}
-                        </PaginationLink>
-                      </PaginationItem>
-                    );
-                  }
-                  return null;
-                })}
-
-                <PaginationEllipsis />
-                {/* Show the last 3 pages */}
-                {Array.from({ length: 3 }, (_, index) => {
-                  const page = maxPages - 2 + index;
-                  if (page >= maxPages - 2 && page <= maxPages) {
-                    return (
-                      <PaginationItem
-                        key={index}
-                        className={paginationItemformat}
-                      >
-                        <PaginationLink
-                          isActive={activePage === page}
-                          onClick={() => {
-                            setStartIndex((page - 1) * itemsPerPage);
-                            setEndIndex(page * itemsPerPage);
-                            setActivePage(page);
-                          }}
-                        >
-                          {page}
-                        </PaginationLink>
-                      </PaginationItem>
-                    );
-                  }
-                  return null;
-                })}
-              </>
-            ) : (
-              // If maxPages <= 5, show all the pagination links
-              Array.from({ length: maxPages }, (_, index) => (
-                <PaginationItem className={paginationItemformat} key={index}>
-                  <PaginationLink
-                    isActive={activePage === index + 1}
-                    onClick={() => {
-                      setStartIndex(index * itemsPerPage);
-                      setEndIndex((index + 1) * itemsPerPage);
-                      setActivePage(index + 1);
-                    }}
-                  >
-                    {index + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))
-            )}
-
-            <PaginationItem className={paginationItemformat}>
-              <PaginationNext
-                className={activePage == maxPages ? "" : undefined}
-                onClick={() => {
-                  if (endIndex < business.length) {
-                    setStartIndex(startIndex + itemsPerPage);
-                    setEndIndex(endIndex + itemsPerPage);
-                    setActivePage(activePage + 1);
-                  }
-                }}
-              ></PaginationNext>
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
+      {!isAdminPage && (
+        <div className="absolute bottom-6 flex w-full items-center">
+          <BusinessPaginate
+            activePage={activePage}
+            maxPages={maxPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      )}
     </div>
   );
 };
