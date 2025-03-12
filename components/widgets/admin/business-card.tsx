@@ -181,10 +181,10 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
         />
       </div>
 
-      <div className="mb-16 flex flex-grow flex-col gap-y-8">
+      <div className="mb-16 flex flex-grow flex-col gap-y-6">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
-            <Card className="mb-auto flex w-full flex-row justify-between">
+            <Card className="flex w-full flex-row justify-between">
               <CardContent className="ml-6 flex w-[20%] items-center gap-[1vw] p-0">
                 <div className="flex items-center justify-center">
                   <img
