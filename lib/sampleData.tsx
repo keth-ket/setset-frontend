@@ -1,5 +1,4 @@
 import {
-  ChartLine,
   CircleHelp,
   Home,
   MonitorCheck,
@@ -432,11 +431,6 @@ export const items: sideBarPageProp[] = [
     icon: Home,
   },
   {
-    title: "Analytics",
-    url: "#",
-    icon: ChartLine,
-  },
-  {
     title: "Recordings & Transcripts",
     url: "#",
     icon: Voicemail,
@@ -447,7 +441,7 @@ export const items: sideBarPageProp[] = [
     icon: CircleHelp,
   },
   {
-    title: "Errors",
+    title: "Reports",
     url: "#",
     icon: ShieldAlert,
   },

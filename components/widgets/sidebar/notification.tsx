@@ -66,9 +66,9 @@ export function NotificationList({
 const notificationAlert = (len: number) => {
   return (
     <div className="relative flex items-center justify-center">
-      <Bell size={16} className="fill-foreground stroke-foreground" />
+      <Bell className="!size-5 fill-foreground stroke-foreground sm:!size-6" />
       {len > 0 && (
-        <span className="absolute -top-1 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
+        <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
 
           {len}
         </span>
