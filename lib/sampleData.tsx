@@ -298,28 +298,30 @@ const testData: BusinessStat = {
 };
 
 //Metric Card for this test business
+const BusinessIconStyles =
+  "lg:h-14 lg:w-14 text-white dark:text-black h-12 w-12 bg-black dark:bg-white rounded-lg p-3";
 const cards: BusinessCard[] = [
   {
     id: "money-saved",
-    icon: <WalletMinimal className={iconStyles} />,
+    icon: <WalletMinimal className={BusinessIconStyles}/>,
     title: "Money Saved",
     value: testData.moneySaved,
   },
   {
     id: "satisfaction",
-    icon: <ThumbsUp className={iconStyles} />,
+    icon: <ThumbsUp className={BusinessIconStyles}/>,
     title: "Satisfaction",
     value: testData.satisfaction,
   },
   {
     id: "minutes-saved",
-    icon: <TimerReset className={iconStyles} />,
+    icon: <TimerReset className={BusinessIconStyles}/>,
     title: "Minutes Saved",
     value: testData.callMinutes,
   },
   {
     id: "new-callers",
-    icon: <UsersRound className={iconStyles} />,
+    icon: <UsersRound className={BusinessIconStyles}/>,
     title: "New Callers",
     value: testData.newCallers,
   },
@@ -328,25 +330,25 @@ const cards: BusinessCard[] = [
 const cards2: BusinessCard[] = [
   {
     id: "money-saved",
-    icon: <WalletMinimal className={iconStyles} />,
+    icon: <WalletMinimal className={BusinessIconStyles}/>,
     title: "Money Saved",
     value: testData.moneySaved,
   },
   {
     id: "satisfaction",
-    icon: <ThumbsUp className={iconStyles} />,
+    icon: <ThumbsUp className={BusinessIconStyles}/>,
     title: "Satisfaction",
     value: testData.satisfaction,
   },
   {
     id: "minutes-saved",
-    icon: <TimerReset className={iconStyles} />,
+    icon: <TimerReset className={BusinessIconStyles}/>,
     title: "Minutes Saved",
     value: 1000000,
   },
   {
     id: "new-callers",
-    icon: <UsersRound className={iconStyles} />,
+    icon: <UsersRound className={BusinessIconStyles}/>,
     title: "New Callers",
     value: testData.newCallers,
   },

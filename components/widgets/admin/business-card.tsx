@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
-import {business} from "@/lib/sampleData";
-import {BusinessInfo } from "@/lib/types";
+import { business } from "@/lib/sampleData";
+import { BusinessInfo } from "@/lib/types";
+import { BusinessPaginate} from "../business/business-pagination";
 import {
   Pagination,
   PaginationContent,
@@ -15,10 +16,7 @@ import {
 } from "@/components/ui/pagination";
 
 //some icons that needed
-import {
-  MessageSquareText,
-  Search
-} from "lucide-react";
+import { MessageSquareText, Search } from "lucide-react";
 
 //shadcn card ui
 import {
@@ -30,7 +28,7 @@ import {
   CardTitle,
 } from "../../ui/card";
 
-const layoutFormat = "flex flex-items mt-6";
+const layoutFormat = "flex flex-items";
 const paginationItemformat = "bg-card text-card-foreground rounded-lg";
 
 //Format value for money and satisfaction
@@ -46,190 +44,105 @@ const formatValue = (value: number, type: string) => {
 };
 
 const getFilteredBusiness = (search: string, business: BusinessInfo[]) => {
-  if(!search)
-  {
+  if (!search) {
     return business;
   }
 
   return business.filter((business) => {
     return business.title.toLowerCase().includes(search.toLowerCase());
   });
-}
+};
 
-const Business = () => {
+const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
   //calculation for pagination
-  const itemsPerPage = 7;
+  //if admin show 5 otherwise show 6
+  const itemsPerPage = isAdminPage ? 5 : 6;
   const maxPages = Math.ceil(business.length / itemsPerPage);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(itemsPerPage);
-  const [activePage, setActivePage] = useState(1); 
+  const [activePage, setActivePage] = useState(1);
 
   //handle searching
   const [search, setSearch] = useState("");
   const filteredBusiness = getFilteredBusiness(search, business);
 
+  const handlePageChange = (page: number) => {
+    setActivePage(page);
+    setStartIndex((page - 1) * itemsPerPage);
+    setEndIndex(page * itemsPerPage);
+  };
+  
   return (
-    <div> 
-      <div className="flex flex-row pb-0 w-[20%] items-center bg-card text-card-foreground rounded-lg border-2 gap-0">
-        <Search className="ml-2"/>
-        <Input type="text" placeholder="Search Business" className="focus-visible:ring-0" 
-        onChange={(e) => setSearch(e.target.value)}/>
+    <div className="flex h-full flex-grow flex-col flex-wrap gap-y-8">
+      <div className="flex w-[20%] flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
+        <Search className="ml-2" />
+        <Input
+          type="text"
+          placeholder="Search Business"
+          className="border-none focus-visible:ring-0"
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
-      <div className="flex flex-col"> 
-      {filteredBusiness.slice(startIndex, endIndex).map((business) => (
-        <div className={layoutFormat} key={business.id}>
-          <Card className="flex flex-row items-center justify-between p-0 w-full">
-            <CardContent className="flex p-3 gap-[1vw] min-w-[20%] max-w-[20%]">
-              <div className="flex items-center justify-center">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
-                  alt="business logo"
-                  className="h-12 w-12 rounded-lg"
-                />
-              </div>
-              <div className="min-w-0">
-                <CardTitle className="text-lg font-light">
-                  {business.title}
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  Card Description
-                </CardDescription>
-              </div>
-            </CardContent>
 
-            <CardContent className="flex flex-row justify-between p-3 min-w-[60%]">
-              {business.cards.map((card) => (
-                <div key={card.id} className="flex gap-[1vw] w-[15%]">
-                  <CardContent className="flex aspect-square items-center justify-center rounded-xl bg-card-foreground p-3">
-                    {card.icon}
-                  </CardContent>
-                  <div className="flex flex-col justify-center lg:gap-1">
-                    <p className="text-xs">{card.title}</p>
-                    <p className="text-2xl font-bold">
-                      {formatValue(card.value, card.id)}
-                    </p>
-                  </div>
+      <div className="mb-16 flex flex-grow flex-col gap-y-6">
+        {filteredBusiness.slice(startIndex, endIndex).map((business) => (
+          <div className={layoutFormat} key={business.id}>
+            <Card className="flex w-full flex-row justify-between">
+              <CardContent className="ml-6 flex w-[20%] items-center gap-[1vw] p-0">
+                <div className="flex items-center justify-center">
+                  <img
+                    src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
+                    alt="business logo"
+                    className="h-12 w-12 rounded-lg"
+                  />
                 </div>
-              ))}
-            </CardContent>
+                <div className="min-w-0">
+                  <CardTitle className="text-lg font-light">
+                    {business.title}
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    Card Description
+                  </CardDescription>
+                </div>
+              </CardContent>
 
-            <CardContent className="mr-8 flex flex-row flex-wrap items-end justify-end p-1 w-[10%]">
-              <Button className="bg-green-400 text-accent hover:bg-green-400/50">
-                <MessageSquareText />
-                <p>Chat</p>
-              </Button>
-            </CardContent>
-          </Card>
+              <CardContent className="flex w-[70%] flex-row justify-between gap-x-10 p-3">
+                {business.cards.map((card) => (
+                  <div key={card.id} className="flex w-[15%] gap-x-2">
+                    <div className="flex items-center justify-center rounded-xl p-3">
+                      {card.icon}
+                    </div>
+                    <div className="flex flex-col justify-center lg:gap-1">
+                      <p className="text-xs">{card.title}</p>
+                      <p className="text-2xl font-bold">
+                        {formatValue(card.value, card.id)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+
+              <CardContent className="mr-6 flex w-[10%] flex-row items-center justify-end p-0">
+                <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50">
+                  <MessageSquareText />
+                  <p>Chat</p>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        ))}
+      </div>
+
+      {!isAdminPage && (
+        <div className="absolute bottom-6 flex w-full items-center">
+          <BusinessPaginate
+            activePage={activePage}
+            maxPages={maxPages}
+            onPageChange={handlePageChange}
+          />
         </div>
-      ))}
-      </div> 
-    
-      <div className="fixed bottom-4 items-center w-full">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem className={paginationItemformat}>
-              <PaginationPrevious className={
-                activePage === 1 ? "" : undefined
-              }
-              onClick={() => {
-                if (startIndex > 0) {
-                  setStartIndex(startIndex - itemsPerPage);
-                  setEndIndex(endIndex - itemsPerPage);
-                  setActivePage(activePage - 1);
-                }
-              }}
-              >        
-              </PaginationPrevious>
-            </PaginationItem>
-
-            {/* Dynamic Pagination Links */}
-            {maxPages > 10 ? (
-            <>
-              {Array.from({ length: 3 }, (_, index) => {
-                let page;
-                if (activePage <= maxPages - 5){
-                  page = activePage + index;
-                }
-                else{                
-                  page = maxPages - 5 + index;
-                }
-
-                if (page >= 1 && page < maxPages - 2)  {
-                  return (
-                    <PaginationItem key={index} className={paginationItemformat}>
-                      <PaginationLink isActive={activePage === page}
-                        onClick={() => {
-                          setStartIndex((page - 1) * itemsPerPage);
-                          setEndIndex(page * itemsPerPage);
-                          setActivePage(page);
-                        }}
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  );
-                }
-                return null;
-              })}
-                            
-              <PaginationEllipsis/>
-              {/* Show the last 3 pages */}
-              {Array.from({ length: 3 }, (_, index) => {
-                const page = maxPages - 2 + index;
-                if (page >= maxPages - 2 && page <= maxPages){
-                  return (
-                    <PaginationItem key={index} className={paginationItemformat}>
-                      <PaginationLink isActive={activePage === page}
-                        onClick={() => {
-                          setStartIndex((page - 1) * itemsPerPage);
-                          setEndIndex(page * itemsPerPage);
-                          setActivePage(page);
-                        }}
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  );
-                }
-                return null;
-              })}
-            </>
-            ) : (
-            // If maxPages <= 5, show all the pagination links
-            Array.from({ length: maxPages }, (_, index) => (
-              <PaginationItem className={paginationItemformat} key={index}>
-                <PaginationLink
-                  isActive={activePage === index + 1}
-                  onClick={() => {
-                    setStartIndex(index * itemsPerPage);
-                    setEndIndex((index + 1) * itemsPerPage);
-                    setActivePage(index + 1);}}
-                >
-                  {index + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))
-          )}
-
-          <PaginationItem className={paginationItemformat}>
-            <PaginationNext className={
-              activePage == maxPages ? "" : undefined
-            }
-            onClick={() => {
-              if (endIndex < business.length) {
-                setStartIndex(startIndex + itemsPerPage);
-                setEndIndex(endIndex + itemsPerPage);
-                setActivePage(activePage + 1);
-              }
-            }}
-            >
-            </PaginationNext>
-          </PaginationItem>
-
-        </PaginationContent>
-      </Pagination>
+      )}
     </div>
-  </div>  
   );
 };
 
