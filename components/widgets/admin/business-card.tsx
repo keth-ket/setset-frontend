@@ -88,16 +88,16 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
             <Card className="flex w-full flex-row justify-between">
-              <CardContent className="ml-6 flex w-[20%] items-center gap-[1vw] p-0">
+              <CardContent className="flex flex-row ml-6 flex-initial w-[18%] items-center gap-[1vw] p-0">
                 <div className="flex items-center justify-center">
                   <img
                     src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
                     alt="business logo"
-                    className="h-12 w-12 rounded-lg"
+                    className="h-10 w-10 rounded-lg"
                   />
                 </div>
-                <div className="min-w-0">
-                  <CardTitle className="text-lg font-light">
+                <div className="flex flex-col gap-y-2">
+                  <CardTitle className="text-sm font-light">
                     {business.title}
                   </CardTitle>
                   <CardDescription className="text-xs">
@@ -106,15 +106,15 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                 </div>
               </CardContent>
 
-              <CardContent className="flex w-[70%] flex-row justify-between gap-x-10 p-3">
+              <CardContent className="flex flex-initial flex-grow flex-row justify-between p-3">
                 {business.cards.map((card) => (
-                  <div key={card.id} className="flex w-[15%] gap-x-2">
+                  <div key={card.id} className="flex flex-initial gap-x-1">
                     <div className="flex items-center justify-center rounded-xl p-3">
                       {card.icon}
                     </div>
                     <div className="flex flex-col justify-center lg:gap-1">
                       <p className="text-xs">{card.title}</p>
-                      <p className="text-2xl font-bold">
+                      <p className="text-base font-bold">
                         {formatValue(card.value, card.id)}
                       </p>
                     </div>
@@ -122,8 +122,8 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                 ))}
               </CardContent>
 
-              <CardContent className="mr-6 flex w-[10%] flex-row items-center justify-end p-0">
-                <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50">
+              <CardContent className="w-[10%] mr-6 flex flex-initial flex-row items-center justify-end p-0">
+                <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50 ">
                   <MessageSquareText />
                   <p>Chat</p>
                 </Button>

@@ -299,7 +299,7 @@ const testData: BusinessStat = {
 
 //Metric Card for this test business
 const BusinessIconStyles =
-  "lg:h-14 lg:w-14 text-white dark:text-black h-12 w-12 bg-black dark:bg-white rounded-lg p-3";
+  "text-white dark:text-black h-10 w-10 bg-black dark:bg-white rounded-lg p-3";
 const cards: BusinessCard[] = [
   {
     id: "money-saved",
