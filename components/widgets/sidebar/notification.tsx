@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 import {
   Sheet,
   SheetContent,
@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/sheet";
 import { initialNotifications } from "@/lib/sampleData";
 import { notificationObject } from "@/lib/types";
-
 
 export function NotificationList({
   notifications,
@@ -30,7 +29,7 @@ export function NotificationList({
     notifications.map((notification) => (
       <div
         key={notification.id}
-        className="relative mb-4 flex items-center space-x-4 pt-3 "
+        className="relative mb-4 flex items-center space-x-4 pt-3"
       >
         <Avatar>
           <AvatarImage src={notification.img} />
@@ -69,14 +68,12 @@ const notificationAlert = (len: number) => {
       <Bell className="!size-5 fill-foreground stroke-foreground sm:!size-6" />
       {len > 0 && (
         <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
-
           {len}
         </span>
       )}
     </div>
   );
 };
-
 
 export function MobileNotification({
   notifications,
@@ -86,11 +83,11 @@ export function MobileNotification({
   removeNotification: (id: number) => void;
 }) {
   return (
-    <Sheet >
+    <Sheet>
       <SheetTrigger className="cursor-pointer">
-      {notificationAlert(notifications.length)}
+        {notificationAlert(notifications.length)}
       </SheetTrigger>
-      <SheetContent className="rounded-l-xl"  autoFocus={false} >
+      <SheetContent className="rounded-l-xl" autoFocus={false}>
         <SheetHeader>
           <SheetTitle>Notifications</SheetTitle>
           <SheetDescription></SheetDescription>
@@ -116,15 +113,13 @@ export function DesktopNotification({
       <PopoverTrigger asChild className="cursor-pointer">
         {notificationAlert(notifications.length)}
       </PopoverTrigger>
-      <PopoverContent className="w-80 rounded-xl">
+      <PopoverContent className="w-80 rounded-xl shadow-xl shadow-primary-gray">
         <NotificationList
           notifications={notifications}
           removeNotification={removeNotification}
         />
       </PopoverContent>
     </Popover>
-
-
   );
 }
 
