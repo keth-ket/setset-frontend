@@ -74,7 +74,7 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
   
   return (
     <div className="flex h-full flex-grow flex-col flex-wrap gap-y-8">
-      <div className="flex w-[20%] flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
+      <div className="flex lg:w-[20%] flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
         <Search className="ml-2" />
         <Input
           type="text"
@@ -84,11 +84,11 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
         />
       </div>
 
-      <div className="mb-16 flex flex-grow flex-col gap-y-6">
+      <div className="mb-16 flex lg:flex-grow flex-col gap-y-6">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
-            <Card className="flex w-full flex-row justify-between">
-              <CardContent className="flex flex-row ml-6 flex-initial w-[18%] items-center gap-[1vw] p-0">
+            <Card className="flex w-full flex-wrap flex-row justify-between">
+              <CardContent className="flex flex-wrap flex-row lg:ml-6 flex-initial lg:w-[18%] items-center gap-[1vw] lg:p-0 p-6">
                 <div className="flex items-center justify-center">
                   <img
                     src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
@@ -106,7 +106,7 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                 </div>
               </CardContent>
 
-              <CardContent className="flex flex-initial flex-grow flex-row justify-between p-3">
+              <CardContent className="flex flex-initial flex-wrap lg:w-[65%] flex-row justify-between p-3">
                 {business.cards.map((card) => (
                   <div key={card.id} className="flex flex-initial gap-x-1">
                     <div className="flex items-center justify-center rounded-xl p-3">
@@ -122,10 +122,10 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                 ))}
               </CardContent>
 
-              <CardContent className="w-[10%] mr-6 flex flex-initial flex-row items-center justify-end p-0">
+              <CardContent className="lg:w-[10%] mr-6 flex flex-initial flex-row items-center justify-end lg:p-0">
                 <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50 ">
                   <MessageSquareText />
-                  <p>Chat</p>
+                  <p className="text-xs">Chat</p>
                 </Button>
               </CardContent>
             </Card>
