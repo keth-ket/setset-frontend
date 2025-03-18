@@ -4,16 +4,7 @@ import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { business } from "@/lib/sampleData";
 import { BusinessInfo } from "@/lib/types";
-import { BusinessPaginate} from "../business/business-pagination";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import { BusinessPaginate } from "../business/business-pagination";
 
 //some icons that needed
 import { MessageSquareText, Search } from "lucide-react";
@@ -27,9 +18,18 @@ import {
   CardHeader,
   CardTitle,
 } from "../../ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const layoutFormat = "flex flex-items";
-const paginationItemformat = "bg-card text-card-foreground rounded-lg";
+const DropdownMenuTriggerFormat =
+  "p-2 rounded-lg bg-card text-card-foreground text-sm";
+const DropdownMenuContentFormat =
+  "p-2 rounded-xl bg-foreground text-accent text-sm";
 
 //Format value for money and satisfaction
 const formatValue = (value: number, type: string) => {
@@ -43,14 +43,49 @@ const formatValue = (value: number, type: string) => {
   return value.toLocaleString(); // Add commas for large numbers
 };
 
-const getFilteredBusiness = (search: string, business: BusinessInfo[]) => {
-  if (!search) {
+//filtered based on search and Category
+const getFilteredBusiness = (
+  search: string,
+  category: string,
+  business: BusinessInfo[],
+) => {
+  if (!search && !category) {
     return business;
   }
 
-  return business.filter((business) => {
-    return business.title.toLowerCase().includes(search.toLowerCase());
+  return business.filter((b) => {
+    const matchesSearch = search
+      ? b.title.toLowerCase().includes(search.toLowerCase())
+      : true;
+    const matchesCategory = category ? b.content === category : true;
+    return matchesSearch && matchesCategory;
   });
+};
+
+const getSortedBusiness = (
+  filteredBusiness: BusinessInfo[],
+  filterPicked: string,
+) => {
+  switch (filterPicked) {
+    case "Most Money Saved":
+      return [...filteredBusiness].sort(
+        (a, b) => b.cards[0].value - a.cards[0].value,
+      );
+    case "Most Satisfied":
+      return [...filteredBusiness].sort(
+        (a, b) => b.cards[1].value - a.cards[1].value,
+      );
+    case "Most Minutes Saved":
+      return [...filteredBusiness].sort(
+        (a, b) => b.cards[2].value - a.cards[2].value,
+      );
+    case "Most New Callers":
+      return [...filteredBusiness].sort(
+        (a, b) => b.cards[3].value - a.cards[3].value,
+      );
+    default:
+      return filteredBusiness;
+  }
 };
 
 const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
@@ -64,17 +99,76 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
 
   //handle searching
   const [search, setSearch] = useState("");
-  const filteredBusiness = getFilteredBusiness(search, business);
+
+  //handle category
+  // Extract unique categories from business descriptions
+  const uniqueCategories = [...new Set(business.map((b) => b.content))];
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  //handle filter
+  const filters = [
+    "Most Money Saved",
+    "Most Satisfied",
+    "Most Minutes Saved",
+    "Most New Callers",
+  ];
+  const [filterPicked, setFilterValue] = useState("");
 
   const handlePageChange = (page: number) => {
     setActivePage(page);
     setStartIndex((page - 1) * itemsPerPage);
     setEndIndex(page * itemsPerPage);
   };
-  
+
+  let filteredBusiness = getFilteredBusiness(
+    search,
+    selectedCategory,
+    business,
+  );
+  filteredBusiness = getSortedBusiness(filteredBusiness, filterPicked);
+
   return (
-    <div className="flex h-full flex-grow flex-col flex-wrap gap-y-8">
-      <div className="flex lg:w-[20%] flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
+    <div className="flex flex-grow flex-col gap-y-8">
+      <div className="flex flex-row justify-end gap-x-6">
+        <DropdownMenu>
+          <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
+            {selectedCategory || "Category"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className={DropdownMenuContentFormat}>
+            <DropdownMenuItem onSelect={() => setSelectedCategory("")}>
+              All Category
+            </DropdownMenuItem>
+            {uniqueCategories.map((category, index) => (
+              <DropdownMenuItem
+                key={index}
+                onSelect={() => setSelectedCategory(category)}
+              >
+                {category}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
+            {filterPicked || "Filter"}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className={DropdownMenuContentFormat}>
+            <DropdownMenuItem onSelect={() => setFilterValue("")}>
+              No Filter
+            </DropdownMenuItem>
+            {filters.map((filter, index) => (
+              <DropdownMenuItem
+                key={index}
+                onSelect={() => setFilterValue(filter)}
+              >
+                {filter}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <div className="flex w-fit flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
         <Search className="ml-2" />
         <Input
           type="text"
@@ -84,11 +178,11 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
         />
       </div>
 
-      <div className="mb-16 flex lg:flex-grow flex-col gap-y-6">
+      <div className="mb-14 flex flex-col gap-y-6">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
-            <Card className="flex w-full flex-wrap flex-row justify-between">
-              <CardContent className="flex flex-wrap flex-row lg:ml-6 flex-initial lg:w-[18%] items-center gap-[1vw] lg:p-0 p-6">
+            <Card className="flex w-full flex-row flex-wrap justify-between">
+              <CardContent className="flex flex-initial flex-row flex-wrap items-center gap-x-4 p-6 lg:ml-6 lg:w-[18%] lg:p-0">
                 <div className="flex items-center justify-center">
                   <img
                     src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
@@ -101,12 +195,12 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                     {business.title}
                   </CardTitle>
                   <CardDescription className="text-xs">
-                    Card Description
+                    {business.content}
                   </CardDescription>
                 </div>
               </CardContent>
 
-              <CardContent className="flex flex-initial flex-wrap lg:w-[65%] flex-row justify-between p-3">
+              <CardContent className="flex flex-initial flex-row flex-wrap justify-between p-3 lg:w-[65%]">
                 {business.cards.map((card) => (
                   <div key={card.id} className="flex flex-initial gap-x-1">
                     <div className="flex items-center justify-center rounded-xl p-3">
@@ -122,8 +216,8 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                 ))}
               </CardContent>
 
-              <CardContent className="lg:w-[10%] mr-6 flex flex-initial flex-row items-center justify-end lg:p-0">
-                <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50 ">
+              <CardContent className="mr-6 flex flex-initial flex-row items-center justify-end lg:w-[10%] lg:p-0">
+                <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50">
                   <MessageSquareText />
                   <p className="text-xs">Chat</p>
                 </Button>

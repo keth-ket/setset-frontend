@@ -332,7 +332,7 @@ const cards2: BusinessCard[] = [
     id: "money-saved",
     icon: <WalletMinimal className={BusinessIconStyles}/>,
     title: "Money Saved",
-    value: testData.moneySaved,
+    value: 400162,
   },
   {
     id: "satisfaction",
@@ -367,7 +367,7 @@ export const business: BusinessInfo[] = [
     id: "2",
     title: "Business Name 2",
     content: "Description 2",
-    cards: cards,
+    cards: cards2,
   },
   {
     id: "3",
