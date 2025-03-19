@@ -7,7 +7,7 @@ import { BusinessInfo } from "@/lib/types";
 import { BusinessPaginate } from "../business/business-pagination";
 
 //some icons that needed
-import { MessageSquareText, Search } from "lucide-react";
+import { MessageSquareText, Search, Funnel, Folders} from "lucide-react";
 
 //shadcn card ui
 import {
@@ -27,9 +27,11 @@ import {
 
 const layoutFormat = "flex flex-items";
 const DropdownMenuTriggerFormat =
-  "p-2 rounded-lg bg-card text-card-foreground text-sm";
+  "flex flex-row gap-x-3 items-center p-3 rounded-lg bg-card text-card-foreground text-sm";
 const DropdownMenuContentFormat =
-  "p-2 rounded-xl bg-foreground text-accent text-sm";
+  "p-2 rounded-lg bg-foreground text-accent text-sm";
+
+const DropdownMenuIconSize = 15;
 
 //Format value for money and satisfaction
 const formatValue = (value: number, type: string) => {
@@ -92,7 +94,6 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
   //calculation for pagination
   //if admin show 5 otherwise show 6
   const itemsPerPage = isAdminPage ? 5 : 6;
-  const maxPages = Math.ceil(business.length / itemsPerPage);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(itemsPerPage);
   const [activePage, setActivePage] = useState(1);
@@ -125,59 +126,67 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
     selectedCategory,
     business,
   );
+
   filteredBusiness = getSortedBusiness(filteredBusiness, filterPicked);
+
+  const maxPages = Math.ceil(filteredBusiness.length / itemsPerPage);
 
   return (
     <div className="flex flex-grow flex-col gap-y-8">
-      <div className="flex flex-row justify-end gap-x-6">
-        <DropdownMenu>
-          <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
-            {selectedCategory || "Category"}
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className={DropdownMenuContentFormat}>
-            <DropdownMenuItem onSelect={() => setSelectedCategory("")}>
-              All Category
-            </DropdownMenuItem>
-            {uniqueCategories.map((category, index) => (
-              <DropdownMenuItem
-                key={index}
-                onSelect={() => setSelectedCategory(category)}
-              >
-                {category}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
-            {filterPicked || "Filter"}
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className={DropdownMenuContentFormat}>
-            <DropdownMenuItem onSelect={() => setFilterValue("")}>
-              No Filter
-            </DropdownMenuItem>
-            {filters.map((filter, index) => (
-              <DropdownMenuItem
-                key={index}
-                onSelect={() => setFilterValue(filter)}
-              >
-                {filter}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="flex w-fit flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
-        <Search className="ml-2" />
-        <Input
-          type="text"
-          placeholder="Search Business"
-          className="border-none focus-visible:ring-0"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+      <div className="flex flex-row justify-between">
+        <div className="flex w-fit flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
+          <Search className="ml-2" />
+          <Input
+            type="text"
+            placeholder="Search Business"
+            className="border-none focus-visible:ring-0"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
 
+        <div className="flex flex-row gap-x-6">
+          <DropdownMenu>
+            <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
+              <Folders size={DropdownMenuIconSize}/> 
+              {selectedCategory || "Category"}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className={DropdownMenuContentFormat}>
+              <DropdownMenuItem onSelect={() => setSelectedCategory("")}>
+                All Category
+              </DropdownMenuItem>
+              {uniqueCategories.map((category, index) => (
+                <DropdownMenuItem
+                  key={index}
+                  onSelect={() => setSelectedCategory(category)}
+                >
+                  {category}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
+              <Funnel size={DropdownMenuIconSize}/> 
+              {filterPicked || "Filter"}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className={DropdownMenuContentFormat}>
+              <DropdownMenuItem onSelect={() => setFilterValue("")}>
+                No Filter
+              </DropdownMenuItem>
+              {filters.map((filter, index) => (
+                <DropdownMenuItem
+                  key={index}
+                  onSelect={() => setFilterValue(filter)}
+                >
+                  {filter}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>  
+        </div>
+      </div>
       <div className="mb-14 flex flex-col gap-y-6">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
