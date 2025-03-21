@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { business } from "@/lib/sampleData";
@@ -27,11 +27,11 @@ import {
 
 const layoutFormat = "flex flex-items";
 const DropdownMenuTriggerFormat =
-  "flex flex-row gap-x-3 items-center p-3 rounded-lg bg-card text-card-foreground text-sm";
+  "flex flex-row h-fit gap-x-3 items-center bg-card rounded-lg text-card-foreground text-xs focus:outline-none hover:bg-primary/90 p-2";
 const DropdownMenuContentFormat =
-  "p-2 rounded-lg bg-foreground text-accent text-sm";
+  "p-2 rounded-lg bg-card text-card-foreground text-xs";
 
-const DropdownMenuIconSize = 15;
+const DropdownMenuIconSize = 12;
 
 //Format value for money and satisfaction
 const formatValue = (value: number, type: string) => {
@@ -90,6 +90,7 @@ const getSortedBusiness = (
   }
 };
 
+
 const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
   //calculation for pagination
   //if admin show 5 otherwise show 6
@@ -103,7 +104,12 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
 
   //handle category
   // Extract unique categories from business descriptions
-  const uniqueCategories = [...new Set(business.map((b) => b.content))];
+  const uniqueCategories = [
+    "Retail & Ecommerce",
+    "Healthcare",
+    "Tech",
+    "Finance"
+  ]
   const [selectedCategory, setSelectedCategory] = useState("");
 
   //handle filter
@@ -133,10 +139,9 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
   
   return (
     <div className="flex flex-grow flex-col gap-y-8">
-
       <div className="flex flex-row justify-between gap-x-6 flex-wrap gap-y-6">
-        <div className="flex w-fit flex-row items-center gap-0 rounded-lg border-2 bg-card pb-0 text-card-foreground">
-          <Search className="ml-2" />
+        <div className="flex w-fit h-fit flex-row items-center gap-0 rounded-lg border-1 bg-card pb-0 text-card-foreground">
+          <Search className="ml-2" size={20}/>
           <Input
             type="text"
             placeholder="Search Business"
@@ -187,50 +192,51 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
           </DropdownMenu>  
         </div>
       </div>
+
       <div className="mb-14 flex flex-col gap-y-6">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
-            <Card className="flex w-full flex-row flex-wrap justify-between">
-              <CardContent className="flex flex-initial flex-row flex-wrap items-center gap-x-4 p-6 lg:ml-6 lg:w-[18%] lg:p-0">
+            <Card className="flex w-full p-6 gap-y-6 flex-wrap flex-col justify-between lg:flex-row lg:p-2">
+              <div className="flex flex-row items-center gap-x-4 lg:ml-4 lg:w-[20%] p-0">
                 <div className="flex items-center justify-center">
                   <img
                     src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
                     alt="business logo"
-                    className="h-10 w-10 rounded-lg"
+                    className="flex h-10 w-10 rounded-lg"
                   />
                 </div>
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-1">
                   <CardTitle className="text-sm font-light">
                     {business.title}
                   </CardTitle>
-                  <CardDescription className="text-xs">
+                  <CardDescription style={{ fontSize: '0.7rem' }}>
                     {business.content}
                   </CardDescription>
                 </div>
-              </CardContent>
+              </div>
 
-              <CardContent className="flex flex-initial flex-row flex-wrap justify-between p-3 lg:w-[65%]">
+              <div className="flex gap-y-6 flex-wrap lg:flex-row justify-between lg:p-3 lg:w-[65%]">
                 {business.cards.map((card) => (
-                  <div key={card.id} className="flex flex-initial gap-x-1">
-                    <div className="flex items-center justify-center rounded-xl p-3">
+                  <div key={card.id} className="flex flex-initial flex-wrap gap-y-3 w-[100%] md:w-[50%] lg:w-[25%] gap-x-3">
+                    <div className="flex items-center justify-center rounded-xl">
                       {card.icon}
                     </div>
                     <div className="flex flex-col justify-center lg:gap-1">
                       <p className="text-xs">{card.title}</p>
-                      <p className="text-base font-bold">
+                      <p className={`text-base font-bold`}>
                         {formatValue(card.value, card.id)}
                       </p>
                     </div>
                   </div>
                 ))}
-              </CardContent>
+              </div>
 
-              <CardContent className="mr-6 flex flex-initial flex-row items-center justify-end lg:w-[10%] lg:p-0">
+              <div className="flex flex-row lg:justify-end pr-6 items-center lg:w-[9%]">
                 <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50">
                   <MessageSquareText />
                   <p className="text-xs">Chat</p>
                 </Button>
-              </CardContent>
+              </div>
             </Card>
           </div>
         ))}
