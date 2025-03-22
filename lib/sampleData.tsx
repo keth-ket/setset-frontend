@@ -22,6 +22,7 @@ import {
   MetricsData,
   BusinessCard,
   sideBarPageProp,
+  ReportData,
 } from "./types";
 
 export const metricsData: MetricsData = {
@@ -392,13 +393,45 @@ export const items: sideBarPageProp[] = [
   },
   {
     title: "Reports",
-    url: "#",
+    url: "/reports",
     icon: ShieldAlert,
   },
   {
     title: "Settings",
     url: "#",
     icon: Settings,
+  },
+];
+
+
+export const reportsData: ReportData[] = [
+  {
+    id: "1",
+    title: "AI did not transfer call to an agent",
+    description: "The AI system failed to transfer the call to a human agent despite multiple attempts.",
+    date: "2023-10-01",
+    status: "Pending",
+  },
+  {
+    id: "2",
+    title: "Incorrect response from AI",
+    description: "The AI provided an incorrect response to a customer query regarding account balance.",
+    date: "2023-10-02",
+    status: "Resolved",
+  },
+  {
+    id: "3",
+    title: "AI system downtime",
+    description: "The AI system was down for 2 hours, causing delays in customer service.",
+    date: "2023-10-03",
+    status: "Pending",
+  },
+  {
+    id: "4",
+    title: "AI misinterpreted customer request",
+    description: "The AI misinterpreted a customer's request for a refund and provided incorrect information.",
+    date: "2023-10-04",
+    status: "Resolved",
   },
 ];
 

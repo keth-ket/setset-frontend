@@ -104,3 +104,11 @@ export type settingSVGProp = React.SVGProps<SVGSVGElement> & {
   fillProp: string;
   circleProp: string;
 };
+export interface ReportData {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  status: "Pending" | "Resolved";
+}
+
