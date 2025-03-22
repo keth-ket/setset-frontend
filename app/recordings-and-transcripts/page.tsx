@@ -21,13 +21,10 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DualRangeSlider } from "@/components/ui/dual-slider";
 import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -37,7 +34,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { CallRecording, containerClassname } from "@/lib/types";
 import { callRecordingsData } from "@/lib/sampleData";
@@ -197,7 +193,6 @@ export default function Recordings() {
   }, [table]);
 
   return (
-
     <div id="recordings-and-transcripts" className={containerClassname}>
       <div className="rounded-lg bg-card p-10">
         <div
