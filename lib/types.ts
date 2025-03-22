@@ -1,6 +1,7 @@
 import { DateRange } from "react-day-picker";
 import { ReactElement } from "react";
 
+export const containerClassname = "flex w-full flex-col gap-6 p-4 pt-0";
 export type DateContextType = {
   dateRange?: DateRange;
   setDateRange: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
@@ -111,4 +112,3 @@ export interface ReportData {
   date: string;
   status: "Pending" | "Resolved";
 }
-
