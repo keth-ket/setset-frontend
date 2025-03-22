@@ -1,7 +1,13 @@
 import {
   CircleHelp,
+  ClipboardCheck, //end of the day notification
   Home,
+  // these are notifications icons
+  MessageCircleMore, //message notification
+  MessageCircleQuestion, //most asked faq question
   MonitorCheck,
+  PackagePlus, //new feature notification
+  PartyPopper, //milestone notificaion
   ShieldAlert,
   ThumbsUp,
   TimerReset,
@@ -15,12 +21,12 @@ import Settings from "@/lib/settings";
 
 import {
   AppointmentsData,
-  BusinessStat,
+  BusinessCard,
   BusinessInfo,
+  BusinessStat,
   CallRecording,
   FaqData,
   MetricsData,
-  BusinessCard,
   sideBarPageProp,
   ReportData,
 } from "./types";
@@ -132,46 +138,100 @@ export const initialNotifications = [
   {
     id: 1,
     type: "message",
-    title: "New Message from achu",
-    content: "Hey! Are we still on for the meeting?",
+    title: "New Message from Support",
+    content: "You have a new message from our support team. Check it out!",
     time: "2 mins ago",
-    img: "https://th.bing.com/th/id/OIP.47NEVXcBGruaDflMzJAsDwAAAA?rs=1&pid=ImgDetMain",
+    icon: <MessageCircleMore />,
     read: false,
   },
   {
     id: 2,
-    type: "alert",
-    title: "System Update",
-    content: "We've detected unsuall activities on your account.",
+    type: "summary",
+    title: "Daily Summary",
+    content: "Today you spoke with the AI for 45 minutes.",
     time: "10 mins ago",
-    img: "https://th.bing.com/th/id/R.a54aae27898553c7865346e0ca2a9ceb?rik=G%2bPKqgYavMXWAQ&pid=ImgRaw&r=0",
+    icon: <ClipboardCheck/>,
     read: false,
   },
   {
     id: 3,
-    type: "friend_request",
-    title: "New Friend Request",
-    content: "Jordan sent you a friend request.",
+    type: "milestone",
+    title: "Milestone Reached!",
+    content: "Congrats! You've booked 100 appointments today!",
     time: "30 mins ago",
-    img: "https://randomuser.me/api/portraits/women/2.jpg",
+    icon: <PartyPopper/>,
     read: true,
   },
   {
     id: 4,
-    type: "mention",
-    title: "You were mentioned!",
-    content: "Sophia mentioned you in a comment.",
+    type: "info",
+    title: "Most Asked FAQ of the Week",
+    content: "This week, the most asked question was about your new pricing model.",
     time: "1 hour ago",
-    img: "https://cdn-icons-png.flaticon.com/512/2958/2958783.png",
+    icon: <MessageCircleQuestion />,
     read: false,
   },
   {
     id: 5,
-    type: "reminder",
-    title: "Event Reminder",
-    content: "Don't forget about the project deadline tomorrow!",
+    type: "info",
+    title: "Most Asked FAQ of the Week",
+    content: "This week, the most asked question was about your new pricing model.",
+    time: "1 hour ago",
+    icon: <MessageCircleQuestion />,
+    read: false,
+  },
+  {
+    id: 6,
+    type: "info",
+    title: "Most Asked FAQ of the Week",
+    content: "This week, the most asked question was about your new pricing model.",
+    time: "1 hour ago",
+    icon: <MessageCircleQuestion />,
+    read: false,
+  },
+  {
+    id: 7,
+    type: "info",
+    title: "Most Asked FAQ of the Week",
+    content: "This week, the most asked question was about your new pricing model.",
+    time: "1 hour ago",
+    icon: <MessageCircleQuestion />,
+    read: false,
+  },
+  {
+    id: 8,
+    type: "info",
+    title: "Most Asked FAQ of the Week",
+    content: "This week, the most asked question was about your new pricing model.",
+    time: "1 hour ago",
+    icon: <MessageCircleQuestion />,
+    read: false,
+  },
+  {
+    id: 9,
+    type: "info",
+    title: "Most Asked FAQ of the Week",
+    content: "This week, the most asked question was about your new pricing model.",
+    time: "1 hour ago",
+    icon: <MessageCircleQuestion />,
+    read: false,
+  },
+  {
+    id: 10,
+    type: "info",
+    title: "Most Asked FAQ of the Week",
+    content: "This week, the most asked question was about your new pricing model.",
+    time: "1 hour ago",
+    icon: <MessageCircleQuestion />,
+    read: false,
+  },
+  {
+    id: 11,
+    type: "update",
+    title: "New Feature Alert!",
+    content: "We've just rolled out the new scheduling feature for your appointments.",
     time: "3 hours ago",
-    img: "https://cdn-icons-png.flaticon.com/512/716/716225.png",
+    icon: <PackagePlus/>,
     read: true,
   },
 ];
@@ -201,7 +261,7 @@ export const faqsData: FaqData[] = [
     id: "3",
     question: "How accurate is the AI in understanding customer inquiries?",
     answer:
-      'If the AI detects low confidence in its response or the caller requests a human agent, it will: Transfer the call to an available representative, Send a detailed summary of the conversation to the agent, Log the request in the dashboard under "Escalated Calls" for review. Businesses can customize escalation thresholds and triggers in the settings.',
+      "If the AI detects low confidence in its response or the caller requests a human agent, it will: Transfer the call to an available representative, Send a detailed summary of the conversation to the agent, Log the request in the dashboard under \"Escalated Calls\" for review. Businesses can customize escalation thresholds and triggers in the settings.",
     frequency: 18,
     icon: <Users className={iconStyles} />,
     timeRangeStart: "4:00 PM",
@@ -374,31 +434,37 @@ export const business: BusinessInfo[] = [
   },
 ];
 
+const barPageStyle = "!size-6 ";
 export const items: sideBarPageProp[] = [
   {
     title: "Dashboard",
     url: "/",
-    icon: Home,
+    icon: <Home className={barPageStyle} />,
   },
   {
     title: "Recordings & Transcripts",
     url: "/recordings-and-transcripts",
-    icon: Voicemail,
+    icon: <Voicemail className={barPageStyle} />,
   },
   {
     title: "FAQs",
     url: "/faqs",
-    icon: CircleHelp,
+    icon: <CircleHelp className={barPageStyle} />,
   },
   {
     title: "Reports",
-    url: "/reports",
-    icon: ShieldAlert,
+    url: "#",
+    icon: <ShieldAlert className={barPageStyle} />,
   },
   {
     title: "Settings",
-    url: "#",
-    icon: Settings,
+    url: "/Settings",
+    icon: <Settings/>,
+  },
+  {
+    title: "Profile",
+    url: "/Profile",
+    icon: <Users className={barPageStyle} />,
   },
 ];
 

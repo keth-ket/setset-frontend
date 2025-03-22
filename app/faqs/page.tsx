@@ -6,6 +6,7 @@ export default function Faqs({ data = faqsData }: { data: FaqData[] }) {
   const cardContentStyles = "flex flex-col px-4 py-6 justify-center";
 
   return (
+
     <div id="faqs" className={containerClassname}>
       {data.map((faq) => (
         <Card key={faq.id} className="flex-1 justify-center">

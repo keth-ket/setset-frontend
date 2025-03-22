@@ -1,6 +1,8 @@
 "use client";
+import { ChevronDown,Phone, ScrollText } from "lucide-react";
 import { useState } from "react";
-import { ScrollText, Phone, ChevronDown } from "lucide-react";
+
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -11,16 +13,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { Input } from "../ui/input";
 
 export default function Footer() {
   const [problem, setProblem] = useState("");

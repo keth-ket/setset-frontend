@@ -12,9 +12,10 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { useEffect, useRef, useState } from "react";
 import { ArrowDownUp, ChevronDown, File, Pause, Play } from "lucide-react";
 import { Filter } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -24,9 +25,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DualRangeSlider } from "@/components/ui/dual-slider";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { DualRangeSlider } from "@/components/ui/dual-slider";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -195,6 +197,7 @@ export default function Recordings() {
   }, [table]);
 
   return (
+
     <div id="recordings-and-transcripts" className={containerClassname}>
       <div className="rounded-lg bg-card p-10">
         <div

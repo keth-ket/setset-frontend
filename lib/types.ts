@@ -1,5 +1,5 @@
-import { DateRange } from "react-day-picker";
 import { ReactElement } from "react";
+import { DateRange } from "react-day-picker";
 
 export const containerClassname = "flex w-full flex-col gap-6 p-4 pt-0";
 export type DateContextType = {
@@ -92,18 +92,19 @@ export type notificationObject = {
   title: string;
   content: string;
   time: string;
-  img: string;
+  icon: React.ReactNode;
   read: boolean;
 };
 
 export type sideBarPageProp = {
   title: string;
   url: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: React.ReactNode;
 };
-export type settingSVGProp = React.SVGProps<SVGSVGElement> & {
+export type settingSVGProp ={
   fillProp: string;
   circleProp: string;
+  className: string;
 };
 export interface ReportData {
   id: string;
