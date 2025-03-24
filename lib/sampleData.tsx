@@ -466,12 +466,12 @@ export const items: sideBarPageProp[] = [
   },
   {
     title: "Settings",
-    url: "/Settings",
+    url: "/settings",
     icon: <Settings />,
   },
   {
     title: "Profile",
-    url: "/Profile",
+    url: "/profile",
     icon: <Users className={barPageStyle} />,
   },
 ];

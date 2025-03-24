@@ -1,7 +1,8 @@
-import { UserRound } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Notification from "@/components/widgets/sidebar/notification";
@@ -9,8 +10,6 @@ import { ChangeTheme } from "@/components/widgets/theme_Toggle";
 import SettingIcon from "@/lib/settings";
 import { SettingsHeader } from "@/lib/settings";
 import { sideBarPageProp } from "@/lib/types";
-
-import { ProfilePicture } from "./Profile";
 
 interface HeaderBarProps {
   currPage: sideBarPageProp;
@@ -23,9 +22,7 @@ const SidebarIcon = ({ currPage }: { currPage: sideBarPageProp }) => {
         {currPage.title === "Settings" ? (
           <SettingsHeader />
         ) : (
-          <div className="[&>svg]:!stroke-primary" >
-                            {currPage.icon}
-                          </div>
+          <div className="[&>svg]:!stroke-primary">{currPage.icon}</div>
         )}
       </span>
       <p className="max-w-24 text-pretty text-left leading-none sm:max-w-full">
@@ -36,23 +33,13 @@ const SidebarIcon = ({ currPage }: { currPage: sideBarPageProp }) => {
 };
 
 const UserButton = () => {
-  //this is the code for the user profile button for now
-  return true ? (
-    //this is the code for the user profile button
-
-    <ProfilePicture src = "https://github.com/shadcn.png" alt="CN" className="!size-6 cursor-pointer"/>
-  ) : (
-    //this is the code for the login button
-    <Button
-      variant="ghost"
-      className="flex items-center gap-2 p-0 hover:bg-transparent"
-      asChild
-    >
-      <Link href={"/Profile"} className="!flex flex-row">
-        <UserRound className="!size-5 fill-foreground stroke-foreground sm:!size-6" />
-        <p className="hidden text-lg md:block">Sign In</p>
-      </Link>
-    </Button>
+  const router = useRouter();
+  const toProfile = () => router.push("/profile");
+  return (
+    <Avatar onClick={toProfile} className="!size-6 cursor-pointer">
+      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+      <AvatarFallback>"CN"</AvatarFallback>
+    </Avatar>
   );
 };
 
@@ -71,7 +58,7 @@ export function HeaderBar({ currPage }: HeaderBarProps) {
           className="hidden p-0 hover:bg-transparent sm:block"
           asChild
         >
-          <Link href={"/Settings"} className="hidden sm:!flex">
+          <Link href={"/settings"} className="hidden sm:!flex">
             <SettingIcon />
           </Link>
         </Button>
