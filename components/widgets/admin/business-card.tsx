@@ -1,29 +1,23 @@
 "use client";
-import React, { useState} from "react";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
-import { business } from "@/lib/sampleData";
-import { BusinessInfo } from "@/lib/types";
-import { BusinessPaginate } from "../business/business-pagination";
 
-//some icons that needed
-import { MessageSquareText, Search, Funnel, Folders} from "lucide-react";
+import { Folders, Funnel, MessageSquareText, Search } from "lucide-react";
+import Image from "next/image";
+import React, { useState } from "react";
 
-//shadcn card ui
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { business } from "@/lib/sampleData";
+import { BusinessInfo } from "@/lib/types";
+
+import { Button } from "../../ui/button";
+//shadcn card ui
+import { Card, CardDescription, CardTitle } from "../../ui/card";
+import { Input } from "../../ui/input";
+import { BusinessPaginate } from "../business/business-pagination";
 
 const layoutFormat = "flex flex-items";
 const DropdownMenuTriggerFormat =
@@ -90,7 +84,6 @@ const getSortedBusiness = (
   }
 };
 
-
 const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
   //calculation for pagination
   //if admin show 5 otherwise show 6
@@ -108,8 +101,8 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
     "Retail & Ecommerce",
     "Healthcare",
     "Tech",
-    "Finance"
-  ]
+    "Finance",
+  ];
   const [selectedCategory, setSelectedCategory] = useState("");
 
   //handle filter
@@ -136,12 +129,12 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
     setStartIndex((page - 1) * itemsPerPage);
     setEndIndex(page * itemsPerPage);
   };
-  
+
   return (
-    <div className="flex flex-grow flex-col gap-y-8">
-      <div className="flex flex-row justify-between gap-x-6 flex-wrap gap-y-6">
-        <div className="flex w-fit h-fit flex-row items-center gap-0 rounded-lg border-1 bg-card pb-0 text-card-foreground">
-          <Search className="ml-2" size={20}/>
+    <div className="flex grow flex-col gap-y-6">
+      <div className="flex flex-row flex-wrap justify-between gap-6">
+        <div className="flex size-fit flex-row items-center gap-0 rounded-lg bg-card pb-0 text-card-foreground">
+          <Search className="ml-2" size={20} />
           <Input
             type="text"
             placeholder="Search Business"
@@ -153,7 +146,7 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
         <div className="flex flex-row gap-x-6">
           <DropdownMenu>
             <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
-              <Folders size={DropdownMenuIconSize}/> 
+              <Folders size={DropdownMenuIconSize} />
               {selectedCategory || "Category"}
             </DropdownMenuTrigger>
             <DropdownMenuContent className={DropdownMenuContentFormat}>
@@ -173,7 +166,7 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
 
           <DropdownMenu>
             <DropdownMenuTrigger className={DropdownMenuTriggerFormat}>
-              <Funnel size={DropdownMenuIconSize}/> 
+              <Funnel size={DropdownMenuIconSize} />
               {filterPicked || "Filter"}
             </DropdownMenuTrigger>
             <DropdownMenuContent className={DropdownMenuContentFormat}>
@@ -189,35 +182,40 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
-          </DropdownMenu>  
+          </DropdownMenu>
         </div>
       </div>
 
       <div className="mb-14 flex flex-col gap-y-6">
         {filteredBusiness.slice(startIndex, endIndex).map((business) => (
           <div className={layoutFormat} key={business.id}>
-            <Card className="flex w-full p-6 gap-y-6 flex-wrap flex-col justify-between lg:flex-row lg:p-2">
-              <div className="flex flex-row items-center gap-x-4 lg:ml-4 lg:w-[20%] p-0">
+            <Card className="flex w-full flex-col flex-wrap justify-between gap-y-6 p-6 lg:flex-row lg:p-2">
+              <div className="flex flex-row items-center gap-x-4 p-0 lg:ml-4 lg:w-1/5">
                 <div className="flex items-center justify-center">
-                  <img
-                    src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-creative-company-logo-png-image_1197025.jpg"
+                  <Image
+                    src="/images/logo.png"
                     alt="business logo"
-                    className="flex h-10 w-10 rounded-lg"
+                    className="flex rounded-lg"
+                    width={50}
+                    height={50}
                   />
                 </div>
                 <div className="flex flex-col gap-y-1">
                   <CardTitle className="text-sm font-light">
                     {business.title}
                   </CardTitle>
-                  <CardDescription style={{ fontSize: '0.7rem' }}>
+                  <CardDescription style={{ fontSize: "0.7rem" }}>
                     {business.content}
                   </CardDescription>
                 </div>
               </div>
 
-              <div className="flex gap-y-6 flex-wrap lg:flex-row justify-between lg:p-3 lg:w-[65%]">
+              <div className="flex flex-wrap justify-between gap-y-6 lg:w-[65%] lg:flex-row lg:p-3">
                 {business.cards.map((card) => (
-                  <div key={card.id} className="flex flex-initial flex-wrap gap-y-3 w-[100%] md:w-[50%] lg:w-[25%] gap-x-3">
+                  <div
+                    key={card.id}
+                    className="flex w-full flex-initial flex-wrap gap-3 md:w-1/2 lg:w-1/4"
+                  >
                     <div className="flex items-center justify-center rounded-xl">
                       {card.icon}
                     </div>
@@ -231,7 +229,7 @@ const Business = ({ isAdminPage }: { isAdminPage: boolean }) => {
                 ))}
               </div>
 
-              <div className="flex flex-row lg:justify-end pr-6 items-center lg:w-[9%]">
+              <div className="flex flex-row items-center pr-6 lg:w-[9%] lg:justify-end">
                 <Button className="bg-sidebar-ring text-accent hover:bg-sidebar-ring/50">
                   <MessageSquareText />
                   <p className="text-xs">Chat</p>
