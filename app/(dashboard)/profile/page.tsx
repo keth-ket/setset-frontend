@@ -1,12 +1,9 @@
 "use client";
-import { redirect } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
+import ProfilePage from "@/components/widgets/dashboard/profile-page";
 export default function Profile() {
   return (
-    <div className="flex size-full flex-col items-center justify-center">
-      <h1>Welcome to the Profile Page</h1>
-      <Button onClick={() => redirect("/")}>Go Home</Button>
+    <div className="p-4">
+      <ProfilePage />
     </div>
   );
 }
