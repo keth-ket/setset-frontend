@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Component, Pencil } from "lucide-react";
+import { Check, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface EditableFieldProps {
@@ -8,6 +8,7 @@ interface EditableFieldProps {
   validate?: (value: string) => boolean;
   placeholder?: string;
   componentFormat?: string;
+  errorMessage?: string;
 }
 
 const EditableField: React.FC<EditableFieldProps> = ({
@@ -16,13 +17,14 @@ const EditableField: React.FC<EditableFieldProps> = ({
   validate,
   placeholder = "Enter text...",
   componentFormat = "",
+  errorMessage = "Invalid input. Please check your entry.",
+
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newValue, setNewValue] = useState("");
-
   const handleSave = () => {
     if (validate && !validate(newValue)) {
-      alert("Invalid input. Please check your entry.");
+      alert(errorMessage);
       return;
     }
 
@@ -41,12 +43,14 @@ const EditableField: React.FC<EditableFieldProps> = ({
             onChange={(e) => setNewValue(e.target.value)}
             className="w-full bg-transparent focus:outline-none"
           />
-          <Button onClick={handleSave}>Save</Button>
+          <Button className="h-8 w-8" onClick={handleSave}>
+            <Check/>
+          </Button>
         </>
       ) : (
         <>
           <p>{value}</p>
-          <Button onClick={() => setIsEditing(true)}>
+          <Button className="w-8 h-8" onClick={() => setIsEditing(true)}>
             <Pencil />
           </Button>
         </>

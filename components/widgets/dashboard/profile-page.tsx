@@ -1,5 +1,5 @@
-import { Pencil } from "lucide-react";
-import { useState} from "react";
+import { Pencil, ChevronDown } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import moment from "moment-timezone";
 import {
@@ -8,19 +8,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {ProfileImage} from "@/components/widgets/dashboard/profile-page-component/profile-image";
+import { ProfileImage } from "@/components/widgets/dashboard/profile-page-component/profile-image";
 import EditableField from "./profile-page-component/EditableField";
 
-
-const profileComponentFormat =
-  "flex flex-row justify-between items-center border-2 rounded-lg border-foreground p-2 w-full";
-const pencilFormat = "flex";
-
+const profileComponentFormat ="flex flex-row justify-between items-center gap-20";
 
 export default function ProfilePage() {
   const [name, setName] = useState("Business Name");
   const [email, setEmail] = useState("ExampleEmail@org.com");
-  const [phone, setPhone] = useState("Business Phone Number");
+  const [phone, setPhone] = useState("0123456789");
   const [category, setCategory] = useState("Business Category");
 
   const uniqueCategories = [
@@ -29,85 +25,65 @@ export default function ProfilePage() {
     "Tech",
     "Finance",
   ];
-  const [isEditingPhone, setIsEditingPhone] = useState(false);
-  const [newPhone, setNewPhone] = useState("");
 
-  const handlePhoneChange = () => {
-    if (!/^\d{9,}$/.test(newPhone)) {
-      alert("Phone number must be at least 9 digits and contain only numbers.");
-      return;
-    }
-    setPhone(newPhone);
-    setIsEditingPhone(false);
-  };
-
-  const [timezone, setTimezone] = useState(moment.tz.guess()); // Auto-detect timezone
+  const [timezone, setTimezone] = useState("GMT-7:00"); // Auto-detect timezone
   // Get formatted timezone options
-  const timezoneOptions = moment.tz.names().map((tz) => ({
-    value: tz,
-    label: `(GMT${moment.tz(tz).format("Z")}) ${tz.replace(/_/g, " ")}`,
-  }));
-
-  const validateName = (newName: string) => newName.length >= 5;
+  const timezoneOptions = Array.from({ length: 25 }, (_, i) => {
+    const offset = i - 12; // Shifts range to -12 to +12
+    const sign = offset >= 0 ? "+" : "";
+    return {
+      value: `GMT${sign}${offset}:00`,
+      label: `GMT${sign}${offset}:00`,
+    };
+  });
   return (
-    <div className="flex w-full flex-col items-start gap-y-6 pb-6">
-      <div className="flex flex-row w-full">
-        <ProfileImage
-        initialImage="/images/logo.png"
-        className=""
-        />
-        <div className="flex -ml-4 justify-start w-fit">
-        <EditableField
-          value={name}
-          onSave={setName}
-          validate={validateName}
-          placeholder="Enter name..."
-          componentFormat="flex flex-row justify-between border-2 w-full p-2 border-foreground rounded-lg text-lg"
-        />
+    <div className="flex w-full flex-col items-start gap-y-8 pb-6">
+      <div className="flex w-full flex-row">      
+        <ProfileImage initialImage="/images/logo.png" className="" />
+        <div>
+          <div className="-ml-4 flex w-fit justify-start">
+            <EditableField
+              value={name}
+              onSave={setName}
+              validate={(value) => value.length > 5}
+              placeholder="Enter name..."
+              errorMessage="Name must be at least 5 characters long."
+              componentFormat="flex flex-row justify-between w-full p-0 rounded-lg text-lg font-bold gap-3"
+            />
+          </div>
+          <div className="flex flex-row gap-2">
+            <DropdownMenu>
+              <p className="text-sm">{timezone}</p>
+              <DropdownMenuTrigger asChild>
+                <Button className="h-5 w-5">
+                  <ChevronDown />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="max-h-[300px] w-[350px] overflow-y-auto">
+                {timezoneOptions.map((tz) => (
+                  <DropdownMenuItem
+                    className="text-sm"
+                    key={tz.value}
+                    onClick={() => {
+                      setTimezone(tz.value);
+                    }}
+                  >
+                    {tz.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
-
-      <div className="flex flex-col gap-y-6"> 
-        <div>
-          <EditableField
-            value={email}
-            onSave={setEmail}
-            validate={(value) => /^\S+@\S+\.\S+$/.test(value)}
-            placeholder="Enter email..."
-            componentFormat={profileComponentFormat}
-            />
-        </div>
-        <div className={profileComponentFormat}>
-          {isEditingPhone ? (
-            <>
-              <input
-                placeholder="Editing Phone Number..."
-                value={newPhone}
-                onChange={(e) => setNewPhone(e.target.value)}
-                className="w-full bg-transparent focus:outline-none"
-              />
-              <Button onClick={handlePhoneChange}>Save</Button>
-            </>
-          ) : (
-            <>
-              <p>{phone}</p>
-              <Button
-                className="flex rounded-lg"
-                onClick={() => setIsEditingPhone(true)}
-              >
-                <Pencil className={pencilFormat} size={16} />
-              </Button>
-            </>
-          )}
-        </div>
-
-        <div className={profileComponentFormat}>
-          {/*Category*/}
+        
+      <div className="flex flex-col gap-6"> 
+        <div className="flex flex-row justify-between items-center gap-20">
           <DropdownMenu>
-            {category}
+            <p>{category}</p>
             <DropdownMenuTrigger asChild>
-              <Button>
-                <Pencil/>
+              <Button className="w-8 h-8">
+                <Pencil />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -123,31 +99,29 @@ export default function ProfilePage() {
           </DropdownMenu>
         </div>
 
-        <div className={profileComponentFormat}>
-            <DropdownMenu>
-            {`(GMT${moment.tz(timezone).format('Z')})`}
-              <DropdownMenuTrigger asChild>
-                <Button>
-                  <Pencil/>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="max-h-[300px] w-[350px] overflow-y-auto">
-                {timezoneOptions.map((tz) => (
-                  <DropdownMenuItem
-                    key={tz.value}
-                    onClick={() => {
-                      setTimezone(tz.value);
-                    }}
-                  >
-                    {tz.label}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+        <div className="flex flex-row justify-between">
+          <EditableField
+            value={phone}
+            onSave={setPhone}
+            validate={(value) => /^\d{9,}$/.test(value)}
+            placeholder="Enter phone number..."
+            errorMessage="Phone number must be at least 9 digits long."
+            componentFormat={profileComponentFormat}
+          />
+        </div>
+
+        <div className="flex flex-row justify-between">
+          <EditableField
+            value={email}
+            onSave={setEmail}
+            validate={(value) => /^\S+@\S+\.\S+$/.test(value)}
+            placeholder="Enter email..."
+            errorMessage="Invalid email format. Your email should be in this format example@example.com"
+            componentFormat={profileComponentFormat}
+          />
         </div>
       </div>
-
-      <div className="items-center justify-center">
+      <div className="absolute bottom-6 tems-center justify-center">
         <Button>Save Changes</Button>
       </div>
     </div>

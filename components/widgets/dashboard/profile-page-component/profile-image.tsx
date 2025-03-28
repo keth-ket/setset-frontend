@@ -42,7 +42,7 @@ export function ProfileImage({
           height={imageSize}
         />
       </div>
-      <Button className="flex rounded-lg -ml-3" onClick={handleButtonClick}>
+      <Button className="flex rounded-lg -ml-3 w-8 h-8" onClick={handleButtonClick}>
         <Pencil className={pencilFormat} />
       </Button>
       <input
