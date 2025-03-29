@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Pencil } from 'lucide-react';
+import { Pencil, Camera } from 'lucide-react';
 
 interface ImageUploadProps {
   initialImage: string;
@@ -14,7 +14,7 @@ export function ProfileImage({
   initialImage,
   imageSize = 150,
   className = '',
-  pencilFormat = 'flex',
+  pencilFormat = 'flex rounded-full',
 }: ImageUploadProps) {
   const [image, setImage] = useState(initialImage);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -33,7 +33,7 @@ export function ProfileImage({
 
   return (
     <div className="flex flex-row items-end gap-0">
-      <div className="relative h-[150px] w-[150px] justify-center overflow-hidden rounded-full border-2 border-foreground">
+      <div className={`relative justify-center overflow-hidden rounded-full`}>
         <Image
           src={image}
           alt="business logo"
@@ -42,8 +42,8 @@ export function ProfileImage({
           height={imageSize}
         />
       </div>
-      <Button className="flex rounded-lg -ml-3 w-8 h-8" onClick={handleButtonClick}>
-        <Pencil className={pencilFormat} />
+      <Button className="flex rounded-full z-10 -ml-6 w-8 h-8" onClick={handleButtonClick}>
+        <Camera className={pencilFormat} />
       </Button>
       <input
         type="file"

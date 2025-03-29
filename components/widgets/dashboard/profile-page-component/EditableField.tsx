@@ -1,58 +1,37 @@
 import { useState } from "react";
-import { Check, Pencil } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface EditableFieldProps {
   value: string;
-  onSave: (newValue: string) => void;
-  validate?: (value: string) => boolean;
   placeholder?: string;
   componentFormat?: string;
-  errorMessage?: string;
+  isEditing?: boolean;
+  fieldName?: string;
 }
 
 const EditableField: React.FC<EditableFieldProps> = ({
   value,
-  onSave,
-  validate,
   placeholder = "Enter text...",
   componentFormat = "",
-  errorMessage = "Invalid input. Please check your entry.",
-
+  isEditing = false,
+  fieldName = "Field",
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [newValue, setNewValue] = useState("");
-  const handleSave = () => {
-    if (validate && !validate(newValue)) {
-      alert(errorMessage);
-      return;
-    }
-
-    onSave(newValue);
-    setNewValue("");
-    setIsEditing(false);
-  };
 
   return (
     <div className={componentFormat}>
       {isEditing ? (
         <>
+          <p>{fieldName}</p>
           <input
             placeholder={placeholder}
             value={newValue}
             onChange={(e) => setNewValue(e.target.value)}
-            className="w-full bg-transparent focus:outline-none"
+            className="w-full bg-inherit border border-card rounded-xl p-2 focus-visible:ring-0 focus-visible:outline-none"
           />
-          <Button className="h-8 w-8" onClick={handleSave}>
-            <Check/>
-          </Button>
         </>
       ) : (
         <>
           <p>{value}</p>
-          <Button className="w-8 h-8" onClick={() => setIsEditing(true)}>
-            <Pencil />
-          </Button>
         </>
       )}
     </div>
