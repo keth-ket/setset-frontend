@@ -1,7 +1,6 @@
 import { Pencil, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import moment from "moment-timezone";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,12 +11,30 @@ import { ProfileImage } from "@/components/widgets/dashboard/profile-page-compon
 import EditableField from "./profile-page-component/EditableField";
 
 const profileComponentFormat =
-  "flex flex-col items-start gap-1";
+  "flex flex-col w-full items-start gap-1 font-bold";
 
 export default function ProfilePage() {
   const [name, setName] = useState("Business Name");
+  const [newName, setNewName] = useState("");
+
+  const validateName = (input: string) => {
+    return input.trim().length >= 5; // Custom validation: at least 3 characters
+  };
+
   const [email, setEmail] = useState("ExampleEmail@org.com");
+  const [newEmail, setNewEmail] = useState("");
+  const validateEmail = (input: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(input.trim());
+  }
+
   const [phone, setPhone] = useState("0123456789");
+  const [newPhone, setNewPhone] = useState("");
+  const validatePhone = (input: string) => {
+    const phoneRegex = /^\d{8,}$/;
+    return phoneRegex.test(input.trim());
+  }
+
   const [category, setCategory] = useState("Business Category");
 
   const [isEditing, setIsEditing] = useState(false);
@@ -28,6 +45,7 @@ export default function ProfilePage() {
     "Finance",
   ];
 
+
   const imageSize = 100;
   const [timezone, setTimezone] = useState("GMT-7:00"); // Auto-detect timezone
   // Get formatted timezone options
@@ -37,8 +55,36 @@ export default function ProfilePage() {
     return {
       value: `GMT${sign}${offset}:00`,
       label: `GMT${sign}${offset}:00`,
-    };
+    };  
   });
+
+  const handleSave = () => {
+    if (validateName(newName) && validateEmail(newEmail) && validatePhone(newPhone)) {
+      setNewName("");
+      setName(newName);
+      setNewEmail("");
+      setEmail(newEmail);
+      setNewPhone("");
+      setPhone(newPhone);
+      setIsEditing(false);
+    }
+    else if(!validateName(newName))
+    {
+      alert("Name must be longer than 5 characters!")
+    }
+    else if(!validateEmail(newEmail))
+    {
+      alert("Invalid email format!")
+    }
+    else if(!validatePhone(newPhone)){
+      console.log(newPhone.trim())
+      alert("Phone number must be at least 8 digits long!")
+    }
+    else
+    {
+      alert("Please fill all fields correctly.");
+    }
+  };
   return (
     <div className="flex w-full flex-col pb-6">
       <div className="flex w-full flex-row items-start gap-6">
@@ -48,17 +94,19 @@ export default function ProfilePage() {
           imageSize={imageSize}
         />
         <div
-          className="flex flex-col gap-6"
+          className="flex flex-col lg:w-1/4 md:w-1/2 w-full gap-4"
           style={{ marginTop: `${imageSize / 2 - imageSize / 5}px` }}
         >
-          <div>
-            <div className="flex w-fit flex-row justify-start gap-3">
+          <div className={`flex flex-col w-full ${isEditing ? "gap-4" : "gap-1"}`}>
+            <div className="flex flex-row w-full justify-start gap-4">
               <EditableField
                 value={name}
                 placeholder="Enter name..."
-                componentFormat="flex flex-col w-full p-0 rounded-lg text-2xl font-bold gap-1"
+                componentFormat={`${isEditing ? (profileComponentFormat) : ("font-bold text-2xl")}`}
                 isEditing={isEditing}
                 fieldName="Business Name"
+                newValue={newName}
+                setNewValue={setNewName} 
               />
               {!isEditing && (
                 <Button
@@ -72,8 +120,9 @@ export default function ProfilePage() {
             {isEditing ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="bg-none focus-visible:ring-0">
-                    <p className="text-sm text-foreground/80">{timezone}</p>
+                  <Button className="justify-between text-sm text-card-foreground focus-visible:ring-0">                    
+                    <p>{timezone}</p>
+                    <ChevronDown/>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="max-h-[300px] w-[350px] overflow-y-auto">
@@ -97,8 +146,9 @@ export default function ProfilePage() {
           {isEditing ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="focus-visible:ring-0">
-                  <p>{category}</p>
+                <Button className="flex justify-between text-card-foreground focus-visible:ring-0">
+                  {category}
+                  <ChevronDown/>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -106,43 +156,48 @@ export default function ProfilePage() {
                 align="end"
               >
                 {uniqueCategories.map((cat) => (
-                  <DropdownMenuItem key={cat} onClick={() => setCategory(cat)}>
+                  <DropdownMenuItem
+                    key={cat}
+                    onClick={() => setCategory(cat)}
+                  >
                     {cat}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <p>{category}</p>
+            <p className="font-bold">{category}</p>
           )}
 
-          <div className="flex flex-row justify-between">
-            <EditableField
-              value={phone}
-              placeholder="Enter phone number..."
-              componentFormat={profileComponentFormat}
-              isEditing={isEditing}
-              fieldName="Phone Number"
-            />
-          </div>
+          <EditableField
+            value={phone}
+            placeholder="Enter phone number..."
+            componentFormat={profileComponentFormat}
+            isEditing={isEditing}
+            fieldName="Phone Number"
+            newValue={newPhone}
+            setNewValue={setNewPhone}
+          />
 
-          <div className="flex flex-row justify-between">
-            <EditableField
-              value={email}
-              placeholder="Enter email..."
-              componentFormat={profileComponentFormat}
-              isEditing={isEditing}
-              fieldName="Email"
-            />
-          </div>
+          <EditableField
+            value={email}
+            placeholder="Enter email..."
+            componentFormat={profileComponentFormat}
+            isEditing={isEditing}
+            fieldName="Email"
+            newValue={newEmail}
+            setNewValue={setNewEmail}
+          />
         </div>
       </div>
-
-      <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 transform">
-        <Button disabled={!isEditing} onClick={() => setIsEditing(false)}>
+      {isEditing && (
+        <Button
+          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 transform"
+          onClick={handleSave}
+        >
           Save Changes
         </Button>
-      </div>
+      )}
     </div>
   );
 }

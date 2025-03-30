@@ -33,7 +33,7 @@ export function ProfileImage({
 
   return (
     <div className="flex flex-row items-end gap-0">
-      <div className={`relative justify-center overflow-hidden rounded-full`}>
+      <div className="relative justify-center overflow-hidden rounded-full border-2 border-foreground/25">
         <Image
           src={image}
           alt="business logo"
