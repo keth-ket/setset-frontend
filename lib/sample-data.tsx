@@ -27,10 +27,9 @@ import {
   CallRecording,
   FaqData,
   MetricsData,
+  ProfileData,
   ReportData,
-  sideBarPageProp,
-  ProfileData
-} from "./types";
+  sideBarPageProp} from "./types";
 
 export const metricsData: MetricsData = {
   callMinutes: { minutes: 100227, difference: -1.4 },

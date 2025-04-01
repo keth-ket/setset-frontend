@@ -17,7 +17,7 @@ export default function LoginPage() {
             Setset
           </a>
         </CardHeader>
-        <CardContent className={`${isMobile ? 'px-6' : 'px-11 py-8'} `}>
+        <CardContent className={`${isMobile ? "px-6" : "px-11 py-8"} `}>
           <LoginForm />
         </CardContent>
       </Card>

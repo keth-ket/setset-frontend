@@ -1,17 +1,18 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { differenceInCalendarDays } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import * as React from "react";
 import {
   DayPicker,
+  type DayPickerProps,
   labelNext,
   labelPrevious,
   useDayPicker,
-  type DayPickerProps,
 } from "react-day-picker";
+
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export type CalendarProps = DayPickerProps & {
   /**
@@ -137,12 +138,12 @@ function Calendar({
     "bg-accent [&>button]:bg-primary [&>button]:text-primary-foreground [&>button]:hover:bg-primary [&>button]:hover:text-primary-foreground";
   const _rangeStartClassName = cn(
     buttonRangeClassName,
-    "day-range-start rounded-s-md",
+    "day-range-start rounded-s-md [&>button]:bg-secondary [&>button]:text-primary [&>button]:hover:bg-secondary [&>button]:hover:text-primary",
     props.rangeStartClassName,
   );
   const _rangeEndClassName = cn(
     buttonRangeClassName,
-    "day-range-end rounded-e-md",
+    "day-range-end rounded-e-md [&>button]:bg-secondary [&>button]:text-primary [&>button]:hover:bg-secondary [&>button]:hover:text-primary",
     props.rangeEndClassName,
   );
   const _rangeMiddleClassName = cn(
@@ -201,7 +202,7 @@ function Calendar({
       components={{
         Chevron: ({ orientation }) => {
           const Icon = orientation === "left" ? ChevronLeft : ChevronRight;
-          return <Icon className="h-4 w-4" />;
+          return <Icon className="size-4" />;
         },
         Nav: ({ className }) => (
           <Nav
@@ -225,15 +226,15 @@ function Calendar({
         ),
         MonthGrid: ({ className, children, ...props }) => (
           <MonthGrid
-            children={children}
-            className={className}
             displayYears={displayYears}
             startMonth={startMonth}
             endMonth={endMonth}
             navView={navView}
             setNavView={setNavView}
             {...props}
-          />
+          >
+            {children}
+          </MonthGrid>
         ),
       }}
       numberOfMonths={columnsDisplayed}
@@ -345,7 +346,7 @@ function Nav({
     <nav className={cn("flex items-center", className)}>
       <Button
         variant="ghost"
-        className="absolute left-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+        className="absolute left-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
         type="button"
         tabIndex={isPreviousDisabled ? undefined : -1}
         disabled={isPreviousDisabled}
@@ -358,12 +359,12 @@ function Nav({
         }
         onClick={handlePreviousClick}
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ChevronLeft className="size-4" />
       </Button>
 
       <Button
         variant="ghost"
-        className="absolute right-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+        className="absolute right-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
         type="button"
         tabIndex={isNextDisabled ? undefined : -1}
         disabled={isNextDisabled}
@@ -374,7 +375,7 @@ function Nav({
         }
         onClick={handleNextClick}
       >
-        <ChevronRight className="h-4 w-4" />
+        <ChevronRight className="size-4" />
       </Button>
     </nav>
   );

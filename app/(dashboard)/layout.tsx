@@ -1,7 +1,7 @@
 import "../globals.css";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { NewParent } from "@/components/widgets/sidebar/newParent";
+import { NewParent } from "@/components/widgets/sidebar/new-parent";
 
 export default function RootLayout({
   children,

@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { faqsData } from "@/lib/sampleData";
+import { faqsData } from "@/lib/sample-data";
 import { containerClassname, FaqData } from "@/lib/types";
 
 export default function Faqs({ data = faqsData }: { data: FaqData[] }) {

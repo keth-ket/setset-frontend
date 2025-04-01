@@ -1,19 +1,19 @@
 "use client";
 import "@/app/globals.css";
+
+import { useCallback,useState } from "react";
+
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { SettingSidebar } from "@/components/widgets/sidebar/setting-sidebar";
-import { settingMenu } from "@/lib/sampleData";
+import { MainContent } from "@/components/widgets/settings/main-content";
 import { SettingHeaderBar } from "@/components/widgets/sidebar/settings-header";
-import {MainContent} from "@/components/widgets/setting/main-content";
-import { useState, useCallback } from "react";
+import { SettingSidebar } from "@/components/widgets/sidebar/settings-sidebar";
+import { settingMenu } from "@/lib/sample-data";
 export default function Page() {
+  const [currView, setCurrView] = useState<string>("#plans");
 
-    const [currView, setCurrView] = useState<string>("#plans");
-
-    const changeView = useCallback((view: string) =>
-    {
-      setCurrView(view);
-    }, []);
+  const changeView = useCallback((view: string) => {
+    setCurrView(view);
+  }, []);
 
   return (
     <SidebarProvider>
@@ -25,7 +25,7 @@ export default function Page() {
           </div>
         </header>
         <SidebarTrigger />
-        <MainContent changeView={changeView}/>
+        <MainContent changeView={changeView} />
       </main>
     </SidebarProvider>
   );

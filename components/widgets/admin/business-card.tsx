@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { business } from "@/lib/sampleData";
+import { business } from "@/lib/sample-data";
 import { BusinessInfo } from "@/lib/types";
 
 import { Button } from "../../ui/button";

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { settingMenu } from "@/lib/sampleData";
+import { settingMenu } from "@/lib/sample-data";
 export function MainContent({
   changeView,
 }: {

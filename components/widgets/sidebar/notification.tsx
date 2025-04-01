@@ -16,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { initialNotifications } from "@/lib/sampleData";
+import { initialNotifications } from "@/lib/sample-data";
 import { notificationObject } from "@/lib/types";
 
 export function NotificationList({
@@ -94,7 +94,7 @@ export function MobileNotification({
           removeNotification={removeNotification}
         />
         <DrawerFooter className="hidden">
-          <DrawerClose ></DrawerClose>
+          <DrawerClose></DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
@@ -113,7 +113,7 @@ export function DesktopNotification({
       <PopoverTrigger asChild className="cursor-pointer">
         {notificationAlert(notifications.length)}
       </PopoverTrigger>
-      <PopoverContent className="  scrollbar mr-2 max-h-[80vh] w-96 overflow-y-auto overflow-x-hidden rounded-xl p-0 py-6 shadow-xl shadow-primary-gray">
+      <PopoverContent className="scrollbar mr-2 max-h-[80vh] w-96 overflow-y-auto overflow-x-hidden rounded-xl p-0 py-6 shadow-xl shadow-primary-gray">
         <NotificationList
           notifications={notifications}
           removeNotification={removeNotification}

@@ -1,6 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { LogOut as LogOutIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 export function LogOut() {
   const logOUt = () => {

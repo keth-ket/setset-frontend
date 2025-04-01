@@ -1,13 +1,14 @@
+import Image from "next/image";
+
 import {
   Sidebar,
   SidebarContent,
-  SidebarMenuItem,
-  SidebarGroupLabel,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { sideBarPageProp } from "@/lib/types";
-import Image from "next/image";
 
 export function SettingSidebar({
   menuItems,
@@ -47,7 +48,7 @@ export function SettingSidebar({
               <SidebarMenuItem
                 key={item.url}
                 onClick={() => handleScrollToSection(item.url)}
-                className={`flex items-center justify-start h-12 p-[30px] m-1 gap-1 list-none rounded-xl cursor-default ${
+                className={`m-1 flex h-12 cursor-default list-none items-center justify-start gap-1 rounded-xl p-[30px] ${
                   currView === item.url 
                     ? "bg-foreground text-primary dark:bg-background dark:text-foreground" 
                     : "bg-transparent hover:bg-foreground hover:text-primary dark:[&:hover]:bg-background dark:[&:hover]:text-foreground"
