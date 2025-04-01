@@ -1,5 +1,6 @@
-import { Pencil, ChevronDown } from "lucide-react";
+import { ChevronDown,Pencil } from "lucide-react";
 import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,7 +9,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ProfileImage } from "@/components/widgets/dashboard/profile-page-component/profile-image";
-import EditableField from "./profile-page-component/EditableField";
+
+import EditableField from "./profile-page-component/editable-field";
 
 const profileComponentFormat =
   "flex flex-col w-full items-start gap-1 font-bold";
@@ -26,14 +28,14 @@ export default function ProfilePage() {
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(input.trim());
-  }
+  };
 
   const [phone, setPhone] = useState("0123456789");
   const [newPhone, setNewPhone] = useState("");
   const validatePhone = (input: string) => {
     const phoneRegex = /^\d{8,}$/;
     return phoneRegex.test(input.trim());
-  }
+  };
 
   const [category, setCategory] = useState("Business Category");
 
@@ -45,7 +47,6 @@ export default function ProfilePage() {
     "Finance",
   ];
 
-
   const imageSize = 100;
   const [timezone, setTimezone] = useState("GMT-7:00"); // Auto-detect timezone
   // Get formatted timezone options
@@ -55,11 +56,15 @@ export default function ProfilePage() {
     return {
       value: `GMT${sign}${offset}:00`,
       label: `GMT${sign}${offset}:00`,
-    };  
+    };
   });
 
   const handleSave = () => {
-    if (validateName(newName) && validateEmail(newEmail) && validatePhone(newPhone)) {
+    if (
+      validateName(newName) &&
+      validateEmail(newEmail) &&
+      validatePhone(newPhone)
+    ) {
       setNewName("");
       setName(newName);
       setNewEmail("");
@@ -67,21 +72,14 @@ export default function ProfilePage() {
       setNewPhone("");
       setPhone(newPhone);
       setIsEditing(false);
-    }
-    else if(!validateName(newName))
-    {
-      alert("Name must be longer than 5 characters!")
-    }
-    else if(!validateEmail(newEmail))
-    {
-      alert("Invalid email format!")
-    }
-    else if(!validatePhone(newPhone)){
-      console.log(newPhone.trim())
-      alert("Phone number must be at least 8 digits long!")
-    }
-    else
-    {
+    } else if (!validateName(newName)) {
+      alert("Name must be longer than 5 characters!");
+    } else if (!validateEmail(newEmail)) {
+      alert("Invalid email format!");
+    } else if (!validatePhone(newPhone)) {
+      console.log(newPhone.trim());
+      alert("Phone number must be at least 8 digits long!");
+    } else {
       alert("Please fill all fields correctly.");
     }
   };
@@ -94,23 +92,25 @@ export default function ProfilePage() {
           imageSize={imageSize}
         />
         <div
-          className="flex flex-col lg:w-1/4 md:w-1/2 w-full gap-4"
+          className="flex w-full flex-col gap-4 md:w-1/2 lg:w-1/4"
           style={{ marginTop: `${imageSize / 2 - imageSize / 5}px` }}
         >
-          <div className={`flex flex-col w-full ${isEditing ? "gap-4" : "gap-1"}`}>
-            <div className="flex flex-row w-full justify-start gap-4">
+          <div
+            className={`flex w-full flex-col ${isEditing ? "gap-4" : "gap-1"}`}
+          >
+            <div className="flex w-full flex-row justify-start gap-4">
               <EditableField
                 value={name}
                 placeholder="Enter name..."
-                componentFormat={`${isEditing ? (profileComponentFormat) : ("font-bold text-2xl")}`}
+                componentFormat={`${isEditing ? profileComponentFormat : "font-bold text-2xl"}`}
                 isEditing={isEditing}
                 fieldName="Business Name"
                 newValue={newName}
-                setNewValue={setNewName} 
+                setNewValue={setNewName}
               />
               {!isEditing && (
                 <Button
-                  className="flex h-8 w-8 rounded-lg"
+                  className="flex size-8 rounded-lg"
                   onClick={() => setIsEditing(true)}
                 >
                   <Pencil></Pencil>
@@ -120,9 +120,9 @@ export default function ProfilePage() {
             {isEditing ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="justify-between text-sm text-card-foreground focus-visible:ring-0">                    
+                  <Button className="justify-between text-sm text-card-foreground focus-visible:ring-0">
                     <p>{timezone}</p>
-                    <ChevronDown/>
+                    <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="max-h-[300px] w-[350px] overflow-y-auto">
@@ -148,7 +148,7 @@ export default function ProfilePage() {
               <DropdownMenuTrigger asChild>
                 <Button className="flex justify-between text-card-foreground focus-visible:ring-0">
                   {category}
-                  <ChevronDown/>
+                  <ChevronDown />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -192,7 +192,7 @@ export default function ProfilePage() {
       </div>
       {isEditing && (
         <Button
-          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 transform"
+          className="absolute bottom-6 left-1/2 flex -translate-x-1/2"
           onClick={handleSave}
         >
           Save Changes

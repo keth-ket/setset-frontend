@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { chartData } from "@/lib/sampleData";
+import { chartData } from "@/lib/sample-data";
 
 import { AppointmentsAreaChart } from "./area-chart";
 

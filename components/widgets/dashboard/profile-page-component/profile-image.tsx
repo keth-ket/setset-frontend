@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Pencil, Camera } from 'lucide-react';
+import { Camera } from "lucide-react";
+import Image from "next/image";
+import { useRef, useState } from "react";
+
+import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {
   initialImage: string;
@@ -13,8 +14,8 @@ interface ImageUploadProps {
 export function ProfileImage({
   initialImage,
   imageSize = 150,
-  className = '',
-  pencilFormat = 'flex rounded-full',
+  className = "",
+  pencilFormat = "flex rounded-full",
 }: ImageUploadProps) {
   const [image, setImage] = useState(initialImage);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -42,7 +43,10 @@ export function ProfileImage({
           height={imageSize}
         />
       </div>
-      <Button className="flex rounded-full z-10 -ml-6 w-8 h-8" onClick={handleButtonClick}>
+      <Button
+        className="z-10 -ml-6 flex size-8 rounded-full"
+        onClick={handleButtonClick}
+      >
         <Camera className={pencilFormat} />
       </Button>
       <input

@@ -35,7 +35,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { callRecordingsData } from "@/lib/sampleData";
+import { callRecordingsData } from "@/lib/sample-data";
 import { CallRecording, containerClassname } from "@/lib/types";
 
 const RecordingCell = ({

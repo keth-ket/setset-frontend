@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DateContext } from "@/context/DateContext";
+import { DateContext } from "@/context/date-context";
 
 export function useDateRange() {
   const context = useContext(DateContext);

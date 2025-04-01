@@ -1,15 +1,17 @@
+import { UserRound } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Notification from "@/components/widgets/sidebar/notification";
-import { ChangeTheme } from "@/components/widgets/theme_Toggle";
+import { ChangeTheme } from "@/components/widgets/theme-toggle";
+import { profile } from "@/lib/sample-data";
 import SettingIcon from "@/lib/settings";
 import { SettingsHeader } from "@/lib/settings";
 import { sideBarPageProp } from "@/lib/types";
+
+import { ProfilePicture } from "./header-profile";
 
 interface HeaderBarProps {
   currPage: sideBarPageProp;
@@ -33,13 +35,28 @@ const SidebarIcon = ({ currPage }: { currPage: sideBarPageProp }) => {
 };
 
 const UserButton = () => {
-  const router = useRouter();
-  const toProfile = () => router.push("/profile");
-  return (
-    <Avatar onClick={toProfile} className="!size-6 cursor-pointer">
-      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-      <AvatarFallback>"CN"</AvatarFallback>
-    </Avatar>
+  //this is the code for the user profile button for now
+  return true ? (
+    //this is the code for the user profile button
+
+    <ProfilePicture
+      src="https://github.com/shadcn.png"
+      alt="CN"
+      className="!size-6 cursor-pointer"
+      profile={profile}
+    />
+  ) : (
+    //this is the code for the login button
+    <Button
+      variant="ghost"
+      className="flex items-center gap-2 p-0 hover:bg-transparent"
+      asChild
+    >
+      <Link href={"/Profile"} className="!flex flex-row">
+        <UserRound className="!size-5 fill-foreground stroke-foreground sm:!size-6" />
+        <p className="hidden text-lg md:block">Sign In</p>
+      </Link>
+    </Button>
   );
 };
 

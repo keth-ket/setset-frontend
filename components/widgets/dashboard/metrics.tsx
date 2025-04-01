@@ -7,7 +7,7 @@ import {
   WalletMinimal,
 } from "lucide-react";
 
-import { metricsData } from "@/lib/sampleData";
+import { metricsData } from "@/lib/sample-data";
 import { cn } from "@/lib/utils";
 
 import { Card, CardContent } from "../../ui/card";

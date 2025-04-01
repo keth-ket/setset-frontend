@@ -1,11 +1,12 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { useState, useEffect } from "react"
+import { Eye, EyeClosed } from "lucide-react"
+import { useEffect,useState } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Eye, EyeClosed } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 export function LoginForm({
   className,
@@ -13,10 +14,10 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"form">) {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   });
-  const [passwordError, setPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState("");
   const [isPassword, setIsPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -30,7 +31,7 @@ export function LoginForm({
       [id]: value
     }));
 
-    if (id === 'password' && !isPassword) {
+    if (id === "password" && !isPassword) {
       setIsPassword(true);
     }
   }
@@ -38,11 +39,11 @@ export function LoginForm({
   useEffect(() => {
     if (isPassword) {
       if (formData.password.length === 0) {
-        setPasswordError('');
+        setPasswordError("");
       } else if (formData.password.length < 8) {
-        setPasswordError('Password must be at least 8 characters');
+        setPasswordError("Password must be at least 8 characters");
       } else {
-        setPasswordError('');
+        setPasswordError("");
       }
     }
   }, [formData.password, isPassword]);
@@ -52,10 +53,10 @@ export function LoginForm({
     
     if (formData.password.length < 8) {
       setIsPassword(true);
-      setPasswordError('Password must be at least 8 characters');
+      setPasswordError("Password must be at least 8 characters");
       return;
     }
-    setPasswordError('');
+    setPasswordError("");
   }
 
   return (
@@ -103,7 +104,7 @@ export function LoginForm({
               onClick={togglePasswordVisibility}
               className="absolute right-0 top-0 h-full px-3 py-2 text-muted-foreground hover:text-foreground"
             >
-              {showPassword ? <EyeClosed className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showPassword ? <EyeClosed className="size-4" /> : <Eye className="size-4" />}
             </button>
           </div>
           
@@ -116,7 +117,7 @@ export function LoginForm({
         
         <Button 
           type="submit" 
-          className="w-full bg-white text-black hover:text-white hover:border hover:border-white hover:bg-card"
+          className="w-full bg-white text-black hover:border hover:border-white hover:bg-card hover:text-white"
           disabled={!!passwordError && isPassword}
         >
           Login
@@ -135,7 +136,7 @@ export function LoginForm({
         
         <Button variant="outline" type="button" className="w-full bg-white text-black hover:text-white">
           <svg
-            className="mr-2 h-4 w-4"
+            className="mr-2 size-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
