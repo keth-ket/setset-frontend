@@ -114,3 +114,9 @@ export interface ReportData {
   category: "Call related" | "Other for now"
   status: "Pending" | "Resolved";
 }
+export interface ProfileData
+{
+  name:string;
+  category:string;
+  email:string;
+}
