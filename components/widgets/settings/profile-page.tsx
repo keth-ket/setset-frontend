@@ -140,7 +140,7 @@ export function ProfilePage() {
                 </DropdownMenu>
               </div>
             ) : (
-              <p className="pb-4 text-sm text-foreground/80">{timezone}</p>
+              <p className="pb-3 text-sm text-foreground/80">{timezone}</p>
             )}
           </div>
           {isEditing ? (
