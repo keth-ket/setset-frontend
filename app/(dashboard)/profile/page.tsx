@@ -1,8 +1,8 @@
 "use client";
-import ProfilePage from "@/components/widgets/dashboard/profile-page";
+import { ProfilePage } from "@/components/widgets/settings/profile-page";
 export default function Profile() {
   return (
-    <div className="p-4 pt-0">
+    <div className="h-full p-4 pt-0">
       <ProfilePage />
     </div>
   );

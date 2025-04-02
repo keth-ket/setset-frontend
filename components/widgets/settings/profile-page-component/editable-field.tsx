@@ -27,7 +27,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
             placeholder={placeholder}
             value={newValue}
             onChange={(e) => setNewValue(e.target.value)}
-            className="w-full rounded-lg bg-card p-2 pl-4 focus-visible:outline-none focus-visible:ring-0"
+            className="w-full rounded-lg bg-card p-2 pl-4 text-sm font-normal focus-visible:outline-none focus-visible:ring-0"
           />
         </div>
       ) : (

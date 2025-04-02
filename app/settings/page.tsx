@@ -26,6 +26,7 @@ export default function Page() {
         </header>
         <SidebarTrigger />
         <MainContent changeView={changeView} />
+        
       </main>
     </SidebarProvider>
   );

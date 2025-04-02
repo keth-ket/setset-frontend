@@ -8,30 +8,30 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ProfileImage } from "@/components/widgets/dashboard/profile-page-component/profile-image";
+import { ProfileImage } from "@/components/widgets/settings/profile-page-component/profile-image";
 
 import EditableField from "./profile-page-component/editable-field";
 
 const profileComponentFormat =
   "flex flex-col w-full items-start gap-1 font-bold";
 
-export default function ProfilePage() {
+export function ProfilePage() {
   const [name, setName] = useState("Business Name");
-  const [newName, setNewName] = useState("");
+  const [newName, setNewName] = useState(name);
 
   const validateName = (input: string) => {
     return input.trim().length >= 5; // Custom validation: at least 3 characters
   };
 
   const [email, setEmail] = useState("ExampleEmail@org.com");
-  const [newEmail, setNewEmail] = useState("");
+  const [newEmail, setNewEmail] = useState(email);
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(input.trim());
   };
 
   const [phone, setPhone] = useState("0123456789");
-  const [newPhone, setNewPhone] = useState("");
+  const [newPhone, setNewPhone] = useState(phone);
   const validatePhone = (input: string) => {
     const phoneRegex = /^\d{8,}$/;
     return phoneRegex.test(input.trim());
@@ -65,11 +65,8 @@ export default function ProfilePage() {
       validateEmail(newEmail) &&
       validatePhone(newPhone)
     ) {
-      setNewName("");
       setName(newName);
-      setNewEmail("");
       setEmail(newEmail);
-      setNewPhone("");
       setPhone(newPhone);
       setIsEditing(false);
     } else if (!validateName(newName)) {
@@ -84,15 +81,15 @@ export default function ProfilePage() {
     }
   };
   return (
-    <div className="flex w-full flex-col pb-6">
-      <div className="flex w-full flex-row items-start gap-6">
+    <div className="flex size-full flex-col justify-between gap-6">
+      <div className="flex w-full flex-col items-start gap-6 lg:flex-row">
         <ProfileImage
           initialImage="/images/logo.png"
-          className=""
           imageSize={imageSize}
+          isEditing = {isEditing}
         />
         <div
-          className="flex w-full flex-col gap-4 md:w-1/2 lg:w-1/4"
+          className={`flex w-full flex-col gap-4 md:w-1/2 ${isEditing ? "lg:w-1/4" : "lg:w-1/2"}`}
           style={{ marginTop: `${imageSize / 2 - imageSize / 5}px` }}
         >
           <div
@@ -101,7 +98,7 @@ export default function ProfilePage() {
             <div className="flex w-full flex-row justify-start gap-4">
               <EditableField
                 value={name}
-                placeholder="Enter name..."
+                placeholder="Name"
                 componentFormat={`${isEditing ? profileComponentFormat : "font-bold text-2xl"}`}
                 isEditing={isEditing}
                 fieldName="Business Name"
@@ -118,60 +115,63 @@ export default function ProfilePage() {
               )}
             </div>
             {isEditing ? (
+              <div>
+              <p className="font-bold">Time Zone</p>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="justify-between text-sm text-card-foreground focus-visible:ring-0">
+                      <p>{timezone}</p>
+                      <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="max-h-[300px] w-[300px] overflow-y-auto">
+                    {timezoneOptions.map((tz) => (
+                      <DropdownMenuItem
+                        className="text-sm"
+                        key={tz.value}
+                        onClick={() => {
+                          setTimezone(tz.value);
+                        }}
+                      >
+                        {tz.label}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            ) : (
+              <p className="pb-4 text-sm text-foreground/80">{timezone}</p>
+            )}
+          </div>
+          {isEditing ? (
+            <div>
+              <p className="font-bold">Category</p>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="justify-between text-sm text-card-foreground focus-visible:ring-0">
-                    <p>{timezone}</p>
+                  <Button className="flex justify-between text-card-foreground focus-visible:ring-0">
+                    {category}
                     <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="max-h-[300px] w-[350px] overflow-y-auto">
-                  {timezoneOptions.map((tz) => (
+                <DropdownMenuContent className="flex w-[300px] flex-col justify-end">
+                  {uniqueCategories.map((cat) => (
                     <DropdownMenuItem
-                      className="text-sm"
-                      key={tz.value}
-                      onClick={() => {
-                        setTimezone(tz.value);
-                      }}
+                      key={cat}
+                      onClick={() => setCategory(cat)}
                     >
-                      {tz.label}
+                      {cat}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : (
-              <p className="text-sm text-foreground/80">{timezone}</p>
-            )}
-          </div>
-          {isEditing ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="flex justify-between text-card-foreground focus-visible:ring-0">
-                  {category}
-                  <ChevronDown />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="flex w-full flex-col justify-end"
-                align="end"
-              >
-                {uniqueCategories.map((cat) => (
-                  <DropdownMenuItem
-                    key={cat}
-                    onClick={() => setCategory(cat)}
-                  >
-                    {cat}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            </div>
           ) : (
             <p className="font-bold">{category}</p>
           )}
-
+          
           <EditableField
             value={phone}
-            placeholder="Enter phone number..."
+            placeholder="Number"
             componentFormat={profileComponentFormat}
             isEditing={isEditing}
             fieldName="Phone Number"
@@ -181,7 +181,7 @@ export default function ProfilePage() {
 
           <EditableField
             value={email}
-            placeholder="Enter email..."
+            placeholder="Email"
             componentFormat={profileComponentFormat}
             isEditing={isEditing}
             fieldName="Email"
@@ -190,14 +190,16 @@ export default function ProfilePage() {
           />
         </div>
       </div>
-      {isEditing && (
-        <Button
-          className="absolute bottom-6 left-1/2 flex -translate-x-1/2"
-          onClick={handleSave}
-        >
-          Save Changes
-        </Button>
-      )}
+      <div className="flex items-center justify-center">
+        {isEditing && (
+          <Button
+            className="w-fit"
+            onClick={handleSave}
+          >
+            Save Changes
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

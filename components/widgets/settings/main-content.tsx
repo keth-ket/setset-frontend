@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 
 import { settingMenu } from "@/lib/sample-data";
+
+import { ProfilePage } from "./profile-page";
 export function MainContent({
   changeView,
 }: {
   changeView: (view: string) => void;
 }) {
-  const [viewSection, setViewSection] = useState<string>("");
+  // const [viewSection, setViewSection] = useState<string>("");
   const sectionIds = settingMenu.map((item) => item.url);
   // console.log("sectionId", sectionIds);
 
@@ -17,7 +19,7 @@ export function MainContent({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setViewSection(entry.target.id);
+            // setViewSection(entry.target.id);
             changeView(entry.target.id);
           }
         });
@@ -44,16 +46,21 @@ export function MainContent({
   return (
     <div className="flex min-w-full flex-col items-center justify-center">
       <h1 className="p-5">Welcome to the user Setting Page</h1>
-      <div className="flex w-full flex-col items-center justify-center">
+      <div className="flex w-full flex-col items-center justify-center p-2">
         {settingMenu.map((item) => (
           <div
             id={item.url}
             key={item.title}
-            className={`m-20 h-[400px] w-[90%] bg-primary py-20 text-3xl text-primary ${viewSection === item.url ? "!bg-muted-foreground text-foreground" : ""}`}
+            className={`w-full p-2 py-20`}
           >
-            {item.title}
+              {item.url === "Profile" ? (
+                <ProfilePage/>
+              ) : (
+                <div>{item.title}</div>
+              )}
           </div>
         ))}
+
       </div>
     </div>
   );
