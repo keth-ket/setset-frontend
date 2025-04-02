@@ -1,7 +1,6 @@
 import { Camera } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
-
 import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {

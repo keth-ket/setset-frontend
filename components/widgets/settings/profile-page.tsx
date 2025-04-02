@@ -15,6 +15,9 @@ import EditableField from "./profile-page-component/editable-field";
 const profileComponentFormat =
   "flex flex-col w-full items-start gap-1 font-bold";
 
+const dropDownButtonFormat = 
+  "justify-between w-full text-sm text-card-foreground focus-visible:ring-0";
+
 export function ProfilePage() {
   const [name, setName] = useState("Business Name");
   const [newName, setNewName] = useState(name);
@@ -82,20 +85,20 @@ export function ProfilePage() {
   };
   return (
     <div className="flex size-full flex-col justify-between gap-6">
-      <div className="flex w-full flex-col items-start gap-6 lg:flex-row">
+      <div className="flex flex-col items-start gap-6 md:flex-row">
         <ProfileImage
           initialImage="/images/logo.png"
           imageSize={imageSize}
           isEditing = {isEditing}
         />
         <div
-          className={`flex w-full flex-col gap-4 md:w-1/2 ${isEditing ? "lg:w-1/4" : "lg:w-1/2"}`}
+          className={`flex w-full flex-col gap-4 md:w-1/2 ${isEditing ? "lg:w-1/4" : ""}`}
           style={{ marginTop: `${imageSize / 2 - imageSize / 5}px` }}
         >
           <div
-            className={`flex w-full flex-col ${isEditing ? "gap-4" : "gap-1"}`}
+            className={`flex flex-col ${isEditing ? "gap-4" : "gap-1"}`}
           >
-            <div className="flex w-full flex-row justify-start gap-4">
+            <div className="flex flex-row justify-start gap-4">
               <EditableField
                 value={name}
                 placeholder="Name"
@@ -116,10 +119,10 @@ export function ProfilePage() {
             </div>
             {isEditing ? (
               <div>
-              <p className="font-bold">Time Zone</p>
+                <p className="font-bold">Time Zone</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button className="justify-between text-sm text-card-foreground focus-visible:ring-0">
+                    <Button className={dropDownButtonFormat}>
                       <p>{timezone}</p>
                       <ChevronDown />
                     </Button>
@@ -148,7 +151,7 @@ export function ProfilePage() {
               <p className="font-bold">Category</p>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="flex justify-between text-card-foreground focus-visible:ring-0">
+                  <Button className={dropDownButtonFormat}>
                     {category}
                     <ChevronDown />
                   </Button>

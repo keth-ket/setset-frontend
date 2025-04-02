@@ -2,13 +2,13 @@ interface EditableFieldProps {
   value: string;
   placeholder?: string;
   componentFormat?: string;
-  isEditing?: boolean;
+  isEditing: boolean;
   fieldName?: string;
   newValue: string; // The value of the input from the parent state
   setNewValue: (value: string) => void; // A function to update the value from the parent
 }
 
-const EditableField: React.FC<EditableFieldProps> = ({
+const EditableField = ({
   value,
   placeholder = "Enter text...",
   componentFormat = "",
@@ -16,8 +16,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
   fieldName = "Field",
   newValue ="",
   setNewValue,
-}) => {
-
+}: EditableFieldProps) => {
   return (
     <div className={componentFormat}>
       {isEditing ? (
