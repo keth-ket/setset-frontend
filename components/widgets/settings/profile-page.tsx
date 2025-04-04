@@ -118,7 +118,7 @@ export function ProfilePage() {
               )}
             </div>
             {isEditing ? (
-              <div>
+              <div className="w-full">
                 <p className="font-bold">Time Zone</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -127,7 +127,7 @@ export function ProfilePage() {
                       <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="max-h-[300px] w-[300px] overflow-y-auto">
+                  <DropdownMenuContent className="overflow-y-auto dropdown-content-width-full max-h-[300px]">
                     {timezoneOptions.map((tz) => (
                       <DropdownMenuItem
                         className="text-sm"
@@ -156,7 +156,7 @@ export function ProfilePage() {
                     <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="flex w-[300px] flex-col justify-end">
+                <DropdownMenuContent className="flex flex-col dropdown-content-width-full">
                   {uniqueCategories.map((cat) => (
                     <DropdownMenuItem
                       key={cat}

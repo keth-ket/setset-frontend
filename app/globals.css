@@ -29,6 +29,10 @@
     scrollbar-color: gray transparent; 
   }
 
+
+  .dropdown-content-width-full {
+    width: var(--radix-dropdown-menu-trigger-width);
+  }
 }
 
 

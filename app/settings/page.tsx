@@ -24,9 +24,7 @@ export default function Page() {
             <SettingHeaderBar />
           </div>
         </header>
-        <SidebarTrigger />
-        <MainContent changeView={changeView} />
-        
+        <MainContent changeView={changeView} />   
       </main>
     </SidebarProvider>
   );

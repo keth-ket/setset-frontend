@@ -44,14 +44,13 @@ export function MainContent({
   // console.log("viewSection", viewSection);
 
   return (
-    <div className="flex min-w-full flex-col items-center justify-center">
-      <h1 className="p-5">Welcome to the user Setting Page</h1>
-      <div className="flex w-full flex-col items-center justify-center p-2">
+    <div className="flex min-w-full items-start flex-col">
+      <div className="flex w-full flex-col p-4 gap-96">
         {settingMenu.map((item) => (
           <div
             id={item.url}
             key={item.title}
-            className={`w-full p-2 py-20`}
+            className={`w-full`}
           >
               {item.url === "Profile" ? (
                 <ProfilePage/>
@@ -60,7 +59,6 @@ export function MainContent({
               )}
           </div>
         ))}
-
       </div>
     </div>
   );
