@@ -45,7 +45,7 @@ export function MainContent({
 
   return (
     <div className="flex min-w-full items-start flex-col">
-      <div className="flex w-full flex-col p-4 gap-96">
+      <div className="flex w-full flex-col p-4 pt-0 gap-96">
         {settingMenu.map((item) => (
           <div
             id={item.url}
