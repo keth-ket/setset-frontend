@@ -85,14 +85,14 @@ export function ProfilePage() {
   };
   return (
     <div className="flex size-full flex-col justify-between gap-6">
-      <div className="flex flex-col items-start gap-x-6 gap-y-2 md:flex-row">
+      <div className="flex w-full flex-col items-start gap-x-6 gap-y-2 md:flex-row">
         <ProfileImage
           initialImage="/images/logo.png"
           imageSize={imageSize}
           isEditing = {isEditing}
         />
         <div
-          className={`flex w-full flex-col gap-4 md:w-1/2 ${isEditing ? "lg:w-1/4" : ""} md:mt-7`}
+          className={`flex w-full flex-col gap-4 md:mt-7 md:w-[450px]`}
         >
           <div
             className={`flex flex-col ${isEditing ? "gap-4" : "gap-1"}`}
@@ -190,10 +190,11 @@ export function ProfilePage() {
             newValue={newEmail}
             setNewValue={setNewEmail}
           />
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-end">
           {isEditing && (
             <Button
-              className="w-fit bg-green-400 hover:bg-green-400/50"
+              className="w-[225px]"
+              variant={"green"}
               onClick={handleSave}
             >
               Save Changes
