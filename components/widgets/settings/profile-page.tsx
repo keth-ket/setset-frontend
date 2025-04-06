@@ -85,14 +85,14 @@ export function ProfilePage() {
   };
   return (
     <div className="flex size-full flex-col justify-between gap-6">
-      <div className="flex w-full flex-col items-start gap-x-6 gap-y-2 md:flex-row">
+      <div className="flex w-full flex-col items-start gap-x-6 gap-y-4 lg:flex-row">
         <ProfileImage
           initialImage="/images/logo.png"
           imageSize={imageSize}
           isEditing = {isEditing}
         />
         <div
-          className={`flex w-full flex-col gap-4 md:mt-7 md:w-[450px]`}
+          className={`flex w-full flex-col gap-4 lg:mt-7 lg:w-[450px]`}
         >
           <div
             className={`flex flex-col ${isEditing ? "gap-4" : "gap-1"}`}
