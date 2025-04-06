@@ -62,6 +62,7 @@ export function ProfilePage() {
     };
   });
 
+  const marginTopBusinessName = imageSize / 2 - imageSize / 5;
   const handleSave = () => {
     if (
       validateName(newName) &&
@@ -92,7 +93,7 @@ export function ProfilePage() {
           isEditing = {isEditing}
         />
         <div
-          className={`flex w-full flex-col gap-4 md:w-1/2 ${isEditing ? "lg:w-1/4" : ""} md:mt-[${imageSize / 2 - imageSize / 5}px]`}
+          className={`flex w-full flex-col gap-4 md:w-1/2 ${isEditing ? "lg:w-1/4" : ""} md:mt-7`}
         >
           <div
             className={`flex flex-col ${isEditing ? "gap-4" : "gap-1"}`}
@@ -190,17 +191,17 @@ export function ProfilePage() {
             newValue={newEmail}
             setNewValue={setNewEmail}
           />
+          <div className="flex items-center justify-center">
+          {isEditing && (
+            <Button
+              className="w-fit bg-green-400 hover:bg-green-400/50"
+              onClick={handleSave}
+            >
+              Save Changes
+            </Button>
+          )}
+          </div>
         </div>
-      </div>
-      <div className="flex items-center justify-center">
-        {isEditing && (
-          <Button
-            className="w-fit"
-            onClick={handleSave}
-          >
-            Save Changes
-          </Button>
-        )}
       </div>
     </div>
   );
