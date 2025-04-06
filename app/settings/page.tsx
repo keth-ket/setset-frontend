@@ -3,7 +3,7 @@ import "@/app/globals.css";
 
 import { useCallback,useState } from "react";
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider} from "@/components/ui/sidebar";
 import { MainContent } from "@/components/widgets/settings/main-content";
 import { SettingHeaderBar } from "@/components/widgets/sidebar/settings-header";
 import { SettingSidebar } from "@/components/widgets/sidebar/settings-sidebar";

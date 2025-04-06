@@ -62,7 +62,6 @@ export function ProfilePage() {
     };
   });
 
-  const marginTopBusinessName = imageSize / 2 - imageSize / 5;
   const handleSave = () => {
     if (
       validateName(newName) &&
@@ -127,7 +126,7 @@ export function ProfilePage() {
                       <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="overflow-y-auto dropdown-content-width-full max-h-[300px]">
+                  <DropdownMenuContent className="dropdown-content-width-full max-h-[300px] overflow-y-auto">
                     {timezoneOptions.map((tz) => (
                       <DropdownMenuItem
                         className="text-sm"
@@ -156,7 +155,7 @@ export function ProfilePage() {
                     <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="flex flex-col dropdown-content-width-full">
+                <DropdownMenuContent className="dropdown-content-width-full flex flex-col">
                   {uniqueCategories.map((cat) => (
                     <DropdownMenuItem
                       key={cat}

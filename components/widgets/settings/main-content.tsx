@@ -44,8 +44,8 @@ export function MainContent({
   // console.log("viewSection", viewSection);
 
   return (
-    <div className="flex min-w-full items-start flex-col">
-      <div className="flex w-full flex-col p-4 pt-0 gap-96">
+    <div className="flex min-w-full flex-col items-start">
+      <div className="flex w-full flex-col gap-96 p-4 pt-0">
         {settingMenu.map((item) => (
           <div
             id={item.url}
