@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui/input";
 interface EditableFieldProps {
   value: string;
   placeholder?: string;
@@ -22,11 +23,11 @@ const EditableField = ({
       {isEditing ? (
         <div className="flex w-full flex-col gap-1 text-base">
           <p>{fieldName}</p>
-          <input
+          <Input
             placeholder={placeholder}
             value={newValue}
             onChange={(e) => setNewValue(e.target.value)}
-            className="w-full rounded-lg bg-card p-2 pl-4 text-sm font-normal focus-visible:outline-none focus-visible:ring-0"
+            className="w-full text-sm border font-normal focus-visible:outline-none focus-visible:ring-0"
           />
         </div>
       ) : (
