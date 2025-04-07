@@ -2,6 +2,7 @@ import { ChevronDown,Pencil } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +12,6 @@ import {
 import { ProfileImage } from "@/components/widgets/settings/profile-page-component/profile-image";
 
 import EditableField from "./profile-page-component/editable-field";
-import { Card } from "@/components/ui/card";
 
 const profileComponentFormat =
   "flex flex-col w-full items-start gap-1 font-bold";
@@ -94,7 +94,7 @@ export function ProfilePage() {
             isEditing = {isEditing}
           />
           <div
-            className="flex w-full lg:w-[50%] lg:min-w-[718px] flex-col gap-4 "
+            className="flex w-full flex-col gap-4 lg:w-1/2 lg:min-w-[718px] "
           >
             <div
               className={`flex flex-col ${isEditing ? "gap-4" : "gap-1"}`}

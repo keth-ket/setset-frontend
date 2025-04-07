@@ -27,7 +27,7 @@ const EditableField = ({
             placeholder={placeholder}
             value={newValue}
             onChange={(e) => setNewValue(e.target.value)}
-            className="w-full text-sm border font-normal focus-visible:outline-none focus-visible:ring-0"
+            className="w-full border text-sm font-normal focus-visible:outline-none focus-visible:ring-0"
           />
         </div>
       ) : (
