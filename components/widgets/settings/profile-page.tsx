@@ -19,6 +19,8 @@ const profileComponentFormat =
 const dropDownButtonFormat = 
   "justify-between w-full border border-input text-sm text-card-foreground focus-visible:ring-0";
 
+const dropDownFieldFormat = "flex flex-col w-full gap-1";
+
 export function ProfilePage() {
   const [name, setName] = useState("Business Name");
   const [newName, setNewName] = useState(name);
@@ -119,7 +121,7 @@ export function ProfilePage() {
                 )}
               </div>
               {isEditing ? (
-                <div className="w-full">
+                <div className={dropDownFieldFormat}>
                   <p className="font-bold">Time Zone</p>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -148,7 +150,7 @@ export function ProfilePage() {
               )}
             </div>
             {isEditing ? (
-              <div>
+              <div className={dropDownFieldFormat}>
                 <p className="font-bold">Category</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
