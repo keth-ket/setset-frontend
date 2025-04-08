@@ -1,4 +1,4 @@
-import { ChevronDown,Pencil } from "lucide-react";
+import { ChevronDown, Pencil } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ import EditableField from "./profile-page-component/editable-field";
 const profileComponentFormat =
   "flex flex-col w-full items-start gap-1 font-bold";
 
-const dropDownButtonFormat = 
+const dropDownButtonFormat =
   "justify-between w-full border border-input text-sm text-card-foreground focus-visible:ring-0";
 
 const dropDownFieldFormat = "flex flex-col w-full gap-1";
@@ -87,114 +87,109 @@ export function ProfilePage() {
     }
   };
   return (
-    <Card className="flex p-6">
-      <div className="flex size-full flex-col justify-between gap-6">
-        <div className="flex w-full flex-col items-start gap-x-6 gap-y-4">
-          <ProfileImage
-            initialImage="/images/logo.png"
-            imageSize={imageSize}
-            isEditing = {isEditing}
-          />
-          <div
-            className="flex w-full flex-col gap-4 lg:w-1/2 lg:min-w-[718px] "
-          >
-            <div
-              className={`flex flex-col ${isEditing ? "gap-4" : "gap-1"}`}
-            >
-              <div className="flex flex-row justify-start gap-4">
-                <EditableField
-                  value={name}
-                  placeholder="Name"
-                  componentFormat={`${isEditing ? profileComponentFormat : "font-bold text-2xl"}`}
-                  isEditing={isEditing}
-                  fieldName="Business Name"
-                  newValue={newName}
-                  setNewValue={setNewName}
-                />
-                {!isEditing && (
-                  <Button
-                    className="flex size-8 rounded-lg"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    <Pencil></Pencil>
-                  </Button>
-                )}
-              </div>
-              {isEditing ? (
-                <div className={dropDownFieldFormat}>
-                  <p className="font-bold">Time Zone</p>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button className={dropDownButtonFormat}>
-                        <p>{timezone}</p>
-                        <ChevronDown />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="dropdown-content-width-full max-h-[300px] overflow-y-auto">
-                      {timezoneOptions.map((tz) => (
-                        <DropdownMenuItem
-                          className="text-sm"
-                          key={tz.value}
-                          onClick={() => {
-                            setTimezone(tz.value);
-                          }}
-                        >
-                          {tz.label}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              ) : (
-                <p className="pb-3 text-sm text-foreground/80">{timezone}</p>
+    <Card className={`flex p-6 ${isEditing ? "" : "pb-2"}`}>
+      <div className="flex w-full flex-col items-start gap-4">
+        <ProfileImage
+          initialImage="/images/logo.png"
+          imageSize={imageSize}
+          isEditing={isEditing}
+        />
+        <div className="flex w-full flex-col gap-4 lg:w-1/2 lg:min-w-[718px]">
+          <div className={`flex flex-col ${isEditing ? "gap-4" : "gap-1"}`}>
+            <div className="flex flex-row justify-start gap-4">
+              <EditableField
+                value={name}
+                placeholder="Name"
+                componentFormat={`${isEditing ? profileComponentFormat : "font-bold text-2xl"}`}
+                isEditing={isEditing}
+                fieldName="Business Name"
+                newValue={newName}
+                setNewValue={setNewName}
+              />
+              {!isEditing && (
+                <Button
+                  className="flex size-8 rounded-lg"
+                  onClick={() => setIsEditing(true)}
+                >
+                  <Pencil></Pencil>
+                </Button>
               )}
             </div>
             {isEditing ? (
               <div className={dropDownFieldFormat}>
-                <p className="font-bold">Category</p>
+                <p className="font-bold">Time Zone</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className={dropDownButtonFormat}>
-                      {category}
+                      <p>{timezone}</p>
                       <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="dropdown-content-width-full flex flex-col">
-                    {uniqueCategories.map((cat) => (
+                  <DropdownMenuContent className="dropdown-content-width-full max-h-[300px] overflow-y-auto">
+                    {timezoneOptions.map((tz) => (
                       <DropdownMenuItem
-                        key={cat}
-                        onClick={() => setCategory(cat)}
+                        className="text-sm"
+                        key={tz.value}
+                        onClick={() => {
+                          setTimezone(tz.value);
+                        }}
                       >
-                        {cat}
+                        {tz.label}
                       </DropdownMenuItem>
                     ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             ) : (
-              <p className="font-bold">{category}</p>
+              <p className="pb-3 text-sm text-foreground/80">{timezone}</p>
             )}
-            
-            <EditableField
-              value={phone}
-              placeholder="Number"
-              componentFormat={profileComponentFormat}
-              isEditing={isEditing}
-              fieldName="Phone Number"
-              newValue={newPhone}
-              setNewValue={setNewPhone}
-            />
+          </div>
+          {isEditing ? (
+            <div className={dropDownFieldFormat}>
+              <p className="font-bold">Category</p>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className={dropDownButtonFormat}>
+                    {category}
+                    <ChevronDown />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="dropdown-content-width-full flex flex-col">
+                  {uniqueCategories.map((cat) => (
+                    <DropdownMenuItem
+                      key={cat}
+                      onClick={() => setCategory(cat)}
+                    >
+                      {cat}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <p className="font-bold">{category}</p>
+          )}
 
-            <EditableField
-              value={email}
-              placeholder="Email"
-              componentFormat={profileComponentFormat}
-              isEditing={isEditing}
-              fieldName="Email"
-              newValue={newEmail}
-              setNewValue={setNewEmail}
-            />
-            <div className="flex items-center justify-end">
+          <EditableField
+            value={phone}
+            placeholder="Number"
+            componentFormat={profileComponentFormat}
+            isEditing={isEditing}
+            fieldName="Phone Number"
+            newValue={newPhone}
+            setNewValue={setNewPhone}
+          />
+
+          <EditableField
+            value={email}
+            placeholder="Email"
+            componentFormat={profileComponentFormat}
+            isEditing={isEditing}
+            fieldName="Email"
+            newValue={newEmail}
+            setNewValue={setNewEmail}
+          />
+          <div className="flex items-center justify-end">
             {isEditing && (
               <Button
                 className="w-[225px]"
@@ -204,7 +199,6 @@ export function ProfilePage() {
                 Save Changes
               </Button>
             )}
-            </div>
           </div>
         </div>
       </div>
