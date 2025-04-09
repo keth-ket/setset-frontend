@@ -3,7 +3,8 @@ import "@/app/globals.css";
 
 import { useCallback,useState } from "react";
 
-import { SidebarProvider} from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+
 import { MainContent } from "@/components/widgets/settings/main-content";
 import { SettingHeaderBar } from "@/components/widgets/sidebar/settings-header";
 import { SettingSidebar } from "@/components/widgets/sidebar/settings-sidebar";
@@ -13,6 +14,9 @@ export default function Page() {
 
   const changeView = useCallback((view: string) => {
     setCurrView(view);
+    // console.log("view", view);
+    
+    
   }, []);
 
   return (
@@ -24,7 +28,7 @@ export default function Page() {
             <SettingHeaderBar />
           </div>
         </header>
-        <MainContent changeView={changeView} />   
+        <MainContent changeView={changeView} />
       </main>
     </SidebarProvider>
   );

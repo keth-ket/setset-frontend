@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect} from "react";
+import { useEffect, useState } from "react";
+import { Password } from "./password-section";
 
 import { settingMenu } from "@/lib/sample-data";
 
@@ -47,6 +48,7 @@ export function MainContent({
     <div className="flex flex-col items-start">
       <div className="flex w-full flex-col gap-96">
         <ProfilePage />
+        <Password/>
         {settingMenu.map((item) => (
           <div
             id={item.url}
