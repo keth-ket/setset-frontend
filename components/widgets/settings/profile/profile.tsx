@@ -9,9 +9,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ProfileImage } from "@/components/widgets/settings/profile-page-component/profile-image";
+import { ProfileImage } from "@/components/widgets/settings/profile/profile-image";
 
-import EditableField from "./profile-page-component/editable-field";
+import EditableField from "./editable-field";
 
 const profileComponentFormat =
   "flex flex-col w-full items-start gap-1 font-bold";
@@ -87,7 +87,7 @@ export function ProfilePage() {
     }
   };
   return (
-    <Card className={`flex p-6 ${isEditing ? "" : "pb-2"}`}>
+    <Card className={`flex p-6 ${isEditing ? "" : "pb-2"}`} id="Profile">
       <div className="flex w-full flex-col items-start gap-4">
         <ProfileImage
           initialImage="/images/logo.png"
@@ -125,7 +125,8 @@ export function ProfilePage() {
                       <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="dropdown-content-width-full max-h-[300px] overflow-y-auto">
+                  <DropdownMenuContent className="max-h-[300px] overflow-y-auto"
+                  style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}>
                     {timezoneOptions.map((tz) => (
                       <DropdownMenuItem
                         className="text-sm"
@@ -154,7 +155,8 @@ export function ProfilePage() {
                     <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="dropdown-content-width-full flex flex-col">
+                <DropdownMenuContent className="flex flex-col"
+                 style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}>
                   {uniqueCategories.map((cat) => (
                     <DropdownMenuItem
                       key={cat}

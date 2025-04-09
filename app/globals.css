@@ -29,19 +29,6 @@
     scrollbar-color: gray transparent; 
   }
 
-
-  .dropdown-content-width-full {
-    width: var(--radix-dropdown-menu-trigger-width);
-  }
-
-
-  .bluebutton {
-    background-color: #0b5f76;
-  }
-
-  .bluebutton:hover {
-    background-color: #ffc0cb; 
-  }
 }
 
 
