@@ -4,7 +4,7 @@ import { useEffect} from "react";
 
 import { settingMenu } from "@/lib/sample-data";
 
-import { ProfilePage } from "./profile/profile";
+import { Profile } from "./profile/profile";
 export function MainContent({
   changeView,
 }: {
@@ -46,7 +46,7 @@ export function MainContent({
   return (
     <div className="flex flex-col items-start">
       <div className="flex w-full flex-col gap-96">
-        <ProfilePage />
+        <Profile/>
         {settingMenu.map((item) => (
           <div
             id={item.url}

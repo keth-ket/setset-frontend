@@ -21,7 +21,7 @@ const dropDownButtonFormat =
 
 const dropDownFieldFormat = "flex flex-col w-full gap-1";
 
-export function ProfilePage() {
+export function Profile() {
   const [name, setName] = useState("Business Name");
   const [newName, setNewName] = useState(name);
 
@@ -125,8 +125,12 @@ export function ProfilePage() {
                       <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="max-h-[300px] overflow-y-auto"
-                  style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}>
+                  <DropdownMenuContent
+                    className="max-h-[300px] overflow-y-auto"
+                    style={{
+                      width: "var(--radix-dropdown-menu-trigger-width)",
+                    }}
+                  >
                     {timezoneOptions.map((tz) => (
                       <DropdownMenuItem
                         className="text-sm"
@@ -155,8 +159,10 @@ export function ProfilePage() {
                     <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="flex flex-col"
-                 style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}>
+                <DropdownMenuContent
+                  className="flex flex-col"
+                  style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}
+                >
                   {uniqueCategories.map((cat) => (
                     <DropdownMenuItem
                       key={cat}
