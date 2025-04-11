@@ -1,8 +1,9 @@
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 export function Password() {
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -121,7 +122,7 @@ export function Password() {
       id="Password"
       className="flex w-full flex-col justify-start rounded-xl border bg-card p-6 text-card-foreground"
     >
-      <CardHeader className="text-xl md:text-2xl lg:text-3xl px-0 pb-7 pt-0">
+      <CardHeader className="px-0 pb-7 pt-0 text-xl md:text-2xl lg:text-3xl">
         Change Password
       </CardHeader>
       <CardContent className="p-0">

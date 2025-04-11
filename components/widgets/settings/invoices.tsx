@@ -1,7 +1,8 @@
 "use client";
 
-import { Download, DownloadIcon, FilterIcon, SearchIcon, ArrowDownUp } from "lucide-react";
-import { useState, useMemo } from "react";
+import { ArrowDownUp,Download, DownloadIcon, FilterIcon, SearchIcon } from "lucide-react";
+import { useMemo,useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,36 +19,36 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { businessInvoice } from "@/lib/sample-data";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { businessInvoice } from "@/lib/sample-data";
 
 const ITEMS_PER_PAGE = 12;
 const MAX_PAGE_BUTTONS = 5
 
-type BillingPlan = 'yearly' | 'monthly';
+type BillingPlan = "yearly" | "monthly";
 
 export function Invoices({ plan }: { plan: BillingPlan }) {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sorting, setSorting] = useState<'asc' | 'desc'>('desc');
+  const [sorting, setSorting] = useState<"asc" | "desc">("desc");
 
   const isMobile = useIsMobile();
 
   const { availableYears, filteredData } = useMemo(() => {
     const processed = businessInvoice.map(invoice => {
       const date = new Date(invoice.date);
-      const isAnnual = invoice.id.includes('ANNUAL');
+      const isAnnual = invoice.id.includes("ANNUAL");
       return {
         ...invoice,
         dateObj: date,
         year: date.getFullYear(),
         month: date.getMonth() + 1,
         isAnnual,
-        formattedDate: date.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
+        formattedDate: date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
         }),
       };
     });
@@ -61,14 +62,14 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
       return matchesSearch && matchesYear;
     });
     
-    if (plan === 'monthly') {
+    if (plan === "monthly") {
       filtered = filtered.filter(invoice => !invoice.isAnnual);
     } else {
       filtered = filtered.filter(invoice => invoice.isAnnual);
     }
 
     filtered.sort((a, b) => {
-      if (sorting === 'asc') {
+      if (sorting === "asc") {
         return a.dateObj.getTime() - b.dateObj.getTime();
       } else {
         return b.dateObj.getTime() - a.dateObj.getTime();
@@ -89,14 +90,14 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
   const getPageNumbers = () => {
     const pages = [];
     let startPage = Math.max(1, currentPage - Math.floor(MAX_PAGE_BUTTONS / 2));
-    let endPage = Math.min(totalPages, startPage + MAX_PAGE_BUTTONS - 1);
+    const endPage = Math.min(totalPages, startPage + MAX_PAGE_BUTTONS - 1);
     if (endPage - startPage + 1< MAX_PAGE_BUTTONS - 1) {
       startPage = Math.max(1, endPage - MAX_PAGE_BUTTONS + 1);
     }
     if (startPage > 1) {
       pages.push(1);
       if (startPage > 2) {
-        pages.push('...');
+        pages.push("...");
       }
     }
     for (let i = startPage; i <= endPage; i++) {
@@ -104,7 +105,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
     }
     if (endPage < totalPages) {
       if (endPage < totalPages - 1) {
-        pages.push('...');
+        pages.push("...");
       }
       pages.push(totalPages);
     }
@@ -116,26 +117,26 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
   };
 
   const toggleSorting = () => {
-    setSorting(sorting === 'asc' ? 'desc' : 'asc');
+    setSorting(sorting === "asc" ? "desc" : "asc");
   };
 
   return ( 
     <div className="rounded-lg bg-card p-6 shadow-md shadow-primary-gray">
       <div
-        className={`flex flex-col justify-between md:flex-row py-4 ${isMobile ? "space-y-4" : ""}`}
+        className={`flex flex-col justify-between py-4 md:flex-row ${isMobile ? "space-y-4" : ""}`}
       >
         <div className="text-base md:text-2xl lg:text-3xl">
-          {plan === 'yearly' ? 'Annual Invoices' : 'Monthly Invoices'}
+          {plan === "yearly" ? "Annual Invoices" : "Monthly Invoices"}
         </div>
         
         <div
           className={`mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
         >
           <div className="relative w-full">
-            <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder={`Search ${plan} invoices...`}
-              className="pl-10 w-full"
+              className="w-full pl-10"
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -147,7 +148,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="w-full sm:w-auto">
-                <FilterIcon className="mr-2 h-4 w-4" />
+                <FilterIcon className="mr-2 size-4" />
                 {selectedYear || "All Years"}
               </Button>
             </DropdownMenuTrigger>
@@ -178,7 +179,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         </div>
       </div>
 
-      <div className="rounded-lg border w-full overflow-hidden py-4">
+      <div className="w-full overflow-hidden rounded-lg border py-4">
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow>
@@ -190,7 +191,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                   className="p-0 hover:bg-transparent"
                 >
                   Date
-                  <ArrowDownUp className="size-4 ml-2" />
+                  <ArrowDownUp className="ml-2 size-4" />
                 </Button>
               </TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -207,14 +208,14 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                   </TableCell>
                   <TableCell>{invoice.formattedDate}</TableCell>
                   <TableCell className="text-right">
-                    <div className="flex gap-2 justify-end">
+                    <div className="flex justify-end gap-2">
                       <Button
                         variant="ghost"
                         size="sm"
                         className="bg-[#2a870b] shadow-sm hover:bg-[#2a870b]/60"
                         onClick={() => handleDownload(invoice.transcriptURL)}
                       >
-                        <DownloadIcon className="h-4 w-4 mr-2" />
+                        <DownloadIcon className="mr-2 size-4" />
                         Download
                       </Button>
                     </div>
@@ -233,15 +234,15 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
       </div>
 
       {totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="text-sm text-muted-foreground">
-            Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{' '}
-            {Math.min(currentPage * ITEMS_PER_PAGE, totalItems)} of{' '}
+            Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{" "}
+            {Math.min(currentPage * ITEMS_PER_PAGE, totalItems)} of{" "}
             {totalItems} invoices
           </div>
           <div className="flex items-center gap-1">
             {getPageNumbers().map((page, index) => (
-              page === '...' ? (
+              page === "..." ? (
                 <span key={`ellipsis-${index}`} className="px-2 py-1">...</span>
               ) : (
                 <Button
