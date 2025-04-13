@@ -6,7 +6,7 @@ import { settingMenu } from "@/lib/sample-data";
 
 import { Invoices } from "./invoices";
 import { Password } from "./password-section";
-import { ProfilePage } from "./profile/profile";
+import { Profile } from "./profile/profile";
 export function MainContent({
   changeView,
 }: {
@@ -48,7 +48,7 @@ export function MainContent({
   return (
     <div className="flex flex-col items-start">
       <div className="flex w-full flex-col gap-96">
-        <ProfilePage />
+        <Profile/>
         <Password />
         {settingMenu.map((item) => (
           <div id={item.url} key={item.title} className={`w-full p-4`}>

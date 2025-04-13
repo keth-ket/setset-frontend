@@ -21,7 +21,7 @@ const dropDownButtonFormat =
 
 const dropDownFieldFormat = "flex flex-col w-full gap-1";
 
-export function ProfilePage() {
+export function Profile() {
   const [name, setName] = useState("Business Name");
   const [newName, setNewName] = useState(name);
 
