@@ -7,6 +7,8 @@ import { settingMenu } from "@/lib/sample-data";
 import { Invoices } from "./invoices";
 import { Password } from "./password-section";
 import { Profile } from "./profile/profile";
+import { Plan }  from "./plan/plan";
+import { Card } from "@/components/ui/card";
 export function MainContent({
   changeView,
 }: {
@@ -43,24 +45,33 @@ export function MainContent({
     };
   }, [sectionIds, changeView]);
 
-  // console.log("viewSection", viewSection);
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
 
   return (
     <div className="flex flex-col items-start">
       <div className="flex w-full flex-col gap-96">
         <Profile/>
         <Password />
-        {settingMenu.map((item) => (
-          <div id={item.url} key={item.title} className={`w-full p-4`}>
-            {item.url !== "Profile" && <p>{item.title}</p>}
-            {item.url === "Invoices" && (
-              <>
-                {/* <Invoices plan="yearly" /> */}
-                <Invoices plan="monthly" />
-              </>
-            )}
-          </div>
-        ))}
+        <Card className="p-6 h-[300px]" id="Card-Information">
+          Card Information
+        </Card>
+        <Plan onClickUpdate={() => scrollToSection("Card-Information")}/>
+        <Card className="p-6 h-[300px]" id="Calendar">
+          Calendar
+        </Card>
+        <div id="Invoices">
+          <Invoices plan="monthly"/>
+        </div>
+
+        <Card className="p-6 h-[300px]" id="Support">
+          Support
+        </Card>
       </div>
     </div>
   );

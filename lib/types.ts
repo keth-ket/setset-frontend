@@ -107,6 +107,12 @@ export type settingSVGProp = {
   className: string;
 };
 
+export type planFeature = {
+  title: string,
+  subFeatures: string[]
+};
+
+
 export const REPORT_CATEGORIES = ["Call related", "Invoice", "Other"] as const;
 export type ReportCategory = (typeof REPORT_CATEGORIES)[number];
 
@@ -128,3 +134,4 @@ export interface InvoiceData {
   date: string;
   transcriptURL: string;
 }
+
