@@ -74,7 +74,7 @@ export function LoginForm({
           <Input
             id="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="username@example.com"
             required
             value={formData.email}
             onChange={handleChange}
@@ -109,7 +109,7 @@ export function LoginForm({
           </div>
           
           {isPassword && passwordError && (
-            <p className="text-sm font-bold text-red-300">
+            <p className="text-sm text-red-500">
               {passwordError}
             </p>
           )}
@@ -117,7 +117,7 @@ export function LoginForm({
         
         <Button 
           type="submit" 
-          className="w-full bg-white text-black hover:border hover:border-white hover:bg-card hover:text-white"
+          className="w-full bg-foreground text-card hover:border hover:border-foreground hover:bg-background hover:text-foreground"
           disabled={!!passwordError && isPassword}
         >
           Login
@@ -127,14 +127,18 @@ export function LoginForm({
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="relative z-10 bg-background px-2 text-muted-foreground">
+          <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-foreground">
+            <span className="relative z-10 bg-card px-2 text-muted-foreground">
               Or continue with
             </span>
           </div>
         </div>
         
-        <Button variant="outline" type="button" className="w-full bg-white text-black hover:text-white">
+        <Button 
+          variant="outline" 
+          type="button" 
+          className="w-full bg-foreground text-card hover:border hover:border-foreground hover:bg-background hover:text-foreground"
+        >
           <svg
             className="mr-2 size-4"
             xmlns="http://www.w3.org/2000/svg"

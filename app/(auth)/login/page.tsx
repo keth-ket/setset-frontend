@@ -2,17 +2,18 @@
 import { LoginForm } from "@/components/login-form"
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile"
+import  Image  from "next/image";
 
 export default function LoginPage() {
   const isMobile = useIsMobile();
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-card p-6 md:p-10">
-      <Card className="w-full max-w-lg bg-background"> 
-        <CardHeader className="pb-3 pt-11">
+    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
+      <Card className="w-full max-w-lg bg-card"> 
+        <CardHeader className="pb-0 pt-11">
           <a href="#" className="flex items-center gap-2 self-center text-lg font-medium"> 
             <div className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <img src="/images/logo.png" className="size-7" alt="Logo" />
+            <Image src="/images/logo.png" className="size-7" width="100" height="100" alt="Logo" />
             </div>
             Setset
           </a>
