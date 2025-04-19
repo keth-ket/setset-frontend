@@ -1,7 +1,12 @@
 "use client";
 
-import { ArrowDownUp,Download, DownloadIcon, FilterIcon, SearchIcon } from "lucide-react";
-import { useMemo,useState } from "react";
+import {
+  ArrowDownUp,
+  DownloadIcon,
+  FilterIcon,
+  SearchIcon,
+} from "lucide-react";
+import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +28,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { businessInvoice } from "@/lib/sample-data";
 
 const ITEMS_PER_PAGE = 12;
-const MAX_PAGE_BUTTONS = 5
+const MAX_PAGE_BUTTONS = 5;
 
 type BillingPlan = "yearly" | "monthly";
 
@@ -36,7 +41,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
   const isMobile = useIsMobile();
 
   const { availableYears, filteredData } = useMemo(() => {
-    const processed = businessInvoice.map(invoice => {
+    const processed = businessInvoice.map((invoice) => {
       const date = new Date(invoice.date);
       const isAnnual = invoice.id.includes("ANNUAL");
       return {
@@ -48,24 +53,26 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         formattedDate: date.toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
-          day: "numeric"
+          day: "numeric",
         }),
       };
     });
 
-    const years = [...new Set(processed.map(i => i.year))].sort((a, b) => b - a);
+    const years = [...new Set(processed.map((i) => i.year))].sort(
+      (a, b) => b - a,
+    );
 
-    let filtered = processed.filter(invoice => {
+    let filtered = processed.filter((invoice) => {
       const searchLower = searchTerm.toLowerCase();
       const matchesSearch = invoice.id.toLowerCase().includes(searchLower);
       const matchesYear = selectedYear ? invoice.year === selectedYear : true;
       return matchesSearch && matchesYear;
     });
-    
+
     if (plan === "monthly") {
-      filtered = filtered.filter(invoice => !invoice.isAnnual);
+      filtered = filtered.filter((invoice) => !invoice.isAnnual);
     } else {
-      filtered = filtered.filter(invoice => invoice.isAnnual);
+      filtered = filtered.filter((invoice) => invoice.isAnnual);
     }
 
     filtered.sort((a, b) => {
@@ -91,7 +98,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
     const pages = [];
     let startPage = Math.max(1, currentPage - Math.floor(MAX_PAGE_BUTTONS / 2));
     const endPage = Math.min(totalPages, startPage + MAX_PAGE_BUTTONS - 1);
-    if (endPage - startPage + 1< MAX_PAGE_BUTTONS - 1) {
+    if (endPage - startPage + 1 < MAX_PAGE_BUTTONS - 1) {
       startPage = Math.max(1, endPage - MAX_PAGE_BUTTONS + 1);
     }
     if (startPage > 1) {
@@ -110,7 +117,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
       pages.push(totalPages);
     }
     return pages;
-  }
+  };
 
   const handleDownload = (transcriptURL: string) => {
     console.log(`Downloading transcript: ${transcriptURL}`);
@@ -120,7 +127,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
     setSorting(sorting === "asc" ? "desc" : "asc");
   };
 
-  return ( 
+  return (
     <div className="rounded-lg bg-card p-6 shadow-md shadow-primary-gray">
       <div
         className={`flex flex-col justify-between py-4 md:flex-row ${isMobile ? "space-y-4" : ""}`}
@@ -128,7 +135,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         <div className="text-base md:text-2xl lg:text-3xl">
           {plan === "yearly" ? "Annual Invoices" : "Monthly Invoices"}
         </div>
-        
+
         <div
           className={`mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
         >
@@ -153,7 +160,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="max-h-60 overflow-y-auto">
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={() => {
                   setSelectedYear(null);
                   setCurrentPage(1);
@@ -162,9 +169,9 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
               >
                 All Years
               </DropdownMenuItem>
-              {availableYears.map(year => (
-                <DropdownMenuItem 
-                  key={year} 
+              {availableYears.map((year) => (
+                <DropdownMenuItem
+                  key={year}
                   onClick={() => {
                     setSelectedYear(year);
                     setCurrentPage(1);
@@ -203,7 +210,9 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                 <TableRow key={invoice.id} className="hover:bg-muted/50">
                   <TableCell>
                     <div>
-                      <p className="text-sm text-muted-foreground">{invoice.id}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {invoice.id}
+                      </p>
                     </div>
                   </TableCell>
                   <TableCell>{invoice.formattedDate}</TableCell>
@@ -224,7 +233,10 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={3} className="h-24 text-center text-muted-foreground">
+                <TableCell
+                  colSpan={3}
+                  className="h-24 text-center text-muted-foreground"
+                >
                   No invoices found matching your criteria.
                 </TableCell>
               </TableRow>
@@ -237,13 +249,15 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="text-sm text-muted-foreground">
             Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{" "}
-            {Math.min(currentPage * ITEMS_PER_PAGE, totalItems)} of{" "}
-            {totalItems} invoices
+            {Math.min(currentPage * ITEMS_PER_PAGE, totalItems)} of {totalItems}{" "}
+            invoices
           </div>
           <div className="flex items-center gap-1">
-            {getPageNumbers().map((page, index) => (
+            {getPageNumbers().map((page, index) =>
               page === "..." ? (
-                <span key={`ellipsis-${index}`} className="px-2 py-1">...</span>
+                <span key={`ellipsis-${index}`} className="px-2 py-1">
+                  ...
+                </span>
               ) : (
                 <Button
                   key={page}
@@ -254,8 +268,8 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                 >
                   {page}
                 </Button>
-              )
-            ))}
+              ),
+            )}
           </div>
         </div>
       )}

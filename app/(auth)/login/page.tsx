@@ -1,8 +1,9 @@
 "use client"
+import  Image  from "next/image";
+
 import { LoginForm } from "@/components/login-form"
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile"
-import  Image  from "next/image";
 
 export default function LoginPage() {
   const isMobile = useIsMobile();
