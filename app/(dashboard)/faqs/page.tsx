@@ -2,7 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { faqsData } from "@/lib/sample-data";
 import { containerClassname, FaqData } from "@/lib/types";
 
-export default function Faqs({ data = faqsData }: { data: FaqData[] }) {
+// only client components can accept props and not page components
+function FaqsContent({ data }: { data: FaqData[] }) {
   const cardContentStyles = "flex flex-col px-4 py-6 justify-center";
 
   return (
@@ -31,4 +32,12 @@ export default function Faqs({ data = faqsData }: { data: FaqData[] }) {
       ))}
     </div>
   );
+}
+
+// page component that doesn't accept props
+export default function Faqs() {
+  const data = faqsData; // fetch data
+
+  // pass it to the client component
+  return <FaqsContent data={data} />;
 }
