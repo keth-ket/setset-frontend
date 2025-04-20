@@ -1,12 +1,13 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { ReactNode, useCallback, useEffect,useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 
-import { SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/widgets/sidebar/app-sidebar";
 import { HeaderBar } from "@/components/widgets/sidebar/header-bar";
+import {headerClassname} from "@/lib/constant";
 import { items } from "@/lib/sample-data";
 import { sideBarPageProp } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface NewParentProps {
   children: ReactNode;
@@ -25,10 +26,10 @@ export function NewParent({ children }: NewParentProps) {
     const pageInfo = getPageInfo(pathname, items);
 
     if (pageInfo) {
-      // setCurrSelected(pageInfo.title);
       setCurrPage(pageInfo);
     }
   }, [pathname]);
+  
   const [currPage, setCurrPage] = useState<sideBarPageProp>(() => {
     const pageInfo = getPageInfo(pathname, items);
     return pageInfo || { title: "", url: "", icon: <></> };
@@ -39,20 +40,24 @@ export function NewParent({ children }: NewParentProps) {
   }, []);
 
   return (
-    <>
+    <div className="flex h-screen w-full overflow-hidden">
       <AppSidebar
         currPage={currPage}
         items={items}
         updateCurrPage={updateCurrPage}
       />
-      <SidebarInset>
-        <header className="my-4 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[data-collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex w-full items-center">
-            <HeaderBar currPage={currPage} />
+      <div className="flex flex-1 flex-col overflow-auto">
+        <main className="flex flex-1 flex-col">
+          <header className={cn(headerClassname)}>
+            <div className="flex w-full items-center">
+              <HeaderBar currPage={currPage} />
+            </div>
+          </header>
+          <div>
+            {children}
           </div>
-        </header>
-        {children}
-      </SidebarInset>
-    </>
+        </main>
+      </div>
+    </div>
   );
 }

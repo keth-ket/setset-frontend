@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { warningText } from "@/lib/constant"
 import { cn } from "@/lib/utils";
 
 export function LoginForm({
@@ -120,7 +121,9 @@ export function LoginForm({
           </div>
 
           {isPassword && passwordError && (
-            <p className="text-sm text-red-500">{passwordError}</p>
+            <p className={warningText}>
+              {passwordError}
+            </p>
           )}
         </div>
 

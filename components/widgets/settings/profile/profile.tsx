@@ -10,16 +10,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ProfileImage } from "@/components/widgets/settings/profile/profile-image";
+import {dropDownButtonFormat, dropDownFieldFormat,profileComponentFormat,settingCard, settingLabel} from "@/lib/constant";
+import { cn } from "@/lib/utils";
 
 import EditableField from "./editable-field";
 
-const profileComponentFormat =
-  "flex flex-col w-full items-start gap-1 font-bold";
 
-const dropDownButtonFormat =
-  "justify-between w-full border border-input text-sm text-card-foreground focus-visible:ring-0";
 
-const dropDownFieldFormat = "flex flex-col w-full gap-1";
+
+
+
 
 export function ProfilePage() {
   const [name, setName] = useState("Business Name");
@@ -87,7 +87,7 @@ export function ProfilePage() {
     }
   };
   return (
-    <Card className={`flex p-6 ${isEditing ? "" : "pb-2"}`} id="Profile">
+    <Card className={cn(settingCard)} >
       <div className="flex w-full flex-col items-start gap-4">
         <ProfileImage
           initialImage="/images/logo.png"
@@ -100,7 +100,7 @@ export function ProfilePage() {
               <EditableField
                 value={name}
                 placeholder="Name"
-                componentFormat={`${isEditing ? profileComponentFormat : "font-bold text-2xl"}`}
+                componentFormat={`${isEditing ? profileComponentFormat : " text-2xl"}`}
                 isEditing={isEditing}
                 fieldName="Business Name"
                 newValue={newName}
@@ -108,16 +108,18 @@ export function ProfilePage() {
               />
               {!isEditing && (
                 <Button
-                  className="flex size-8 rounded-lg"
-                  onClick={() => setIsEditing(true)}
-                >
-                  <Pencil></Pencil>
-                </Button>
+                variant={"ghost"}
+                className="flex size-8 rounded-lg hover:bg-transparent"
+                onClick={() => setIsEditing(true)}
+               
+              >
+                <Pencil />
+              </Button>
               )}
             </div>
             {isEditing ? (
               <div className={dropDownFieldFormat}>
-                <p className="font-bold">Time Zone</p>
+                <p className={cn(settingLabel)} >Time Zone</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className={dropDownButtonFormat}>
@@ -142,12 +144,12 @@ export function ProfilePage() {
                 </DropdownMenu>
               </div>
             ) : (
-              <p className="pb-3 text-sm text-foreground/80">{timezone}</p>
+              <p className={cn(settingLabel)}>{timezone}</p>
             )}
           </div>
           {isEditing ? (
             <div className={dropDownFieldFormat}>
-              <p className="font-bold">Category</p>
+              <p>Category</p>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button className={dropDownButtonFormat}>
@@ -169,7 +171,7 @@ export function ProfilePage() {
               </DropdownMenu>
             </div>
           ) : (
-            <p className="font-bold">{category}</p>
+            <p className={cn(settingLabel)}>{category}</p>
           )}
 
           <EditableField

@@ -6,28 +6,28 @@ import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Notification from "@/components/widgets/sidebar/notification";
 import { ChangeTheme } from "@/components/widgets/theme-toggle";
+import { headerButton, headerIconSpan, headerSection, headerText, sideBarTrigger } from "@/lib/constant";
 import { profile } from "@/lib/sample-data";
 import SettingIcon from "@/lib/settings";
 import { SettingsHeader } from "@/lib/settings";
 import { sideBarPageProp } from "@/lib/types";
 
 import { ProfilePicture } from "./header-profile";
-
 interface HeaderBarProps {
   currPage: sideBarPageProp;
 }
 
 const SidebarIcon = ({ currPage }: { currPage: sideBarPageProp }) => {
   return (
-    <SidebarTrigger className="flex w-full items-center gap-5 font-semibold text-foreground hover:bg-transparent md:text-2xl">
-      <span className="rounded-xl bg-primary-foreground p-2">
+    <SidebarTrigger className={sideBarTrigger}>
+      <span className={headerIconSpan}>
         {currPage.title === "Settings" ? (
           <SettingsHeader />
         ) : (
           <div className="[&>svg]:!stroke-primary">{currPage.icon}</div>
         )}
       </span>
-      <p className="max-w-24 text-pretty text-left leading-none sm:max-w-full">
+      <p className={headerText}>
         {currPage.title}
       </p>
     </SidebarTrigger>
@@ -47,7 +47,7 @@ const UserButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     //this is the code for the login button
     <Button
       variant="ghost"
-      className="flex items-center gap-2 p-0 hover:bg-transparent"
+      className={headerButton}
       asChild
     >
       <Link href={"/Profile"} className="!flex flex-row">
@@ -60,7 +60,7 @@ const UserButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
 export function HeaderBar({ currPage }: HeaderBarProps) {
   return (
-    <header className="flex w-full items-center justify-between px-4">
+    <section className={headerSection}>
       <div className="flex items-center">
         <SidebarIcon currPage={currPage} />
       </div>
@@ -80,6 +80,6 @@ export function HeaderBar({ currPage }: HeaderBarProps) {
         </Button>
         <Notification />
       </div>
-    </header>
+    </section>
   );
 }

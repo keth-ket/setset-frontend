@@ -15,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { imgDiv, setSetLogo, setSetLogoText } from "@/lib/constant";
 import { sideBarPageProp } from "@/lib/types";
 
 export function AppSidebar({
@@ -35,17 +36,20 @@ export function AppSidebar({
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="mb-0 mt-[10px] items-center gap-2 p-[30px]">
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-row items-center gap-2">
+            <div className={setSetLogo}>
+              <div className={imgDiv}>
                 <Image
                   src="/images/logo.png"
                   alt="logo"
                   width={60}
                   height={60}
                 />
-                <h1 className="text-2xl font-semibold text-secondary">
+                <a
+                  href="/dashboard"
+                  className={setSetLogoText}
+                >
                   Setset
-                </h1>
+                </a>
               </div>
             </div>
           </SidebarGroupLabel>
@@ -55,7 +59,7 @@ export function AppSidebar({
                 {items.map((item) => (
                   <SidebarMenuItem
                     key={item.title}
-                    className=""
+                    className="scrollbar"
                     onClick={() => handleSelected(item)}
                   >
                     <SidebarMenuButton asChild className="text-base md:text-sm">
@@ -82,9 +86,9 @@ export function AppSidebar({
                             </div>
                           )}
                         </span>
-                        <span className="ml-2 !text-wrap text-left">
+                        <p className="ml-2 !text-wrap text-left text-primary-foreground ">
                           {item.title}
-                        </span>
+                        </p>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

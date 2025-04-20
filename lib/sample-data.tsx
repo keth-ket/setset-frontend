@@ -9,7 +9,6 @@ import {
   // these are notifications icons
   MessageCircleMore, //message notification
   MessageCircleQuestion, //most asked faq question
-  MessageSquare,
   MonitorCheck,
   PackagePlus, //new feature notification
   PartyPopper, //milestone notificaion
@@ -25,6 +24,7 @@ import {
 
 import Settings from "@/lib/settings";
 
+import { iconStyles } from "./constant";
 import {
   AppointmentsData,
   BusinessCard,
@@ -251,7 +251,7 @@ export const initialNotifications = [
     read: true,
   },
 ];
-const iconStyles = "text-secondary h-10 w-10 rounded-lg p-2";
+
 export const faqsData: FaqData[] = [
   {
     id: "1",
@@ -515,11 +515,8 @@ export const settingMenu: sideBarPageProp[] = [
     url: "Invoices",
     icon: <Files className={barPageStyle} />,
   },
-  {
-    title: "Support",
-    url: "Support",
-    icon: <MessageSquare className={barPageStyle} />,
-  },
+
+
 ];
 export const profile: ProfileData = {
   name: "John Doe",

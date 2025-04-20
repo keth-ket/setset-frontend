@@ -9,6 +9,7 @@ import {
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +26,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { flexBetweenCol,settingCard,settingHeader } from "@/lib/constant";
 import { businessInvoice } from "@/lib/sample-data";
+import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 12;
 const MAX_PAGE_BUTTONS = 5;
@@ -127,19 +130,19 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
     setSorting(sorting === "asc" ? "desc" : "asc");
   };
 
-  return (
-    <div className="rounded-lg bg-card p-6 shadow-md shadow-primary-gray">
+  return ( 
+    <Card  className={settingCard}>
       <div
-        className={`flex flex-col justify-between py-4 md:flex-row ${isMobile ? "space-y-4" : ""}`}
+        className={cn(flexBetweenCol, `py-4 md:flex-row ${isMobile ? "space-y-4" : ""}`)}
       >
-        <div className="text-base md:text-2xl lg:text-3xl">
+        <CardHeader className={cn(settingHeader)}>
           {plan === "yearly" ? "Annual Invoices" : "Monthly Invoices"}
-        </div>
-
+        </CardHeader>
+        
         <div
           className={`mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
         >
-          <div className="relative w-full">
+          <div className="relative max-h-9  w-full">
             <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder={`Search ${plan} invoices...`}
@@ -154,18 +157,18 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full bg-primary sm:w-auto">
                 <FilterIcon className="mr-2 size-4" />
                 {selectedYear || "All Years"}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="max-h-60 overflow-y-auto">
-              <DropdownMenuItem
+            <DropdownMenuContent className="max-h-60 overflow-y-auto bg-background">
+              <DropdownMenuItem 
                 onClick={() => {
                   setSelectedYear(null);
                   setCurrentPage(1);
                 }}
-                className={!selectedYear ? "bg-accent" : ""}
+                className={` my-1 dark:hover:bg-primary ${!selectedYear ? "" : ""}`}
               >
                 All Years
               </DropdownMenuItem>
@@ -176,7 +179,8 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                     setSelectedYear(year);
                     setCurrentPage(1);
                   }}
-                  className={selectedYear === year ? "bg-accent" : ""}
+                  className={` my-1 dark:hover:bg-primary ${!selectedYear ? "" : ""}`}
+
                 >
                   {year}
                 </DropdownMenuItem>
@@ -186,7 +190,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         </div>
       </div>
 
-      <div className="w-full overflow-hidden rounded-lg border py-4">
+      <div className="scrollbar w-full rounded-lg border py-4">
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow>
@@ -210,18 +214,16 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                 <TableRow key={invoice.id} className="hover:bg-muted/50">
                   <TableCell>
                     <div>
-                      <p className="text-sm text-muted-foreground">
-                        {invoice.id}
-                      </p>
+                      <p className="text-sm ">{invoice.id}</p>
                     </div>
                   </TableCell>
                   <TableCell>{invoice.formattedDate}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
-                        variant="ghost"
+                        variant="green"
                         size="sm"
-                        className="bg-[#2a870b] shadow-sm hover:bg-[#2a870b]/60"
+                        className=""
                         onClick={() => handleDownload(invoice.transcriptURL)}
                       >
                         <DownloadIcon className="mr-2 size-4" />
@@ -261,7 +263,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
               ) : (
                 <Button
                   key={page}
-                  variant={currentPage === page ? "default" : "outline"}
+                  variant={currentPage === page ? "transcript" : "outline"}
                   size="sm"
                   onClick={() => setCurrentPage(Number(page))}
                   className="min-w-[40px]"
@@ -273,6 +275,6 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
           </div>
         </div>
       )}
-    </div>
+    </Card>
   );
 }

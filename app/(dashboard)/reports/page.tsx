@@ -4,8 +4,10 @@ import { Check, Construction } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { containerClassname,flexBetweenCol } from "@/lib/constant";
 import { reportsData } from "@/lib/sample-data";
-import { containerClassname, ReportData } from "@/lib/types";
+import { ReportData } from "@/lib/types";
+import {cn} from "@/lib/utils";
 
 function ReportsContent({ data }: { data: ReportData[] }) {
   const cardContentStyles = "flex flex-col px-4 py-6 justify-center";
@@ -36,7 +38,7 @@ function ReportsContent({ data }: { data: ReportData[] }) {
             {pendingReports.map((report) => (
               <Card key={report.id} className="flex-1 justify-center">
                 <CardContent className={cardContentStyles}>
-                  <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                  <div className={cn(flexBetweenCol,"gap-4 md:flex-row md:items-center")}>
                     <div className="flex w-full flex-col gap-4 md:flex-row">
                       <div className="flex w-full flex-col gap-2">
                         <div className="flex items-center justify-between">
@@ -67,7 +69,7 @@ function ReportsContent({ data }: { data: ReportData[] }) {
             {resolvedReports.map((report) => (
               <Card key={report.id} className="flex-1 justify-center">
                 <CardContent className={cardContentStyles}>
-                  <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                  <div className={cn(flexBetweenCol,"gap-4 md:flex-row md:items-center")}>
                     <div className="flex w-full flex-col gap-4 md:flex-row">
                       <div className="flex w-full flex-col gap-2">
                         <div className="flex items-center justify-between">
