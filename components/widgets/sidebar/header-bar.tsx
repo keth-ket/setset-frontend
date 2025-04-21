@@ -5,7 +5,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Notification from "@/components/widgets/sidebar/notification";
-import { ChangeTheme } from "@/components/widgets/theme-toggle";
+import { ThemeToggle } from "@/components/widgets/theme-toggle";
 import {
   headerButton,
   headerIconSpan,
@@ -19,7 +19,7 @@ import { SettingsHeader } from "@/lib/settings";
 import { sideBarPageProp } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-import { ProfilePicture } from "./header-profile";
+import { ProfileDropdown } from "./header-profile";
 interface HeaderBarProps {
   currPage: sideBarPageProp;
 }
@@ -40,16 +40,16 @@ const SidebarIcon = ({ currPage }: { currPage: sideBarPageProp }) => {
 };
 
 const UserButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  //this is the code for the user profile button for now
+  //profile button
   return isLoggedIn ? (
-    <ProfilePicture
+    <ProfileDropdown
       src="/images/logo.png"
       alt="SS"
       className="!size-6 cursor-pointer"
       profile={profile}
     />
   ) : (
-    //this is the code for the login button
+    //login button
     <Button variant="ghost" className={headerButton} asChild>
       <Link href={"/Profile"} className="!flex flex-row">
         <UserRound className="!size-5 fill-foreground stroke-foreground sm:!size-6" />
@@ -62,12 +62,12 @@ const UserButton = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 export function HeaderBar({ currPage }: HeaderBarProps) {
   return (
     <section className={headerSection}>
-      <div className="flex min-w-48 items-center">
+      <div className="flex items-center">
         <SidebarIcon currPage={currPage} />
       </div>
 
       <div className="flex items-center gap-5 md:gap-[30px]">
-        <ChangeTheme />
+        <ThemeToggle />
         {/* set to true to view the profile button */}
         <UserButton isLoggedIn={true} />
         <Button

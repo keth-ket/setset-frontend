@@ -10,26 +10,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ProfileImage } from "@/components/widgets/settings/profile/profile-image";
-import {dropDownButtonFormat, dropDownFieldFormat,profileComponentFormat,settingCard, settingLabel} from "@/lib/constant";
+import {
+  dropDownButtonFormat,
+  dropDownFieldFormat,
+  profileComponentFormat,
+  settingCard,
+  settingLabel,
+} from "@/lib/constant";
 import { cn } from "@/lib/utils";
 
 import EditableField from "./editable-field";
 
-
-
-
-
-
-
 export function ProfilePage() {
-  const [name, setName] = useState("Business Name");
+  const [name, setName] = useState("Setset");
   const [newName, setNewName] = useState(name);
 
   const validateName = (input: string) => {
     return input.trim().length >= 5; // Custom validation: at least 3 characters
   };
 
-  const [email, setEmail] = useState("ExampleEmail@org.com");
+  const [email, setEmail] = useState("username@seset.ca");
   const [newEmail, setNewEmail] = useState(email);
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -87,7 +87,7 @@ export function ProfilePage() {
     }
   };
   return (
-    <Card className={cn(settingCard)} >
+    <Card className={cn(settingCard)}>
       <div className="flex w-full flex-col items-start gap-4">
         <ProfileImage
           initialImage="/images/logo.png"
@@ -108,18 +108,17 @@ export function ProfilePage() {
               />
               {!isEditing && (
                 <Button
-                variant={"ghost"}
-                className="flex size-8 rounded-lg hover:bg-transparent"
-                onClick={() => setIsEditing(true)}
-               
-              >
-                <Pencil />
-              </Button>
+                  variant={"ghost"}
+                  className="flex size-8 rounded-lg hover:bg-transparent"
+                  onClick={() => setIsEditing(true)}
+                >
+                  <Pencil />
+                </Button>
               )}
             </div>
             {isEditing ? (
               <div className={dropDownFieldFormat}>
-                <p className={cn(settingLabel)} >Time Zone</p>
+                <p className={cn(settingLabel)}>Time Zone</p>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className={dropDownButtonFormat}>
@@ -127,8 +126,12 @@ export function ProfilePage() {
                       <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="max-h-[300px] overflow-y-auto"
-                  style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}>
+                  <DropdownMenuContent
+                    className="max-h-[300px] overflow-y-auto"
+                    style={{
+                      width: "var(--radix-dropdown-menu-trigger-width)",
+                    }}
+                  >
                     {timezoneOptions.map((tz) => (
                       <DropdownMenuItem
                         className="text-sm"
@@ -157,8 +160,10 @@ export function ProfilePage() {
                     <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="flex flex-col"
-                 style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}>
+                <DropdownMenuContent
+                  className="flex flex-col"
+                  style={{ width: "var(--radix-dropdown-menu-trigger-width)" }}
+                >
                   {uniqueCategories.map((cat) => (
                     <DropdownMenuItem
                       key={cat}

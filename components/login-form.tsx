@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { warningText } from "@/lib/constant"
+import { warningText } from "@/lib/constant";
 import { cn } from "@/lib/utils";
 
 export function LoginForm({
@@ -121,15 +121,13 @@ export function LoginForm({
           </div>
 
           {isPassword && passwordError && (
-            <p className={warningText}>
-              {passwordError}
-            </p>
+            <p className={warningText}>{passwordError}</p>
           )}
         </div>
 
         <Button
           type="submit"
-          className="w-full bg-foreground text-card hover:border hover:border-foreground hover:bg-background hover:text-foreground"
+          className="w-full bg-foreground font-medium text-card hover:border hover:border-foreground hover:bg-background hover:text-foreground"
           disabled={!!passwordError && isPassword}
         >
           Login
@@ -149,7 +147,7 @@ export function LoginForm({
         <Button
           variant="outline"
           type="button"
-          className="w-full bg-foreground text-card hover:border hover:border-foreground hover:bg-background hover:text-foreground"
+          className="w-full bg-foreground font-medium text-card hover:border hover:border-foreground hover:bg-background hover:text-foreground"
         >
           <svg
             className="mr-2 size-4"

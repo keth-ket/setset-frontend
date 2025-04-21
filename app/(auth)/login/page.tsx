@@ -1,19 +1,26 @@
-"use client"
-import  Image  from "next/image";
+"use client";
+import Image from "next/image";
 
-import { LoginForm } from "@/components/login-form"
+import { LoginForm } from "@/components/login-form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useIsMobile } from "@/hooks/use-mobile"
+import { useIsMobile } from "@/hooks/use-mobile";
+
 export default function LoginPage() {
   const isMobile = useIsMobile();
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
-      <Card className="w-full max-w-lg bg-card"> 
+      <Card className="w-full max-w-lg bg-card">
         <CardHeader className="pb-0 pt-11">
-          <a href="#" className="flex items-center gap-2 self-center text-lg font-medium"> 
+          <a href="#" className="flex items-center gap-2 self-center text-lg">
             <div className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <Image src="/images/logo.png" className="size-7" width="100" height="100" alt="Logo" />
+              <Image
+                src="/images/logo.png"
+                className="size-7"
+                width="100"
+                height="100"
+                alt="Logo"
+              />
             </div>
             Setset
           </a>
@@ -22,10 +29,10 @@ export default function LoginPage() {
           <LoginForm />
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.
       </div>
     </div>
-  )
+  );
 }

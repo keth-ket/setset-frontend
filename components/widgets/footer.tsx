@@ -150,7 +150,7 @@ export default function Footer() {
               <DialogFooter>
                 <Button
                   type="submit"
-                  className="bg-background"
+                  variant="secondary"
                   onClick={handleSendReport}
                 >
                   Send Report

@@ -515,13 +515,11 @@ export const settingMenu: sideBarPageProp[] = [
     url: "Invoices",
     icon: <Files className={barPageStyle} />,
   },
-
-
 ];
 export const profile: ProfileData = {
-  name: "Set Set",
+  name: "Setset",
   category: "Business",
-  email: "JohnDoe@SetSet.com",
+  email: "username@setset.ca",
 };
 
 export const reportsData: ReportData[] = [

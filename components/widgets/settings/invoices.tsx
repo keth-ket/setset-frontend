@@ -153,7 +153,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
           <div className="relative max-h-9 w-full">
             <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder={`Search ${plan} invoices...`}
+              placeholder={`Search`}
               className="w-full pl-10"
               value={searchTerm}
               onChange={(e) => {
@@ -199,7 +199,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
 
       <div className="scrollbar w-full rounded-lg border py-4">
         <Table>
-          <TableHeader className="bg-muted/50">
+          <TableHeader>
             <TableRow>
               <TableHead>Invoice ID</TableHead>
               <TableHead>

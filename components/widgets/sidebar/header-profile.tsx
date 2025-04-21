@@ -9,7 +9,7 @@ import {
 import { ProfileData } from "@/lib/types";
 
 import { LogOut } from "./logout-button";
-export function ProfilePicture({
+export function ProfileDropdown({
   src,
   alt,
   className = "",
@@ -26,12 +26,11 @@ export function ProfilePicture({
     <HoverCard openDelay={300}>
       <HoverCardTrigger>
         <Avatar onClick={toProfile} className={className}>
-          <AvatarImage src={src} alt="@shadcn" />
+          <AvatarImage src={src} alt={alt} />
           <AvatarFallback>{alt}</AvatarFallback>
         </Avatar>
       </HoverCardTrigger>
       <HoverCardContent className="mr-2 flex flex-col gap-2 rounded-xl p-4 text-sm shadow-xl shadow-primary-gray">
-        {" "}
         <p className="text-xl font-semibold">{profile.name}</p>
         <p className="opacity-80">{profile.category}</p>
         <p className="pt-3">{profile.email}</p>
