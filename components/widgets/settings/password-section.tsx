@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import {formFieldWrapper, Header, settingCard, settingLabel, warningText} from "@/lib/constant";
+import {cn} from "@/lib/utils";
 
 export function Password() {
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -119,55 +121,55 @@ export function Password() {
 
   return (
     <Card
-      id="Password"
-      className="flex w-full flex-col justify-start rounded-xl border bg-card p-6 text-card-foreground"
+      className={cn(settingCard)}
     >
-      <CardHeader className="px-0 pb-7 pt-0 text-xl md:text-2xl lg:text-3xl">
+      <CardHeader className={cn(Header)}>
         Change Password
       </CardHeader>
       <CardContent className="p-0">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 font-medium lg:w-1/2 lg:min-w-[718px]"
+          className="flex flex-col gap-4 lg:w-1/2 lg:min-w-[700px]"
         >
-          <div className="flex flex-col !gap-1">
-            <p className="font-bold">Current Password</p>
+          <div className={cn(formFieldWrapper)}>
+            <p className={settingLabel}>Current Password</p>
             {passwordInput("currentpassword")}
           </div>
 
-          <div className="flex flex-col !gap-1">
-            <p className="font-bold">New Password</p>
+          <div className={cn(formFieldWrapper)}>
+            <p className={settingLabel}>New Password</p>
             {passwordInput("newpassword")}
             <p
-              className={`text-sm text-red-500 ${warning.lenWarning ? "block" : "hidden"}`}
+              className={cn(warningText,`${warning.lenWarning ? "block" : "hidden"}`)}
             >
               Password Must be at least 8 characters long
             </p>
             <p
-              className={`text-sm text-red-500 ${warning.combinationWarning ? "block" : "hidden"}`}
+              className={cn(warningText,`${warning.combinationWarning ? "block" : "hidden"}`)}
             >
               Password must contain a combination of letters, numbers and
               special characters (!$@&)
             </p>
           </div>
 
-          <div className="flex flex-col !gap-1">
-            <p className="font-bold">Confirm New Password</p>
+          <div className={cn(formFieldWrapper)}>
+            <p className={settingLabel}>Confirm New Password</p>
             {passwordInput("confirmnewpassword")}
             <p
-              className={`text-sm text-red-500 ${warning.matchingWarning ? "block" : "hidden"}`}
+              className={cn(warningText,` ${warning.matchingWarning ? "block" : "hidden"}`)}
             >
               Confirmed password does not match
             </p>
           </div>
 
-          <a href="#" className="w-fit text-sm text-red-500 hover:underline">
+          <a href="#" className={cn(warningText,"w-fit hover:underline")}>
             Forgot your password?
           </a>
 
           <Button
             type="submit"
-            className="w-[225px] self-end rounded-lg bg-[#2a870b] shadow-sm hover:bg-[#2a870b]/60"
+            variant={"green"}
+            className={"w-[225px] self-end rounded-lg"}
           >
             Change Password
           </Button>

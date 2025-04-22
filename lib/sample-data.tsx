@@ -9,7 +9,6 @@ import {
   // these are notifications icons
   MessageCircleMore, //message notification
   MessageCircleQuestion, //most asked faq question
-  MessageSquare,
   MonitorCheck,
   PackagePlus, //new feature notification
   PartyPopper, //milestone notificaion
@@ -20,22 +19,26 @@ import {
   Users,
   UsersRound,
   Voicemail,
-  WalletMinimal} from "lucide-react";
+  WalletMinimal,
+} from "lucide-react";
 
 import Settings from "@/lib/settings";
 
+import { iconStyles } from "./constant";
 import {
   AppointmentsData,
   BusinessCard,
   BusinessInfo,
   BusinessStat,
   CallRecording,
+  CardData,
   FaqData,
   InvoiceData,
   MetricsData,
   ProfileData,
   ReportData,
-  sideBarPageProp} from "./types";
+  sideBarPageProp,
+} from "./types";
 
 export const metricsData: MetricsData = {
   callMinutes: { minutes: 100227, difference: -1.4 },
@@ -249,7 +252,7 @@ export const initialNotifications = [
     read: true,
   },
 ];
-const iconStyles = "text-secondary h-10 w-10 rounded-lg p-2";
+
 export const faqsData: FaqData[] = [
   {
     id: "1",
@@ -275,7 +278,7 @@ export const faqsData: FaqData[] = [
     id: "3",
     question: "How accurate is the AI in understanding customer inquiries?",
     answer:
-      "If the AI detects low confidence in its response or the caller requests a human agent, it will: Transfer the call to an available representative, Send a detailed summary of the conversation to the agent, Log the request in the dashboard under \"Escalated Calls\" for review. Businesses can customize escalation thresholds and triggers in the settings.",
+      "If the AI detects low confidence in its response or the caller requests a human agent, it will: Transfer the call to an available representative, Send a detailed summary of the conversation to the agent, Log the request in the dashboard under 'Escalated Calls' for review. Businesses can customize escalation thresholds and triggers in the settings.",
     frequency: 18,
     icon: <Users className={iconStyles} />,
     timeRangeStart: "4:00 PM",
@@ -482,7 +485,7 @@ export const items: sideBarPageProp[] = [
   },
 ];
 
-export const settingMenu:sideBarPageProp[] =[
+export const settingMenu: sideBarPageProp[] = [
   {
     title: "Profile",
     url: "Profile",
@@ -513,19 +516,12 @@ export const settingMenu:sideBarPageProp[] =[
     url: "Invoices",
     icon: <Files className={barPageStyle} />,
   },
-  {
-    title: "Support",
-    url: "Support",
-    icon: <MessageSquare className={barPageStyle} />,
-  },
-
 ];
-export const profile:ProfileData =
-{
-  name: "John Doe",
+export const profile: ProfileData = {
+  name: "Setset",
   category: "Business",
-  email: "iCw3A@example.com",
-}
+  email: "username@setset.ca",
+};
 
 export const reportsData: ReportData[] = [
   {
@@ -543,7 +539,7 @@ export const reportsData: ReportData[] = [
     description:
       "The AI provided an incorrect response to a customer query regarding account balance.",
     date: "2023-10-02",
-    category: "Other for now",
+    category: "Other",
     status: "Resolved",
   },
   {
@@ -552,7 +548,7 @@ export const reportsData: ReportData[] = [
     description:
       "The AI system was down for 2 hours, causing delays in customer service.",
     date: "2023-10-03",
-    category: "Other for now",
+    category: "Other",
     status: "Pending",
   },
   {
@@ -1652,47 +1648,230 @@ export const callRecordingsData: CallRecording[] = [
 
 export const businessInvoice: InvoiceData[] = [
   // 2024 - 12 monthly + 1 annual
-  { id: "INV-2024-01", date: "2024-01-15", transcriptURL: "/transcripts/2024-01" },
-  { id: "INV-2024-02", date: "2024-02-15", transcriptURL: "/transcripts/2024-02" },
-  { id: "INV-2024-03", date: "2024-03-15", transcriptURL: "/transcripts/2024-03" },
-  { id: "INV-2024-04", date: "2024-04-15", transcriptURL: "/transcripts/2024-04" },
-  { id: "INV-2024-05", date: "2024-05-15", transcriptURL: "/transcripts/2024-05" },
-  { id: "INV-2024-06", date: "2024-06-15", transcriptURL: "/transcripts/2024-06" },
-  { id: "INV-2024-07", date: "2024-07-15", transcriptURL: "/transcripts/2024-07" },
-  { id: "INV-2024-08", date: "2024-08-15", transcriptURL: "/transcripts/2024-08" },
-  { id: "INV-2024-09", date: "2024-09-15", transcriptURL: "/transcripts/2024-09" },
-  { id: "INV-2024-10", date: "2024-10-15", transcriptURL: "/transcripts/2024-10" },
-  { id: "INV-2024-11", date: "2024-11-15", transcriptURL: "/transcripts/2024-11" },
-  { id: "INV-2024-12", date: "2024-12-15", transcriptURL: "/transcripts/2024-12" },
-  { id: "INV-ANNUAL-2024", date: "2024-12-31", transcriptURL: "/transcripts/annual-2024" },
+  {
+    id: "INV-2024-01",
+    date: "2024-01-15",
+    transcriptURL: "/transcripts/2024-01",
+  },
+  {
+    id: "INV-2024-02",
+    date: "2024-02-15",
+    transcriptURL: "/transcripts/2024-02",
+  },
+  {
+    id: "INV-2024-03",
+    date: "2024-03-15",
+    transcriptURL: "/transcripts/2024-03",
+  },
+  {
+    id: "INV-2024-04",
+    date: "2024-04-15",
+    transcriptURL: "/transcripts/2024-04",
+  },
+  {
+    id: "INV-2024-05",
+    date: "2024-05-15",
+    transcriptURL: "/transcripts/2024-05",
+  },
+  {
+    id: "INV-2024-06",
+    date: "2024-06-15",
+    transcriptURL: "/transcripts/2024-06",
+  },
+  {
+    id: "INV-2024-07",
+    date: "2024-07-15",
+    transcriptURL: "/transcripts/2024-07",
+  },
+  {
+    id: "INV-2024-08",
+    date: "2024-08-15",
+    transcriptURL: "/transcripts/2024-08",
+  },
+  {
+    id: "INV-2024-09",
+    date: "2024-09-15",
+    transcriptURL: "/transcripts/2024-09",
+  },
+  {
+    id: "INV-2024-10",
+    date: "2024-10-15",
+    transcriptURL: "/transcripts/2024-10",
+  },
+  {
+    id: "INV-2024-11",
+    date: "2024-11-15",
+    transcriptURL: "/transcripts/2024-11",
+  },
+  {
+    id: "INV-2024-12",
+    date: "2024-12-15",
+    transcriptURL: "/transcripts/2024-12",
+  },
+  {
+    id: "INV-ANNUAL-2024",
+    date: "2024-12-31",
+    transcriptURL: "/transcripts/annual-2024",
+  },
 
   // 2023 - 12 monthly + 1 annual
-  { id: "INV-2023-01", date: "2023-01-15", transcriptURL: "/transcripts/2023-01" },
-  { id: "INV-2023-02", date: "2023-02-15", transcriptURL: "/transcripts/2023-02" },
-  { id: "INV-2023-03", date: "2023-03-15", transcriptURL: "/transcripts/2023-03" },
-  { id: "INV-2023-04", date: "2023-04-15", transcriptURL: "/transcripts/2023-04" },
-  { id: "INV-2023-05", date: "2023-05-15", transcriptURL: "/transcripts/2023-05" },
-  { id: "INV-2023-06", date: "2023-06-15", transcriptURL: "/transcripts/2023-06" },
-  { id: "INV-2023-07", date: "2023-07-15", transcriptURL: "/transcripts/2023-07" },
-  { id: "INV-2023-08", date: "2023-08-15", transcriptURL: "/transcripts/2023-08" },
-  { id: "INV-2023-09", date: "2023-09-15", transcriptURL: "/transcripts/2023-09" },
-  { id: "INV-2023-10", date: "2023-10-15", transcriptURL: "/transcripts/2023-10" },
-  { id: "INV-2023-11", date: "2023-11-15", transcriptURL: "/transcripts/2023-11" },
-  { id: "INV-2023-12", date: "2023-12-15", transcriptURL: "/transcripts/2023-12" },
-  { id: "INV-ANNUAL-2023", date: "2023-12-31", transcriptURL: "/transcripts/annual-2023" },
+  {
+    id: "INV-2023-01",
+    date: "2023-01-15",
+    transcriptURL: "/transcripts/2023-01",
+  },
+  {
+    id: "INV-2023-02",
+    date: "2023-02-15",
+    transcriptURL: "/transcripts/2023-02",
+  },
+  {
+    id: "INV-2023-03",
+    date: "2023-03-15",
+    transcriptURL: "/transcripts/2023-03",
+  },
+  {
+    id: "INV-2023-04",
+    date: "2023-04-15",
+    transcriptURL: "/transcripts/2023-04",
+  },
+  {
+    id: "INV-2023-05",
+    date: "2023-05-15",
+    transcriptURL: "/transcripts/2023-05",
+  },
+  {
+    id: "INV-2023-06",
+    date: "2023-06-15",
+    transcriptURL: "/transcripts/2023-06",
+  },
+  {
+    id: "INV-2023-07",
+    date: "2023-07-15",
+    transcriptURL: "/transcripts/2023-07",
+  },
+  {
+    id: "INV-2023-08",
+    date: "2023-08-15",
+    transcriptURL: "/transcripts/2023-08",
+  },
+  {
+    id: "INV-2023-09",
+    date: "2023-09-15",
+    transcriptURL: "/transcripts/2023-09",
+  },
+  {
+    id: "INV-2023-10",
+    date: "2023-10-15",
+    transcriptURL: "/transcripts/2023-10",
+  },
+  {
+    id: "INV-2023-11",
+    date: "2023-11-15",
+    transcriptURL: "/transcripts/2023-11",
+  },
+  {
+    id: "INV-2023-12",
+    date: "2023-12-15",
+    transcriptURL: "/transcripts/2023-12",
+  },
+  {
+    id: "INV-ANNUAL-2023",
+    date: "2023-12-31",
+    transcriptURL: "/transcripts/annual-2023",
+  },
 
   // 2022 - 12 monthly + 1 annual
-  { id: "INV-2022-01", date: "2022-01-15", transcriptURL: "/transcripts/2022-01" },
-  { id: "INV-2022-02", date: "2022-02-15", transcriptURL: "/transcripts/2022-02" },
-  { id: "INV-2022-03", date: "2022-03-15", transcriptURL: "/transcripts/2022-03" },
-  { id: "INV-2022-04", date: "2022-04-15", transcriptURL: "/transcripts/2022-04" },
-  { id: "INV-2022-05", date: "2022-05-15", transcriptURL: "/transcripts/2022-05" },
-  { id: "INV-2022-06", date: "2022-06-15", transcriptURL: "/transcripts/2022-06" },
-  { id: "INV-2022-07", date: "2022-07-15", transcriptURL: "/transcripts/2022-07" },
-  { id: "INV-2022-08", date: "2022-08-15", transcriptURL: "/transcripts/2022-08" },
-  { id: "INV-2022-09", date: "2022-09-15", transcriptURL: "/transcripts/2022-09" },
-  { id: "INV-2022-10", date: "2022-10-15", transcriptURL: "/transcripts/2022-10" },
-  { id: "INV-2022-11", date: "2022-11-15", transcriptURL: "/transcripts/2022-11" },
-  { id: "INV-2022-12", date: "2022-12-15", transcriptURL: "/transcripts/2022-12" },
-  { id: "INV-ANNUAL-2022", date: "2022-12-31", transcriptURL: "/transcripts/annual-2022" }
+  {
+    id: "INV-2022-01",
+    date: "2022-01-15",
+    transcriptURL: "/transcripts/2022-01",
+  },
+  {
+    id: "INV-2022-02",
+    date: "2022-02-15",
+    transcriptURL: "/transcripts/2022-02",
+  },
+  {
+    id: "INV-2022-03",
+    date: "2022-03-15",
+    transcriptURL: "/transcripts/2022-03",
+  },
+  {
+    id: "INV-2022-04",
+    date: "2022-04-15",
+    transcriptURL: "/transcripts/2022-04",
+  },
+  {
+    id: "INV-2022-05",
+    date: "2022-05-15",
+    transcriptURL: "/transcripts/2022-05",
+  },
+  {
+    id: "INV-2022-06",
+    date: "2022-06-15",
+    transcriptURL: "/transcripts/2022-06",
+  },
+  {
+    id: "INV-2022-07",
+    date: "2022-07-15",
+    transcriptURL: "/transcripts/2022-07",
+  },
+  {
+    id: "INV-2022-08",
+    date: "2022-08-15",
+    transcriptURL: "/transcripts/2022-08",
+  },
+  {
+    id: "INV-2022-09",
+    date: "2022-09-15",
+    transcriptURL: "/transcripts/2022-09",
+  },
+  {
+    id: "INV-2022-10",
+    date: "2022-10-15",
+    transcriptURL: "/transcripts/2022-10",
+  },
+  {
+    id: "INV-2022-11",
+    date: "2022-11-15",
+    transcriptURL: "/transcripts/2022-11",
+  },
+  {
+    id: "INV-2022-12",
+    date: "2022-12-15",
+    transcriptURL: "/transcripts/2022-12",
+  },
+  {
+    id: "INV-ANNUAL-2022",
+    date: "2022-12-31",
+    transcriptURL: "/transcripts/annual-2022",
+  },
+];
+
+export const cardData: CardData[] = [
+  {
+    id: "card_456",
+    last4: "5555",
+    brand: "Mastercard",
+    name: "Jane Smith",
+    exp_month: 3,
+    exp_year: 2026,
+  },
+  {
+    id: "card_789",
+    last4: "1881",  
+    brand: "American Express",
+    name: "Alex Johnson",
+    exp_month: 6,
+    exp_year: 2024,
+  },
+  {
+    id: "card_123",
+    last4: "6779",  
+    brand: "Visa",
+    name: "John Doe",
+    exp_month: 12,
+    exp_year: 2029,
+  },
 ];

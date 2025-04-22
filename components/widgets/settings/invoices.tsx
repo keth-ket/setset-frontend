@@ -1,9 +1,15 @@
 "use client";
 
-import { ArrowDownUp,Download, DownloadIcon, FilterIcon, SearchIcon } from "lucide-react";
-import { useMemo,useState } from "react";
+import {
+  ArrowDownUp,
+  DownloadIcon,
+  FilterIcon,
+  SearchIcon,
+} from "lucide-react";
+import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,10 +26,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  flexBetweenCol,
+  Header,
+  invoiceMenuItem,
+  settingCard,
+} from "@/lib/constant";
 import { businessInvoice } from "@/lib/sample-data";
+import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 12;
-const MAX_PAGE_BUTTONS = 5
+const MAX_PAGE_BUTTONS = 5;
 
 type BillingPlan = "yearly" | "monthly";
 
@@ -36,7 +49,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
   const isMobile = useIsMobile();
 
   const { availableYears, filteredData } = useMemo(() => {
-    const processed = businessInvoice.map(invoice => {
+    const processed = businessInvoice.map((invoice) => {
       const date = new Date(invoice.date);
       const isAnnual = invoice.id.includes("ANNUAL");
       return {
@@ -48,24 +61,26 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         formattedDate: date.toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
-          day: "numeric"
+          day: "numeric",
         }),
       };
     });
 
-    const years = [...new Set(processed.map(i => i.year))].sort((a, b) => b - a);
+    const years = [...new Set(processed.map((i) => i.year))].sort(
+      (a, b) => b - a,
+    );
 
-    let filtered = processed.filter(invoice => {
+    let filtered = processed.filter((invoice) => {
       const searchLower = searchTerm.toLowerCase();
       const matchesSearch = invoice.id.toLowerCase().includes(searchLower);
       const matchesYear = selectedYear ? invoice.year === selectedYear : true;
       return matchesSearch && matchesYear;
     });
-    
+
     if (plan === "monthly") {
-      filtered = filtered.filter(invoice => !invoice.isAnnual);
+      filtered = filtered.filter((invoice) => !invoice.isAnnual);
     } else {
-      filtered = filtered.filter(invoice => invoice.isAnnual);
+      filtered = filtered.filter((invoice) => invoice.isAnnual);
     }
 
     filtered.sort((a, b) => {
@@ -91,7 +106,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
     const pages = [];
     let startPage = Math.max(1, currentPage - Math.floor(MAX_PAGE_BUTTONS / 2));
     const endPage = Math.min(totalPages, startPage + MAX_PAGE_BUTTONS - 1);
-    if (endPage - startPage + 1< MAX_PAGE_BUTTONS - 1) {
+    if (endPage - startPage + 1 < MAX_PAGE_BUTTONS - 1) {
       startPage = Math.max(1, endPage - MAX_PAGE_BUTTONS + 1);
     }
     if (startPage > 1) {
@@ -110,7 +125,7 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
       pages.push(totalPages);
     }
     return pages;
-  }
+  };
 
   const handleDownload = (transcriptURL: string) => {
     console.log(`Downloading transcript: ${transcriptURL}`);
@@ -120,22 +135,25 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
     setSorting(sorting === "asc" ? "desc" : "asc");
   };
 
-  return ( 
-    <div className="rounded-lg bg-card p-6 shadow-md shadow-primary-gray">
+  return (
+    <Card className={settingCard}>
       <div
-        className={`flex flex-col justify-between py-4 md:flex-row ${isMobile ? "space-y-4" : ""}`}
+        className={cn(
+          flexBetweenCol,
+          `md:flex-row ${isMobile ? "space-y-4" : ""}`,
+        )}
       >
-        <div className="text-base md:text-2xl lg:text-3xl">
+        <CardHeader className={cn(Header)}>
           {plan === "yearly" ? "Annual Invoices" : "Monthly Invoices"}
-        </div>
-        
+        </CardHeader>
+
         <div
           className={`mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
         >
-          <div className="relative w-full">
+          <div className="relative max-h-9 w-full">
             <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder={`Search ${plan} invoices...`}
+              placeholder={`Search`}
               className="w-full pl-10"
               value={searchTerm}
               onChange={(e) => {
@@ -147,29 +165,29 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full bg-primary sm:w-auto">
                 <FilterIcon className="mr-2 size-4" />
                 {selectedYear || "All Years"}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="max-h-60 overflow-y-auto">
-              <DropdownMenuItem 
+            <DropdownMenuContent className="flex max-h-60 w-[--radix-dropdown-menu-trigger-width] flex-col items-center overflow-y-auto bg-background sm:w-auto">
+              <DropdownMenuItem
                 onClick={() => {
                   setSelectedYear(null);
                   setCurrentPage(1);
                 }}
-                className={!selectedYear ? "bg-accent" : ""}
+                className={cn(invoiceMenuItem, `${!selectedYear ? "" : ""}`)}
               >
                 All Years
               </DropdownMenuItem>
-              {availableYears.map(year => (
-                <DropdownMenuItem 
-                  key={year} 
+              {availableYears.map((year) => (
+                <DropdownMenuItem
+                  key={year}
                   onClick={() => {
                     setSelectedYear(year);
                     setCurrentPage(1);
                   }}
-                  className={selectedYear === year ? "bg-accent" : ""}
+                  className={cn(invoiceMenuItem, `${!selectedYear ? "" : ""}`)}
                 >
                   {year}
                 </DropdownMenuItem>
@@ -179,9 +197,9 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         </div>
       </div>
 
-      <div className="w-full overflow-hidden rounded-lg border py-4">
+      <div className="scrollbar w-full rounded-lg border py-4">
         <Table>
-          <TableHeader className="bg-muted/50">
+          <TableHeader>
             <TableRow>
               <TableHead>Invoice ID</TableHead>
               <TableHead>
@@ -194,7 +212,6 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                   <ArrowDownUp className="ml-2 size-4" />
                 </Button>
               </TableHead>
-              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -203,16 +220,16 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
                 <TableRow key={invoice.id} className="hover:bg-muted/50">
                   <TableCell>
                     <div>
-                      <p className="text-sm text-muted-foreground">{invoice.id}</p>
+                      <p className="text-sm">{invoice.id}</p>
                     </div>
                   </TableCell>
                   <TableCell>{invoice.formattedDate}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
-                        variant="ghost"
+                        variant="green"
                         size="sm"
-                        className="bg-[#2a870b] shadow-sm hover:bg-[#2a870b]/60"
+                        className=""
                         onClick={() => handleDownload(invoice.transcriptURL)}
                       >
                         <DownloadIcon className="mr-2 size-4" />
@@ -224,7 +241,10 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={3} className="h-24 text-center text-muted-foreground">
+                <TableCell
+                  colSpan={3}
+                  className="h-24 text-center text-muted-foreground"
+                >
                   No invoices found matching your criteria.
                 </TableCell>
               </TableRow>
@@ -237,28 +257,30 @@ export function Invoices({ plan }: { plan: BillingPlan }) {
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="text-sm text-muted-foreground">
             Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to{" "}
-            {Math.min(currentPage * ITEMS_PER_PAGE, totalItems)} of{" "}
-            {totalItems} invoices
+            {Math.min(currentPage * ITEMS_PER_PAGE, totalItems)} of {totalItems}{" "}
+            invoices
           </div>
           <div className="flex items-center gap-1">
-            {getPageNumbers().map((page, index) => (
+            {getPageNumbers().map((page, index) =>
               page === "..." ? (
-                <span key={`ellipsis-${index}`} className="px-2 py-1">...</span>
+                <span key={`ellipsis-${index}`} className="px-2 py-1">
+                  ...
+                </span>
               ) : (
                 <Button
                   key={page}
-                  variant={currentPage === page ? "default" : "outline"}
+                  variant={currentPage === page ? "transcript" : "outline"}
                   size="sm"
                   onClick={() => setCurrentPage(Number(page))}
                   className="min-w-[40px]"
                 >
                   {page}
                 </Button>
-              )
-            ))}
+              ),
+            )}
           </div>
         </div>
       )}
-    </div>
+    </Card>
   );
 }

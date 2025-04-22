@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 @layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
   .scrollbar {
-    scrollbar-width: thin; 
+    scrollbar-width: thin;
     scrollbar-color: transparent transparent;
   }
 
@@ -18,21 +25,18 @@
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
-    background: transparent; 
+    background: transparent;
     border-radius: 100vh;
     border: 3px solid #f6f7ed;
   }
 
-
   .scrollbar:hover {
-    scrollbar-color: gray transparent; 
+    scrollbar-color: gray transparent;
   }
-
 }
 
-
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
 }
 
 @layer base {
@@ -45,14 +49,14 @@ body {
     --popover-foreground: 240 10% 3.9%;
     --primary: 0, 0%, 97.1%;
     --primary-foreground: 240 10% 3.9%;
-    --primary-gray: 220, 43%, 70%;
+    --primary-gray: 240, 5%, 64%;
     --secondary: 0, 0%, 0%;
     --secondary-foreground: 0, 0%, 100%;
     --muted: 0, 0%, 87.1%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     --border: 0, 0%, 97.1%;
     --input: 240 10% 3.9%;
@@ -73,7 +77,6 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 109.9 63.3% 52%;
     --set-set-orange: 16, 93%, 58%;
-
   }
   .dark {
     --background: 240, 6.9%, 28.2%;
@@ -94,7 +97,7 @@ body {
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240, 6.7%, 14.7%;
-    --input:  0 0% 98%;
+    --input: 0 0% 98%;
     --ring: 240 4.9% 83.9%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;

@@ -3,45 +3,55 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Notification from "@/components/widgets/sidebar/notification";
-import { ChangeTheme } from "@/components/widgets/theme-toggle";
+import { ThemeToggle } from "@/components/widgets/theme-toggle";
+import {
+  headerIconSpan,
+  headerSection,
+  headerText,
+  sideBarTrigger,
+} from "@/lib/constant";
 import { profile } from "@/lib/sample-data";
+import { settingMenu } from "@/lib/sample-data";
 import { SettingsHeader } from "@/lib/settings";
 
-import { ProfilePicture } from "./header-profile";
+import { ProfileDropdown } from "./header-profile";
 
-const SidebarIcon = () => {
+const SidebarIcon = ({ View }: { View: string }) => {
+  const icon = settingMenu.find((item) => item.title === View)?.icon;
   return (
-    <SidebarTrigger className="flex w-full items-center gap-5 font-semibold text-foreground hover:bg-transparent md:text-2xl">
-      <span className="rounded-xl bg-primary-foreground p-2">
-        <SettingsHeader />
+    <SidebarTrigger className={sideBarTrigger}>
+      <span className={headerIconSpan}>
+        {icon ? (
+          <div className="[&>svg]:!stroke-primary">{icon}</div>
+        ) : (
+          <SettingsHeader />
+        )}
       </span>
-      <p className="max-w-24 text-pretty text-left leading-none sm:max-w-full">
-        Settings
-      </p>
+      <p className={headerText}>{View || "Settings"}</p>
     </SidebarTrigger>
   );
 };
 
 const UserButton = () => {
   return (
-    <ProfilePicture
-      src="https://github.com/shadcn.png"
-      alt="CN"
+    <ProfileDropdown
+      src="/images/logo.png"
+      alt="SS"
       className="!size-6 cursor-pointer"
       profile={profile}
     />
   );
 };
 
-export function SettingHeaderBar() {
+export function SettingHeaderBar({ currView }: { currView: string }) {
   return (
-    <section className="flex w-full items-center justify-between px-4">
+    <section className={headerSection}>
       <div className="flex items-center">
-        <SidebarIcon />
+        <SidebarIcon View={currView} />
       </div>
 
       <div className="flex items-center gap-5 md:gap-[30px]">
-        <ChangeTheme />
+        <ThemeToggle />
         <UserButton />
         <Button
           variant="ghost"

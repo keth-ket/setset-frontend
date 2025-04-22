@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { DateRange } from "react-day-picker";
 
-export const containerClassname = "flex w-full flex-col gap-6 p-4 pt-0";
+
 export type DateContextType = {
   dateRange?: DateRange;
   setDateRange: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
@@ -127,4 +127,13 @@ export interface InvoiceData {
   id: string;
   date: string;
   transcriptURL: string;
+}
+
+export interface CardData {
+  id: string;
+  last4: string;
+  brand: string;
+  name: string;
+  exp_month: number;
+  exp_year: number;
 }

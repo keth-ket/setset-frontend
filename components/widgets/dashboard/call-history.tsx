@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -35,13 +36,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useIsMobile } from "@/hooks/use-mobile";
+import {card, Header} from "@/lib/constant"
 import { callRecordingsData } from "@/lib/sample-data";
 import { CallRecording } from "@/lib/types";
 
 const RecordingCell = ({
   recordingUrl,
   transcriptUrl,
-  id,
+  //id,
 }: {
   recordingUrl: string;
   transcriptUrl: string;
@@ -50,32 +52,20 @@ const RecordingCell = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
   return (
-    <div className="flex justify-end space-x-20">
+    <div className="flex justify-end gap-4 px-0">
       <Button
-        variant="ghost"
+        variant="green"
         size="sm"
-        className="bg-sidebar-ring text-black"
         // onClick={togglePlay}
       >
         {isPlaying ? <Pause /> : <Play />}
         Listen
       </Button>
       <Button
-        variant="ghost"
+        variant="transcript"
         size="sm"
-        className="bg-foreground text-card"
+        className="!m-0"
         onClick={() => console.log("Download transcript:", transcriptUrl)}
       >
         <File />
@@ -192,13 +182,13 @@ export default function DataTable() {
   });
 
   return (
-    <div id="call-history" className="rounded-lg bg-card p-10">
+    <Card id="call-history" className={card}>
       <div
         className={`flex flex-col justify-between md:flex-row ${isMobile ? "space-y-4" : ""}`}
       >
-        <p className="text-base font-semibold md:text-2xl lg:text-3xl">
-          Call history and transcripts
-        </p>
+        <CardHeader className={Header}>
+          Call History and Transcripts
+        </CardHeader>
 
         <div
           className={`mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
@@ -222,7 +212,7 @@ export default function DataTable() {
                 Category <ChevronDown className="size-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-background">
+            <DropdownMenuContent align={isMobile? "start" : "center"} className="bg-background">
               {["Booking", "Cancellation", "General Inquiry", "Reschedule"].map(
                 (status) => (
                   <DropdownMenuCheckboxItem
@@ -252,7 +242,7 @@ export default function DataTable() {
                 Filter <Filter className="size-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-background">
+            <DropdownMenuContent align={isMobile? "start" : "end"} className="bg-background">
               <div className="p-5">
                 <div className="flex flex-col space-y-4">
                   <div className="flex justify-between">
@@ -269,8 +259,8 @@ export default function DataTable() {
                     className="w-[200px]"
                   />
                   <div className="flex justify-between">
-                    <span className="font-bold">{durationRange[0]} min</span>
-                    <span className="font-bold">
+                    <span >{durationRange[0]} min</span>
+                    <span >
                       {Math.ceil(durationRange[1])} min
                     </span>
                   </div>
@@ -309,6 +299,7 @@ export default function DataTable() {
                 return (
                   <TableRow
                     key={row.id}
+                    className="mr-2"
                     style={{ display: isHidden ? "none" : "table-row" }}
                   >
                     {row.getVisibleCells().map((cell) => (
@@ -336,12 +327,12 @@ export default function DataTable() {
         </Table>
       </div>
       <div className="flex items-center justify-end py-2">
-        <div className="space-x-2">
+        <div className="">
           <Button variant="outline" size="sm" onClick={handleViewMore}>
             View more
           </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

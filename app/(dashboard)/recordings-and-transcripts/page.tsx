@@ -1,5 +1,4 @@
 "use client";
-
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -17,6 +16,7 @@ import { Filter } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DualRangeSlider } from "@/components/ui/dual-slider";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -35,13 +35,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { card, flexBetweenCol, Header } from "@/lib/constant";
 import { callRecordingsData } from "@/lib/sample-data";
-import { CallRecording, containerClassname } from "@/lib/types";
-
+import { CallRecording } from "@/lib/types";
+import { cn } from "@/lib/utils";
 const RecordingCell = ({
   recordingUrl,
   transcriptUrl,
-  id,
+  //id,
 }: {
   recordingUrl: string;
   transcriptUrl: string;
@@ -50,32 +51,19 @@ const RecordingCell = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
   return (
-    <div className="flex justify-end space-x-20">
+    <div className="flex justify-end gap-4">
       <Button
-        variant="ghost"
+        variant="green"
         size="sm"
-        className="bg-sidebar-ring text-black"
         // onClick={togglePlay}
       >
         {isPlaying ? <Pause /> : <Play />}
         Listen
       </Button>
       <Button
-        variant="ghost"
+        variant="transcript"
         size="sm"
-        className="bg-foreground text-card"
         onClick={() => console.log("Download transcript:", transcriptUrl)}
       >
         <File />
@@ -90,60 +78,7 @@ const RecordingCell = ({
   );
 };
 
-export const columns: ColumnDef<CallRecording>[] = [
-  {
-    accessorKey: "id",
-    header: "Call ID",
-    cell: ({ row }) => <div>{row.getValue("id")}</div>,
-  },
-  {
-    accessorKey: "date",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Date
-          <ArrowDownUp className="size-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div>{row.getValue("date")}</div>,
-  },
-  {
-    accessorKey: "category",
-    header: "Category",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("category")}</div>
-    ),
-  },
-  {
-    accessorKey: "confidenceScore",
-    header: "AI confidence score",
-    cell: ({ row }) => <div>{row.getValue("confidenceScore")}</div>,
-  },
-  {
-    accessorKey: "duration",
-    header: "Duration",
-    cell: ({ row }) => <div>{row.getValue("duration")}</div>,
-  },
-  {
-    accessorKey: "recording",
-    header: "",
-    cell: ({ row }) => (
-      <div className="py-3">
-        <RecordingCell
-          recordingUrl={row.original.recordingUrl}
-          transcriptUrl={row.original.transcriptUrl}
-          id={row.original.id}
-        />
-      </div>
-    ),
-  },
-];
-
-export default function Recordings() {
+function RecordingsContent({ data }: { data: CallRecording[] }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -157,10 +92,9 @@ export default function Recordings() {
   };
 
   const maxDuration = Math.max(
-    ...callRecordingsData.map((recording) =>
-      convertDurationToMinutes(recording.duration),
-    ),
+    ...data.map((recording) => convertDurationToMinutes(recording.duration)),
   );
+
   useEffect(() => {
     setDurationRange([0, maxDuration]);
   }, [maxDuration]);
@@ -173,8 +107,61 @@ export default function Recordings() {
     );
   };
 
+  const columns: ColumnDef<CallRecording>[] = [
+    {
+      accessorKey: "id",
+      header: "Call ID",
+      cell: ({ row }) => <div>{row.getValue("id")}</div>,
+    },
+    {
+      accessorKey: "date",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Date
+            <ArrowDownUp className="size-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <div>{row.getValue("date")}</div>,
+    },
+    {
+      accessorKey: "category",
+      header: "Category",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("category")}</div>
+      ),
+    },
+    {
+      accessorKey: "confidenceScore",
+      header: "AI confidence score",
+      cell: ({ row }) => <div>{row.getValue("confidenceScore")}</div>,
+    },
+    {
+      accessorKey: "duration",
+      header: "Duration",
+      cell: ({ row }) => <div>{row.getValue("duration")}</div>,
+    },
+    {
+      accessorKey: "recording",
+      header: "",
+      cell: ({ row }) => (
+        <div className="py-3">
+          <RecordingCell
+            recordingUrl={row.original.recordingUrl}
+            transcriptUrl={row.original.transcriptUrl}
+            id={row.original.id}
+          />
+        </div>
+      ),
+    },
+  ];
+
   const table = useReactTable({
-    data: callRecordingsData,
+    data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -192,17 +179,20 @@ export default function Recordings() {
   }, [table]);
 
   return (
-    <div id="recordings-and-transcripts" className={containerClassname}>
-      <div className="rounded-lg bg-card p-10">
+    <div className="px-4">
+      <Card className={cn(card)}>
         <div
-          className={`flex flex-col justify-between md:flex-row ${isMobile ? "space-y-4" : ""}`}
+          className={cn(
+            flexBetweenCol,
+            `md:flex-row ${isMobile ? "mb-6 space-y-4" : ""}`,
+          )}
         >
-          <p className="text-base font-semibold md:text-2xl lg:text-3xl">
-            Call history and transcripts
-          </p>
+          <CardHeader className={Header}>
+            Call History and Transcripts
+          </CardHeader>
 
           <div
-            className={`mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
+            className={`flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
           >
             <Input
               placeholder="Search"
@@ -223,7 +213,10 @@ export default function Recordings() {
                   Category <ChevronDown className="size-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-background">
+              <DropdownMenuContent
+                align={isMobile ? "start" : "center"}
+                className="bg-background"
+              >
                 {[
                   "Booking",
                   "Cancellation",
@@ -256,7 +249,10 @@ export default function Recordings() {
                   Filter <Filter className="size-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-background">
+              <DropdownMenuContent
+                align={isMobile ? "start" : "end"}
+                className="bg-background"
+              >
                 <div className="p-5">
                   <div className="flex flex-col space-y-4">
                     <div className="flex justify-between">
@@ -273,10 +269,8 @@ export default function Recordings() {
                       className="w-[200px]"
                     />
                     <div className="flex justify-between">
-                      <span className="font-bold">{durationRange[0]} min</span>
-                      <span className="font-bold">
-                        {Math.ceil(durationRange[1])} min
-                      </span>
+                      <span>{durationRange[0]} min</span>
+                      <span>{Math.ceil(durationRange[1])} min</span>
                     </div>
                   </div>
                 </div>
@@ -284,8 +278,8 @@ export default function Recordings() {
             </DropdownMenu>
           </div>
         </div>
-        <ScrollArea className="h-[600px] rounded-md border p-7">
-          <Table>
+        <ScrollArea className="h-[600px] rounded-md border">
+          <Table className="mr-1 w-[calc(100%-5px)] overflow-hidden">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
@@ -338,6 +332,7 @@ export default function Recordings() {
               )}
             </TableBody>
           </Table>
+          <ScrollBar orientation="horizontal" />
         </ScrollArea>
         <div className="flex items-center justify-end py-2">
           <div className="space-x-2">
@@ -345,7 +340,11 @@ export default function Recordings() {
             {Array.from({ length: table.getPageCount() }).map((_, index) => (
               <Button
                 key={index}
-                variant="outline"
+                variant={
+                  index === table.getState().pagination.pageIndex
+                    ? "transcript"
+                    : "outline"
+                }
                 size="sm"
                 onClick={() => table.setPageIndex(index)}
                 disabled={table.getState().pagination.pageIndex === index}
@@ -355,7 +354,13 @@ export default function Recordings() {
             ))}
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
+}
+
+export default function Recordings() {
+  const data = callRecordingsData;
+
+  return <RecordingsContent data={data} />;
 }

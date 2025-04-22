@@ -5,21 +5,25 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm  transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-primary text-primary-foreground shadow hover:bg-white/60 hover:dark:bg-[#232328]/60",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline: "border border-input bg-background shadow-sm hover:bg-card",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-black/80 hover:dark:bg-white/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        blue: "bg-[#0b5f76] shadow-sm hover:bg-[#0b5f76]/60", 
-        green: "bg-[#2a870b] shadow-sm hover:bg-[#2a870b]/60", 
+        blue: "bg-[#0b5f76] shadow-sm hover:bg-[#0b5f76]/60",
+        green:
+          "min-w-[109.91px] bg-[#2a870b] text-white shadow-sm hover:bg-[#2a870b]/60 hover:text-white",
+
+        transcript:
+          "hover:outline-hover:outline-gray-500 bg-foreground text-card hover:bg-accent hover:text-accent-foreground hover:outline",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -46,7 +50,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size }), className)}
         ref={ref}
         {...props}
       />
