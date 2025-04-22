@@ -1,7 +1,9 @@
 import { CircleCheckBig } from "lucide-react";
 import React, { useState } from "react";
 
+import { Header,settingCard } from "@/lib/constant";
 import { agentPlan,planFeature } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 import { Button } from "../../../ui/button";
 import { Card, CardHeader } from "../../../ui/card";
@@ -13,7 +15,6 @@ interface PlanProps {
 const innerCardFormat =
   "flex flex-col w-full lg:w-[30%] gap-4 border border-foreground p-4 justify-between h-[520px]";
 const innerCardHeaderFormat = "flex flex-col items-center text-center h-28";
-const innerCardHeaderText = "text-xl md:text-2xl xl:text-3xl";
 
 const innerCardFeaturesFormat = "flex flex-row items-baseline gap-2";
 const innerCardIconFormat = "shrink-0 size-3";
@@ -92,10 +93,10 @@ export function Plan({ onClickUpdate }: PlanProps) {
   const [isUpdating, setUpdate] = useState(false);
 
   return (
-    <Card className="flex flex-col gap-2 p-6" id="Plans">
+    <Card className={cn(settingCard)}>
       {isUpdating ? (
         <div className="flex flex-col">
-          <CardHeader className="px-0 pb-7 pt-0 text-xl md:text-2xl lg:text-3xl">
+          <CardHeader className={cn(Header)}>
             Choose your plan
           </CardHeader>
           <div className="flex w-full flex-col justify-between gap-4 lg:flex-row">
@@ -103,7 +104,7 @@ export function Plan({ onClickUpdate }: PlanProps) {
               <Card key={agent.planTitle} className={innerCardFormat}>
                 <div className="flex flex-col">
                   <div className={innerCardHeaderFormat}>
-                    <p className={innerCardHeaderText}>
+                    <p className={cn(Header, "pb-1")}>
                       {agent.planTitle.toUpperCase()} <br /> AGENT
                     </p>
                     <div className="flex flex-row items-center gap-1">
@@ -165,12 +166,12 @@ export function Plan({ onClickUpdate }: PlanProps) {
         </div>
       ) : (
         <>
-          <CardHeader className="px-0 pb-7 pt-0 text-xl md:text-2xl lg:text-3xl">
+          <CardHeader className={cn(Header)}>
             Current Plan
           </CardHeader>
           <InnerCard
             agentPlan={afterHourAgent}
-            innerCardHeaderText={innerCardHeaderText}
+            innerCardHeaderText={cn(Header, "pb-1")}
             innerCardIconFormat={innerCardIconFormat}
             innerCardContentFormat={innerCardContentFormat}
             onClickUpdate={onClickUpdate}

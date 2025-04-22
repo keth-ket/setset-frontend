@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 
 import EditableField from "./editable-field";
 
-export function ProfilePage() {
+export function Profile() {
   const [name, setName] = useState("Setset");
   const [newName, setNewName] = useState(name);
 
