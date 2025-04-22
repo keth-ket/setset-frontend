@@ -15,6 +15,9 @@ export const card =
 export const settingCard =
   "flex w-full max-h-[100%] shrink-0 snap-center flex-col overflow-y-auto p-6 text-card-foreground scrollbar h-fit";
 
+export const paymentCard =
+  "flex w-full max-h-[100%] shrink-0 snap-center flex-col overflow-y-auto p-6 text-card-foreground scrollbar h-fit";
+
 export const headerButton = "flex items-center gap-2 p-0 hover:bg-transparent";
 
 export const setSetLogo = "flex flex-col gap-2";

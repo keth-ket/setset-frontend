@@ -128,3 +128,12 @@ export interface InvoiceData {
   date: string;
   transcriptURL: string;
 }
+
+export interface CardData {
+  id: string;
+  last4: string;
+  brand: string;
+  name: string;
+  exp_month: number;
+  exp_year: number;
+}

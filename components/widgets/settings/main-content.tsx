@@ -8,7 +8,9 @@ import { cn } from "@/lib/utils";
 
 import { Invoices } from "./invoices";
 import { Password } from "./password-section";
+import { PaymentInfo } from "./payment-info";
 import { ProfilePage } from "./profile/profile";
+
 export function MainContent({
   changeView,
 }: {
@@ -78,6 +80,9 @@ export function MainContent({
       </section>
       <section className= {cn(settingSection)} id="Invoices">
         <Invoices plan="monthly" />
+      </section>
+      <section className= {cn(settingSection)} id="Card-Information">
+        <PaymentInfo />
       </section>
       {/* <section className="min-h-[10vh] snap-start bg-transparent" /> */}
 

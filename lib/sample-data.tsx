@@ -31,6 +31,7 @@ import {
   BusinessInfo,
   BusinessStat,
   CallRecording,
+  CardData,
   FaqData,
   InvoiceData,
   MetricsData,
@@ -1845,5 +1846,32 @@ export const businessInvoice: InvoiceData[] = [
     id: "INV-ANNUAL-2022",
     date: "2022-12-31",
     transcriptURL: "/transcripts/annual-2022",
+  },
+];
+
+export const cardData: CardData[] = [
+  {
+    id: "card_456",
+    last4: "5555",
+    brand: "Mastercard",
+    name: "Jane Smith",
+    exp_month: 3,
+    exp_year: 2026,
+  },
+  {
+    id: "card_789",
+    last4: "1881",  
+    brand: "American Express",
+    name: "Alex Johnson",
+    exp_month: 6,
+    exp_year: 2024,
+  },
+  {
+    id: "card_123",
+    last4: "6779",  
+    brand: "Visa",
+    name: "John Doe",
+    exp_month: 12,
+    exp_year: 2029,
   },
 ];
