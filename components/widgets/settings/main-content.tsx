@@ -10,7 +10,6 @@ import { Invoices } from "./invoices";
 import { Password } from "./password-section";
 import { PaymentInfo } from "./payment-info";
 import { ProfilePage } from "./profile/profile";
-
 export function MainContent({
   changeView,
 }: {
@@ -65,6 +64,14 @@ export function MainContent({
     };
   }, [sectionIds, changeView]);
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+
   return (
     <div
       className={cn(
@@ -85,9 +92,6 @@ export function MainContent({
         <PaymentInfo />
       </section>
       {/* <section className="min-h-[10vh] snap-start bg-transparent" /> */}
-
-
-
-    </div>
+      </div>
   );
 }
