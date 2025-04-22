@@ -112,6 +112,12 @@ export type planFeature = {
   subFeatures: string[]
 };
 
+export type agentPlan = {
+  planTitle: string, 
+  planFeatures: planFeature[],
+  planPrice: number
+}
+
 
 export const REPORT_CATEGORIES = ["Call related", "Invoice", "Other"] as const;
 export type ReportCategory = (typeof REPORT_CATEGORIES)[number];

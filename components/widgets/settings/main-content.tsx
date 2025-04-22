@@ -2,13 +2,13 @@
 
 import { useEffect } from "react";
 
+import { Card } from "@/components/ui/card";
 import { settingMenu } from "@/lib/sample-data";
 
 import { Invoices } from "./invoices";
 import { Password } from "./password-section";
-import { Profile } from "./profile/profile";
 import { Plan }  from "./plan/plan";
-import { Card } from "@/components/ui/card";
+import { Profile } from "./profile/profile";
 export function MainContent({
   changeView,
 }: {
@@ -48,7 +48,7 @@ export function MainContent({
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -58,18 +58,18 @@ export function MainContent({
       <div className="flex w-full flex-col gap-96">
         <Profile/>
         <Password />
-        <Card className="p-6 h-[300px]" id="Card-Information">
+        <Card className="h-[300px] p-6" id="Card-Information">
           Card Information
         </Card>
         <Plan onClickUpdate={() => scrollToSection("Card-Information")}/>
-        <Card className="p-6 h-[300px]" id="Calendar">
+        <Card className="h-[300px] p-6" id="Calendar">
           Calendar
         </Card>
         <div id="Invoices">
           <Invoices plan="monthly"/>
         </div>
 
-        <Card className="p-6 h-[300px]" id="Support">
+        <Card className="h-[300px] p-6" id="Support">
           Support
         </Card>
       </div>
