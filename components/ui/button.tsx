@@ -24,7 +24,8 @@ const buttonVariants = cva(
 
         transcript:
           "hover:outline-hover:outline-gray-500 bg-foreground text-card hover:bg-accent hover:text-accent-foreground hover:outline",
-        greenText: "flex w-24 justify-start px-0 font-bold text-[#2a870b] shadow-none hover:text-[#6bc54b]"
+        greenText:
+          "flex  justify-start px-0 text-xs font-bold text-[#2a870b] shadow-none hover:text-[#6bc54b] md:text-sm",
       },
       size: {
         default: "h-9 px-4 py-2",

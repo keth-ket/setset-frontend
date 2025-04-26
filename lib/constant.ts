@@ -42,6 +42,7 @@ export const warningText = "text-sm text-red-500";
 export const settingLabel = "text-base flex gap-5";
 
 export const Header = "px-0 pb-4 pt-0 text-lg md:text-xl lg:text-2xl";
+export const planHeader = "text-base md:text-lg lg:text-xl ";
 
 export const formFieldWrapper = "flex flex-col gap-1";
 

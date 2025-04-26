@@ -29,7 +29,9 @@ const InnerCard = ({
     <Card className={cardFormat}>
       <div>
         <div className="flex flex-col items-center pb-2">
-          <p className={innerCardHeaderText}>{agentPlan.planTitle.toUpperCase()} AGENT</p>
+          <p className={innerCardHeaderText}>
+            {agentPlan.planTitle.toUpperCase()} AGENT
+          </p>
           <div className="flex flex-row items-center gap-1">
             <p>CAD</p>
             <p className="font-bold">{agentPlan.planPrice}</p>
@@ -41,11 +43,13 @@ const InnerCard = ({
             <div key={feature.title}>
               <div className="flex flex-row items-baseline gap-2">
                 <CircleCheckBig className={innerCardIconFormat} />
-                <p>{feature.title}</p>
+                <p className="text-sm md:text-base">{feature.title}</p>
               </div>
-              <div className="flex flex-col gap-0 pl-6">
+              <div className="flex flex-col pl-6">
                 {feature.subFeatures.map((subFeature) => (
-                  <div key={subFeature}>• {subFeature}</div>
+                  <div key={subFeature}>
+                    <p className="text-sm md:text-base"> • {subFeature}</p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -61,13 +65,13 @@ const InnerCard = ({
           Change Plan
         </Button>
       </div>
-      <Separator className="mt-2 h-0.5 bg-foreground" />
-      <div className="flex flex-row items-center justify-between pt-1">
+      <Separator className="h-0.5 bg-background" />
+      <div className="flex flex-row items-center justify-between">
         <div className="flex flex-col">
           <div className="text-xs font-bold text-foreground/70">
             Renewal Date
           </div>
-          <div>May 30, 2025</div>
+          <div className="text-sm md:text-base">May 30, 2025</div>
         </div>
         <Button className="" variant="greenText">
           Cancel Plan
@@ -79,7 +83,7 @@ const InnerCard = ({
           <div className="text-xs font-bold text-foreground/70">
             Payment Method
           </div>
-          <div>Visa ***1234</div>
+          <div className="text-sm md:text-base">Visa ***1234</div>
         </div>
         <Button className="" variant="greenText" onClick={onClickUpdate}>
           Update

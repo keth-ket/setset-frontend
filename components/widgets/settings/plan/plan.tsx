@@ -1,8 +1,8 @@
 import { CircleCheckBig } from "lucide-react";
 import React, { useState } from "react";
 
-import { Header,settingCard } from "@/lib/constant";
-import { agentPlan,planFeature } from "@/lib/types";
+import { Header, planHeader, settingCard } from "@/lib/constant";
+import { agentPlan, planFeature } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 import { Button } from "../../../ui/button";
@@ -13,12 +13,12 @@ interface PlanProps {
   onClickUpdate: () => void;
 }
 const innerCardFormat =
-  "flex flex-col w-full lg:w-[30%] gap-4 border border-foreground p-4 justify-between h-[520px]";
-const innerCardHeaderFormat = "flex flex-col items-center text-center h-28";
+  "flex flex-col w-full lg:w-[30%] gap-4 border border-foreground p-4 justify-between ";
+const innerCardHeaderFormat = "flex flex-col items-center text-center ";
 
 const innerCardFeaturesFormat = "flex flex-row items-baseline gap-2";
 const innerCardIconFormat = "shrink-0 size-3";
-const innerCardContentFormat = "flex flex-col items-start gap-4";
+const innerCardContentFormat = "flex flex-col items-start gap-2 mt-6";
 
 const enterpriseFeatures: planFeature[] = [
   {
@@ -96,16 +96,14 @@ export function Plan({ onClickUpdate }: PlanProps) {
     <Card className={cn(settingCard)}>
       {isUpdating ? (
         <div className="flex flex-col">
-          <CardHeader className={cn(Header)}>
-            Choose your plan
-          </CardHeader>
-          <div className="flex w-full flex-col justify-between gap-4 lg:flex-row">
+          <CardHeader className={cn(Header)}>Choose your plan</CardHeader>
+          <div className="flex w-full flex-col justify-between gap-6 lg:flex-row">
             {agents.map((agent) => (
               <Card key={agent.planTitle} className={innerCardFormat}>
                 <div className="flex flex-col">
                   <div className={innerCardHeaderFormat}>
-                    <p className={cn(Header, "pb-1")}>
-                      {agent.planTitle.toUpperCase()} <br /> AGENT
+                    <p className={cn(planHeader, "pb-1")}>
+                      {agent.planTitle.toUpperCase()} AGENT
                     </p>
                     <div className="flex flex-row items-center gap-1">
                       <p>CAD</p>
@@ -121,7 +119,9 @@ export function Plan({ onClickUpdate }: PlanProps) {
                       <div key={feature.title} className="flex flex-col gap-1">
                         <div className={innerCardFeaturesFormat}>
                           <CircleCheckBig className={innerCardIconFormat} />
-                          <p>{feature.title}</p>
+                          <p className="text-sm md:text-base">
+                            {feature.title}
+                          </p>
                         </div>
                         {/* Sub-features if any */}
                         {feature.subFeatures.length > 0 && (
@@ -134,7 +134,7 @@ export function Plan({ onClickUpdate }: PlanProps) {
                                 <CircleCheckBig
                                   className={innerCardIconFormat}
                                 />
-                                <p>{sub}</p>
+                                <p className="text-sm md:text-base">{sub}</p>
                               </div>
                             ))}
                           </div>
@@ -145,7 +145,7 @@ export function Plan({ onClickUpdate }: PlanProps) {
                 </div>
                 <div className="mt-2 flex flex-col items-center justify-center gap-2">
                   {agent === currentAgent && (
-                    <p className="text-[#2a870b]">
+                    <p className="text-xs text-[#2a870b] md:text-sm">
                       Get the first 3 months for free
                     </p>
                   )}
@@ -157,7 +157,7 @@ export function Plan({ onClickUpdate }: PlanProps) {
             ))}
           </div>
           <Button
-            className="mt-4 w-[225px] self-end"
+            className="mt-4 w-full self-end md:w-[225px]"
             variant="outline"
             onClick={() => setUpdate(false)}
           >
@@ -166,12 +166,10 @@ export function Plan({ onClickUpdate }: PlanProps) {
         </div>
       ) : (
         <>
-          <CardHeader className={cn(Header)}>
-            Current Plan
-          </CardHeader>
+          <CardHeader className={cn(Header)}>Current Plan</CardHeader>
           <InnerCard
             agentPlan={afterHourAgent}
-            innerCardHeaderText={cn(Header, "pb-1")}
+            innerCardHeaderText={cn(planHeader, "pb-1")}
             innerCardIconFormat={innerCardIconFormat}
             innerCardContentFormat={innerCardContentFormat}
             onClickUpdate={onClickUpdate}
