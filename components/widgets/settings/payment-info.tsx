@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Header, paymentCard } from "@/lib/constant";
+import { Header, settingCard } from "@/lib/constant";
 import { cardData } from "@/lib/sample-data";
 import { cn } from "@/lib/utils";
 
@@ -225,7 +225,7 @@ export function PaymentInfo() {
   };
 
   return (
-    <Card id="Card-Information" className={paymentCard}>
+    <Card id="Card-Information" className={settingCard}>
       <CardHeader className={cn(Header)}>Payment Information</CardHeader>
       <CardContent className="p-0">
         {!showAddForm ? (
