@@ -36,7 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useIsMobile } from "@/hooks/use-mobile";
-import {card, Header} from "@/lib/constant"
+import { card, Header } from "@/lib/constant";
 import { callRecordingsData } from "@/lib/sample-data";
 import { CallRecording } from "@/lib/types";
 
@@ -186,9 +186,7 @@ export default function DataTable() {
       <div
         className={`flex flex-col justify-between md:flex-row ${isMobile ? "space-y-4" : ""}`}
       >
-        <CardHeader className={Header}>
-          Call History and Transcripts
-        </CardHeader>
+        <CardHeader className={Header}>Call History and Transcripts</CardHeader>
 
         <div
           className={`mt-2 flex flex-col gap-2 md:mt-0 md:flex-row lg:gap-4 ${isMobile ? "space-y-4" : ""}`}
@@ -212,7 +210,10 @@ export default function DataTable() {
                 Category <ChevronDown className="size-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align={isMobile? "start" : "center"} className="bg-background">
+            <DropdownMenuContent
+              align={isMobile ? "start" : "center"}
+              className="bg-background"
+            >
               {["Booking", "Cancellation", "General Inquiry", "Reschedule"].map(
                 (status) => (
                   <DropdownMenuCheckboxItem
@@ -242,7 +243,10 @@ export default function DataTable() {
                 Filter <Filter className="size-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align={isMobile? "start" : "end"} className="bg-background">
+            <DropdownMenuContent
+              align={isMobile ? "start" : "end"}
+              className="bg-background"
+            >
               <div className="p-5">
                 <div className="flex flex-col space-y-4">
                   <div className="flex justify-between">
@@ -259,10 +263,8 @@ export default function DataTable() {
                     className="w-[200px]"
                   />
                   <div className="flex justify-between">
-                    <span >{durationRange[0]} min</span>
-                    <span >
-                      {Math.ceil(durationRange[1])} min
-                    </span>
+                    <span>{durationRange[0]} min</span>
+                    <span>{Math.ceil(durationRange[1])} min</span>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,6 @@
 import { ReactElement } from "react";
 import { DateRange } from "react-day-picker";
 
-
 export type DateContextType = {
   dateRange?: DateRange;
   setDateRange: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
@@ -108,16 +107,31 @@ export type settingSVGProp = {
 };
 
 export type planFeature = {
-  title: string,
-  subFeatures: string[]
+  title: string;
+  subFeatures: string[];
 };
 
 export type agentPlan = {
-  planTitle: string, 
-  planFeatures: planFeature[],
-  planPrice: number
-}
+  planTitle: string;
+  planFeatures: planFeature[];
+  planPrice: number;
+};
 
+export const BUSINESS_CATEGORIES = [
+  "Retail & Ecommerce",
+  "Healthcare",
+  "Tech",
+  "Finance",
+  "Other",
+];
+
+export const BUSINESS_GOALS = [
+  "Efficiency",
+  "Cost Reduction",
+  "Customer Satisfaction",
+  "Sales Growth",
+  "Something Else",
+];
 
 export const REPORT_CATEGORIES = ["Call related", "Invoice", "Other"] as const;
 export type ReportCategory = (typeof REPORT_CATEGORIES)[number];
